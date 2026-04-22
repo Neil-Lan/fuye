@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>骗局预警 - 揭露49种常见副业骗局</title>
+  <meta name="description" content="揭露配音培训、AI带货、刷单返利等49种常见副业骗局，手把手教你识别诈骗">
+  <meta name="keywords" content="副业骗局,诈骗预警,配音兼职骗局,刷单诈骗,培训贷陷阱">
+  <!-- Open Graph -->
+  <meta property="og:title" content="骗局预警 - 揭露49种常见副业骗局">
+  <meta property="og:description" content="揭露配音培训、AI带货、刷单返利等常见副业骗局，手把手教你识别诈骗">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link active">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);">
+      <div class="container">
+        <h1>⚠️ 骗局预警</h1>
+        <p>已揭露 <span id="scam-count">49</span> 种常见骗局</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="search-section" style="margin-bottom:24px;">
+          <div class="search-box">
+            <input type="text" id="scam-search-input" class="search-input" placeholder="搜索骗局名称，如"配音"、"刷单"、"培训"...">
+            <button id="scam-search-btn" class="search-btn" onclick="searchScams()">🔍 搜索</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label class="filter-label">骗局类型：</label>
+            <select id="type-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="培训类">培训类</option>
+              <option value="兼职类">兼职类</option>
+              <option value="金融投资类">金融投资类</option>
+              <option value="电商消费类">电商消费类</option>
+              <option value="假冒身份类">假冒身份类</option>
+              <option value="生活服务类">生活服务类</option>
+              <option value="科技新骗局">科技新骗局</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="scams-list" class="card-grid"><div class="loading">加载中...</div></div>
+
+        <div class="detail-section" style="margin-top:32px;background:#fef2f2;border:2px solid #fecaca;">
+          <h2 style="color:#991b1b;">🚨 防骗口诀</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:16px;">
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">💰</div>
+              <h4 style="font-size:0.9rem;color:#991b1b;">要你先交钱</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">99%是骗局</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">🎁</div>
+              <h4 style="font-size:0.9rem;color:#991b1b;">包赚不赔</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">一定是骗局</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">👥</div>
+              <h4 style="font-size:0.9rem;color:#991b1b;">发展下线</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">是传销</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📱</div>
+              <h4 style="font-size:0.9rem;color:#991b1b;">私下交易</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">风险极高</p>
+            </div>
+          </div>
+          <div style="margin-top:20px;padding:16px;background:white;border-radius:8px;text-align:center;">
+            <p style="font-size:1rem;font-weight:600;color:var(--danger-color);">
+              记住口诀：<strong>高回报、低风险、必诈骗！</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="detail-section" style="margin-top:24px;">
+          <h2>🚨 如已受骗怎么办？</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;">
+            <div style="padding:16px;background:#fef2f2;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📞</div>
+              <h4 style="font-size:0.9rem;">立即报警</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">拨打 <strong style="color:var(--danger-color);">110</strong></p>
+            </div>
+            <div style="padding:16px;background:#eff6ff;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📱</div>
+              <h4 style="font-size:0.9rem;">反诈APP</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">国家反诈中心举报</p>
+            </div>
+            <div style="padding:16px;background:#f0fdf4;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+              <h4 style="font-size:0.9rem;">保留证据</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">聊天记录、转账凭证</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="match.html">副业匹配</a></li>
+              <li><a href="submit.html">我要投稿</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 提醒：</strong>如发现骗局请立即报警！</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
+      </div>
+    </footer>
+  </div>
+  <script src="js/scams.js"></script>
+  <script>
+    function searchScams() {
+      const query = document.getElementById('scam-search-input').value.trim();
+      if (query) {
+        location.href = `search.html?q=${encodeURIComponent(query)}&type=scam`;
+      }
+    }
+    document.getElementById('scam-search-input')?.addEventListener('keypress', e => {
+      if (e.key === 'Enter') searchScams();
+    });
+  </script>
+</body>
+</html>

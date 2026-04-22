@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>副业智能匹配测试 - 3分钟找到适合你的副业</title>
+  <meta name="description" content="回答7个问题，智能匹配最适合你的副业方向和平台。免费测试，即时出结果。">
+  <meta name="keywords" content="副业测试,副业匹配,副业推荐,适合我的副业,智能匹配">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Open Graph -->
+  <meta property="og:title" content="副业智能匹配测试 - 3分钟找到适合你的副业">
+  <meta property="og:description" content="回答7个问题，智能匹配最适合你的副业方向和平台。免费测试，即时出结果。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuye.example.com/match.html">
+  <meta property="og:image" content="https://fuye.example.com/images/match-og.png">
+  <style>
+    .previous-result-banner {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .previous-result-banner.show {
+      display: block;
+    }
+    .previous-result-banner h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    .previous-result-banner p {
+      margin: 0 0 12px;
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+    .previous-result-banner .btn {
+      background: white;
+      color: #10b981;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .previous-result-banner .btn:hover {
+      background: #f0fdf4;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link active" style="color:var(--primary-color);font-weight:600;">🎯 测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header match-header">
+      <div class="container">
+        <h1>🎯 副业智能匹配</h1>
+        <p>回答7个问题，找到最适合你的副业方向</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 上次结果提示 -->
+        <div class="previous-result-banner" id="previous-result-banner">
+          <h4>📋 你有未过期的测试结果</h4>
+          <p id="previous-result-info">上次测试时间：<span></span></p>
+          <a href="javascript:void(0)" class="btn" onclick="showPreviousResult()">📊 查看上次结果</a>
+        </div>
+        
+        <div class="quiz-container">
+          <div id="quiz-container">
+            <div class="loading">加载中...</div>
+          </div>
+        </div>
+
+        <!-- 收入计算器 -->
+        <div class="detail-section income-calc-section" id="income-calc-section" style="display:none;margin-top:32px;">
+          <h2>🧮 预期收入计算</h2>
+          <p style="color:var(--text-secondary);margin-bottom:16px;">根据你选择的副业类型，计算预期收入</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:16px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">每天投入时间</label>
+              <select id="calc-hours" class="form-select">
+                <option value="1">1小时</option>
+                <option value="2" selected>2小时</option>
+                <option value="3">3小时</option>
+                <option value="5">5小时以上</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">预计周期</label>
+              <select id="calc-period" class="form-select">
+                <option value="newbie">新手期（1-3月）</option>
+                <option value="skilled" selected>熟练期（3-6月）</option>
+                <option value="senior">资深期（6月+）</option>
+              </select>
+            </div>
+          </div>
+          <div id="calc-result" style="padding:24px;background:#eff6ff;border-radius:8px;text-align:center;">
+            <div style="font-size:2.5rem;font-weight:700;color:var(--primary-color);" id="calc-income">-</div>
+            <div style="color:var(--text-secondary);margin-top:4px;">预计月收入</div>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;text-align:center;">
+            ⚠️ 此为参考值，实际收入因人而异，取决于个人能力和投入程度
+          </p>
+        </div>
+
+        <div class="detail-section" style="margin-top:32px;">
+          <h2>💡 匹配说明</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+            <div style="padding:16px;background:#eff6ff;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">⏱️</div>
+              <h4 style="font-size:0.9rem;margin-bottom:4px;">预计用时</h4>
+              <p style="font-size:0.85rem;color:var(--text-secondary);">约1-2分钟</p>
+            </div>
+            <div style="padding:16px;background:#f0fdf4;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
+              <h4 style="font-size:0.9rem;margin-bottom:4px;">匹配精准度</h4>
+              <p style="font-size:0.85rem;color:var(--text-secondary);">基于你的实际情况推荐</p>
+            </div>
+            <div style="padding:16px;background:#fef9c3;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">🛡️</div>
+              <h4 style="font-size:0.9rem;margin-bottom:4px;">安全可靠</h4>
+              <p style="font-size:0.85rem;color:var(--text-secondary);">只推荐正规平台</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分享邀请 -->
+        <div class="detail-section" style="margin-top:32px;background:#eff6ff;border:2px solid #93c5fd;">
+          <h2>🌟 帮助更多人找到靠谱副业</h2>
+          <p style="color:var(--text-secondary);margin-bottom:16px;">
+            如果这个测试对你有帮助，欢迎分享给朋友！
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button onclick="shareToWechat()" class="btn btn-primary">
+              💬 分享到微信
+            </button>
+            <button onclick="copyLink()" class="btn btn-outline">
+              🔗 复制链接
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 免责声明：</strong>匹配结果仅供参考，实际收入因人而异。</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台 · 全部功能免费开放</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .match-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .income-calc-section {
+      border: 2px solid #667eea;
+    }
+  </style>
+
+  <script src="js/match.js"></script>
+  <script src="js/match-result.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      checkPreviousResult();
+      
+      document.getElementById('calc-hours')?.addEventListener('change', updateCalcResult);
+      document.getElementById('calc-period')?.addEventListener('change', updateCalcResult);
+    });
+    
+    function checkPreviousResult() {
+      const result = getMatchResult();
+      if (result) {
+        const age = getMatchResultAge();
+        document.getElementById('previous-result-info').querySelector('span').textContent = age;
+        document.getElementById('previous-result-banner').classList.add('show');
+      }
+    }
+    
+    function showPreviousResult() {
+      const data = getMatchResult();
+      if (!data) return;
+      
+      // 直接显示之前保存的结果
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = data.html;
+      
+      // 隐藏banner
+      document.getElementById('previous-result-banner').classList.remove('show');
+    }
+    
+    function updateCalcResult() {
+      const hours = parseInt(document.getElementById('calc-hours')?.value || 2);
+      const period = document.getElementById('calc-period')?.value || 'skilled';
+      
+      const baseIncome = {
+        'newbie': { 1: '200-400', 2: '400-800', 3: '600-1200', 5: '1000-2000' },
+        'skilled': { 1: '400-800', 2: '800-1500', 3: '1200-2500', 5: '2000-4000' },
+        'senior': { 1: '800-1200', 2: '1500-2500', 3: '2500-4000', 5: '4000-6000' }
+      };
+      
+      const income = baseIncome[period]?.[hours] || '-';
+      document.getElementById('calc-income').textContent = income + '元';
+    }
+
+    function shareToWechat() {
+      alert('链接已复制，请粘贴到微信分享给好友！\n\n' + window.location.origin);
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('链接已复制到剪贴板！');
+      }).catch(() => {
+        alert('复制失败，请手动复制：\n' + window.location.href);
+      });
+    }
+  </script>
+</body>
+</html>

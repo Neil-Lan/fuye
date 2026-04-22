@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户成功案例 - 副业发现平台</title>
+  <meta name="description" content="真实用户分享副业赚钱经验，从月入500到月入过万的真实故事">
+  <meta name="keywords" content="副业案例,副业经验,副业故事,赚钱经历">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header" style="background:linear-gradient(135deg,#22c55e 0%,#16a34a 100%);">
+      <div class="container">
+        <h1>💬 用户成功案例</h1>
+        <p>真实用户的副业赚钱经历分享</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label class="filter-label">收入范围：</label>
+            <select id="income-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="0-1000">0-1000元</option>
+              <option value="1000-3000">1000-3000元</option>
+              <option value="3000-5000">3000-5000元</option>
+              <option value="5000+">5000元以上</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">平台类型：</label>
+            <select id="type-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="众包任务">众包任务</option>
+              <option value="外卖配送">外卖配送</option>
+              <option value="技能变现">技能变现</option>
+              <option value="内容创作">内容创作</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="cases-list" class="cases-grid">
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2);">小</div>
+              <div class="case-user">
+                <span class="case-name">小王</span>
+                <span class="case-location">北京 · 程序员</span>
+              </div>
+              <div class="case-income" style="background:#dcfce7;color:#166534;">月入 +2000元</div>
+            </div>
+            <h3 class="case-title">从0到月入3000，我的腾讯搜活帮之路</h3>
+            <p class="case-excerpt">每天通勤路上做任务，2个月攒了2000块零花钱。平台正规、结算准时，推荐！我是程序员，平时上班忙，下班路上半小时做任务，一个月下来也有1000多...</p>
+            <div class="case-platform">
+              <span class="tag">腾讯搜活帮</span>
+              <span class="tag">众包任务</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2026年3月</span>
+              <span class="case-views">阅读 2.3k</span>
+            </div>
+          </div>
+
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">李</div>
+              <div class="case-user">
+                <span class="case-name">李姐</span>
+                <span class="case-location">上海 · 行政</span>
+              </div>
+              <div class="case-income" style="background:#dcfce7;color:#166534;">月入 +4000元</div>
+            </div>
+            <h3 class="case-title">上班族如何利用下班时间做副业</h3>
+            <p class="case-excerpt">下班顺路送几单，一个月多了4000多。辛苦是辛苦，但比刷单靠谱多了！美团众包真的很方便，有空就接单，不想接就不接...</p>
+            <div class="case-platform">
+              <span class="tag">美团众包</span>
+              <span class="tag">外卖配送</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2026年2月</span>
+              <span class="case-views">阅读 5.1k</span>
+            </div>
+          </div>
+
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a);">张</div>
+              <div class="case-user">
+                <span class="case-name">张同学</span>
+                <span class="case-location">成都 · 大学生</span>
+              </div>
+              <div class="case-income" style="background:#dcfce7;color:#166534;">月入 +3000元</div>
+            </div>
+            <h3 class="case-title">设计专业学生的副业之路</h3>
+            <p class="case-excerpt">设计专业学生，接点小单练手。现在每月能接3-4单，赚够生活费。猪八戒网真的适合新手设计师，门槛不高...</p>
+            <div class="case-platform">
+              <span class="tag">猪八戒网</span>
+              <span class="tag">技能变现</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2026年1月</span>
+              <span class="case-views">阅读 3.8k</span>
+            </div>
+          </div>
+
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626);">赵</div>
+              <div class="case-user">
+                <span class="case-name">赵先生</span>
+                <span class="case-location">深圳 · 产品经理</span>
+              </div>
+              <div class="case-income" style="background:#fef3c7;color:#92400e;">月入 +800元</div>
+            </div>
+            <h3 class="case-title">利用业余时间做问卷调查的体验</h3>
+            <p class="case-excerpt">别小看问卷调查！每天抽空做做，一个月也有几百块零花钱。我用的是收奖网、第一调查网...</p>
+            <div class="case-platform">
+              <span class="tag">收奖网</span>
+              <span class="tag">问卷调查</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2025年12月</span>
+              <span class="case-views">阅读 1.2k</span>
+            </div>
+          </div>
+
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">陈</div>
+              <div class="case-user">
+                <span class="case-name">陈同学</span>
+                <span class="case-location">杭州 · 设计师</span>
+              </div>
+              <div class="case-income" style="background:#dcfce7;color:#166534;">月入 +5000元</div>
+            </div>
+            <h3 class="case-title">从月薪3000到月入8000，我的设计副业成长记</h3>
+            <p class="case-excerpt">刚开始接私单一个月只有几百块，后来慢慢积累客户，现在副业收入已经超过主业了...</p>
+            <div class="case-platform">
+              <span class="tag">自由职业</span>
+              <span class="tag">设计接单</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2025年11月</span>
+              <span class="case-views">阅读 8.5k</span>
+            </div>
+          </div>
+
+          <div class="success-case-card">
+            <div class="case-header">
+              <div class="case-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">周</div>
+              <div class="case-user">
+                <span class="case-name">周宝妈</span>
+                <span class="case-location">广州 · 全职妈妈</span>
+              </div>
+              <div class="case-income" style="background:#dcfce7;color:#166534;">月入 +1500元</div>
+            </div>
+            <h3 class="case-title">宝妈利用碎片时间做副业的心得</h3>
+            <p class="case-excerpt">带孩子之余做做阿里众包，每月1500块够买尿不湿了。关键是时间灵活，不耽误带孩子...</p>
+            <div class="case-platform">
+              <span class="tag">阿里众包</span>
+              <span class="tag">众包任务</span>
+            </div>
+            <div class="case-footer">
+              <span class="case-time">2025年10月</span>
+              <span class="case-views">阅读 4.2k</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:40px;">
+          <a href="submit.html" class="btn btn-primary btn-lg">📢 分享你的副业故事</a>
+        </div>
+
+        <!-- 投稿CTA -->
+        <div class="detail-section" style="margin-top:40px;background:#f8fafc;text-align:center;">
+          <h2 style="margin-bottom:16px;">你的经验值得分享</h2>
+          <p style="color:var(--text-secondary);margin-bottom:20px;">
+            无论你是月入上万的大佬，还是刚起步的新手<br>
+            你的真实经历都能帮助更多人找到方向
+          </p>
+          <a href="submit.html?type=case" class="btn btn-primary">我要投稿</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="match.html">副业匹配</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    .success-case-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .success-case-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .case-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .case-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+    .case-user {
+      flex: 1;
+    }
+    .case-name {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .case-location {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .case-income {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .case-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .case-excerpt {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .case-platform {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .case-footer {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 768px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</body>
+</html>

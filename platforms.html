@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>找副业 - 60+靠谱副业平台推荐</title>
+  <meta name="description" content="收录60+正规副业平台，涵盖大厂众包、技能变现、内容创作等类型，支持分类筛选和对比">
+  <meta name="keywords" content="副业平台,靠谱副业,副业推荐,众包任务,技能变现">
+  <!-- Open Graph -->
+  <meta property="og:title" content="找副业 - 60+靠谱副业平台推荐">
+  <meta property="og:description" content="收录60+正规副业平台，涵盖大厂众包、技能变现、内容创作等类型">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link active">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link" style="color:var(--primary-color);font-weight:600;">🎯 测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header">
+      <div class="container">
+        <h1>📂 找副业</h1>
+        <p>收录 <span id="platform-count">60+</span> 个靠谱副业平台</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 快速入口 -->
+        <div class="quick-entry" style="margin-bottom:24px;">
+          <a href="match.html" class="quick-btn">
+            <span class="quick-icon">🎯</span>
+            <span>不知道做什么？智能匹配</span>
+          </a>
+          <a href="compare.html" class="quick-btn">
+            <span class="quick-icon">⚖️</span>
+            <span>平台对比</span>
+          </a>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-group">
+            <label class="filter-label">平台类型：</label>
+            <select id="category-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="大厂平台">大厂平台</option>
+              <option value="技能变现">技能变现</option>
+              <option value="内容创作">内容创作</option>
+              <option value="配送众包">配送众包</option>
+              <option value="问卷调研">问卷调研</option>
+              <option value="设计创意">设计创意</option>
+              <option value="翻译语言">翻译语言</option>
+              <option value="技术开发">技术开发</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">入门难度：</label>
+            <select id="difficulty-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="简单">简单</option>
+              <option value="中等">中等</option>
+              <option value="较难">较难</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="platforms-list" class="card-grid"><div class="loading">加载中...</div></div>
+
+        <div class="detail-section" style="margin-top:32px;">
+          <h2>📊 数据可信度说明</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;">
+            <div style="padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+              <strong style="color:#166534;">A级</strong>
+              <p style="font-size:0.75rem;color:#166534;margin-top:4px;">官方通报验证</p>
+            </div>
+            <div style="padding:12px;background:#dbeafe;border-radius:8px;text-align:center;">
+              <strong style="color:#1e40af;">B级</strong>
+              <p style="font-size:0.75rem;color:#1e40af;margin-top:4px;">多用户验证</p>
+            </div>
+            <div style="padding:12px;background:#fef9c3;border-radius:8px;text-align:center;">
+              <strong style="color:#854d0e;">C级</strong>
+              <p style="font-size:0.75rem;color:#854d0e;margin-top:4px;">需核实</p>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--text-muted);">⚠️ 收入数据仅供参考，实际收入因人而异。C/D级数据建议多方核实后再投入。</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="match.html">副业匹配</a></li>
+              <li><a href="success-cases.html">成功案例</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>对比工具</h4>
+            <ul>
+              <li><a href="compare.html">平台对比</a></li>
+              <li><a href="match.html">智能匹配</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 免责声明：</strong>本站信息仅供参考，平台收入因人而异，请以官方信息为准。</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .quick-entry {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .quick-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .quick-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: white;
+    }
+    .quick-icon {
+      font-size: 1.25rem;
+    }
+  </style>
+
+  <script src="js/platforms.js"></script>
+</body>
+</html>

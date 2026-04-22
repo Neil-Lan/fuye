@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平台对比 - 副业发现平台</title>
+  <meta name="description" content="对比不同副业平台，轻松选择最适合你的平台">
+  <meta name="keywords" content="副业平台对比,平台比较,哪个平台好">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header">
+      <div class="container">
+        <h1>⚖️ 平台对比</h1>
+        <p>对比不同平台，轻松选择最适合你的</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 快速对比选项 -->
+        <div class="detail-section">
+          <h2>快速对比</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+            <div class="compare-card" onclick="showCompare('众包')">
+              <div class="compare-icon">🏢</div>
+              <h3>众包任务平台</h3>
+              <p>腾讯/阿里/字节三大厂对比</p>
+              <span class="compare-arrow">→</span>
+            </div>
+            <div class="compare-card" onclick="showCompare('外卖')">
+              <div class="compare-icon">🚴</div>
+              <h3>外卖配送平台</h3>
+              <p>美团/蜂鸟/顺丰/达达对比</p>
+              <span class="compare-arrow">→</span>
+            </div>
+            <div class="compare-card" onclick="showCompare('设计')">
+              <div class="compare-icon">🎨</div>
+              <h3>设计接单平台</h3>
+              <p>猪八戒/稿定/包图对比</p>
+              <span class="compare-arrow">→</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 众包任务对比 -->
+        <div class="detail-section compare-section" id="compare-众包" style="display:none;">
+          <h2>🏢 众包任务平台对比</h2>
+          <div class="table-responsive">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>对比维度</th>
+                  <th>腾讯搜活帮</th>
+                  <th>阿里众包</th>
+                  <th>字节众包</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>收入</strong></td>
+                  <td>⭐⭐ 月入300-2000元</td>
+                  <td>⭐⭐⭐ 月入500-3000元</td>
+                  <td>⭐⭐⭐⭐ 月入1000-5000元</td>
+                </tr>
+                <tr>
+                  <td><strong>难度</strong></td>
+                  <td>⭐ 最容易</td>
+                  <td>⭐ 容易</td>
+                  <td>⭐⭐ 需测试</td>
+                </tr>
+                <tr>
+                  <td><strong>稳定性</strong></td>
+                  <td>✅ 稳定</td>
+                  <td>✅ 稳定</td>
+                  <td>✅ 稳定</td>
+                </tr>
+                <tr>
+                  <td><strong>新手友好</strong></td>
+                  <td>⭐⭐⭐⭐⭐ 最高</td>
+                  <td>⭐⭐⭐⭐ 高</td>
+                  <td>⭐⭐⭐ 中</td>
+                </tr>
+                <tr>
+                  <td><strong>任务类型</strong></td>
+                  <td>多样化</td>
+                  <td>多样化+外出</td>
+                  <td>AI标注为主</td>
+                </tr>
+                <tr>
+                  <td><strong>提现方式</strong></td>
+                  <td>微信秒到</td>
+                  <td>支付宝自动</td>
+                  <td>官方渠道</td>
+                </tr>
+                <tr>
+                  <td><strong>适合人群</strong></td>
+                  <td>所有人</td>
+                  <td>有时间的人</td>
+                  <td>有耐心的人</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="compare-recommend">
+            <h4>💡 选择建议</h4>
+            <ul>
+              <li>想快速上手 → <strong>腾讯搜活帮</strong></li>
+              <li>想收入稍高 → <strong>阿里众包</strong></li>
+              <li>想挑战高薪 → <strong>字节众包</strong></li>
+              <li>时间充裕 → <strong>三平台同时做</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 外卖配送对比 -->
+        <div class="detail-section compare-section" id="compare-外卖" style="display:none;">
+          <h2>🚴 外卖配送平台对比</h2>
+          <div class="table-responsive">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>对比维度</th>
+                  <th>美团众包</th>
+                  <th>蜂鸟众包</th>
+                  <th>顺丰同城</th>
+                  <th>达达快送</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>收入</strong></td>
+                  <td>⭐⭐⭐⭐ 较高</td>
+                  <td>⭐⭐⭐⭐ 较高</td>
+                  <td>⭐⭐⭐⭐ 较高</td>
+                  <td>⭐⭐⭐ 中高</td>
+                </tr>
+                <tr>
+                  <td><strong>单量</strong></td>
+                  <td>⭐⭐⭐⭐⭐ 最多</td>
+                  <td>⭐⭐⭐⭐ 多</td>
+                  <td>⭐⭐⭐ 中</td>
+                  <td>⭐⭐⭐ 中</td>
+                </tr>
+                <tr>
+                  <td><strong>提现</strong></td>
+                  <td>次日到账</td>
+                  <td>次日到账</td>
+                  <td>即时到账</td>
+                  <td>次日到账</td>
+                </tr>
+                <tr>
+                  <td><strong>门槛</strong></td>
+                  <td>低</td>
+                  <td>低</td>
+                  <td>中等</td>
+                  <td>低</td>
+                </tr>
+                <tr>
+                  <td><strong>区域</strong></td>
+                  <td>全国</td>
+                  <td>全国</td>
+                  <td>主要城市</td>
+                  <td>主要城市</td>
+                </tr>
+                <tr>
+                  <td><strong>适合</strong></td>
+                  <td>通用</td>
+                  <td>饿了么用户</td>
+                  <td>高单价配送</td>
+                  <td>京东用户</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="compare-recommend">
+            <h4>💡 选择建议</h4>
+            <ul>
+              <li>单量最多 → <strong>美团众包</strong></li>
+              <li>提现最快 → <strong>顺丰同城</strong></li>
+              <li>新手入门 → <strong>达达快送</strong></li>
+              <li>多平台接单 → <strong>美团+蜂鸟同时跑</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 设计接单对比 -->
+        <div class="detail-section compare-section" id="compare-设计" style="display:none;">
+          <h2>🎨 设计接单平台对比</h2>
+          <div class="table-responsive">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>对比维度</th>
+                  <th>猪八戒网</th>
+                  <th>稿定设计</th>
+                  <th>包图网</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>收入</strong></td>
+                  <td>⭐⭐⭐⭐⭐ 高</td>
+                  <td>⭐⭐⭐ 中高</td>
+                  <td>⭐⭐⭐ 中高</td>
+                </tr>
+                <tr>
+                  <td><strong>难度</strong></td>
+                  <td>⭐⭐⭐ 中等</td>
+                  <td>⭐ 简单</td>
+                  <td>⭐ 简单</td>
+                </tr>
+                <tr>
+                  <td><strong>订单类型</strong></td>
+                  <td>品牌设计/开发等</td>
+                  <td>模板设计</td>
+                  <td>模板素材</td>
+                </tr>
+                <tr>
+                  <td><strong>结算</strong></td>
+                  <td>项目制</td>
+                  <td>销售分成</td>
+                  <td>销售分成</td>
+                </tr>
+                <tr>
+                  <td><strong>适合</strong></td>
+                  <td>专业设计师</td>
+                  <td>新手设计师</td>
+                  <td>素材创作者</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="compare-recommend">
+            <h4>💡 选择建议</h4>
+            <ul>
+              <li>想接大单 → <strong>猪八戒网</strong></li>
+              <li>想卖模板 → <strong>稿定/包图</strong></li>
+              <li>新手练手 → <strong>稿定设计</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 收入对比图 -->
+        <div class="detail-section" style="margin-top:32px;">
+          <h2>📊 收入对比参考</h2>
+          <p style="color:var(--text-secondary);margin-bottom:20px;">以下为各平台不同投入时长的月收入参考（仅供参考，实际因人而异）</p>
+          <div class="income-compare">
+            <div class="income-bar">
+              <span class="income-label">腾讯搜活帮</span>
+              <div class="income-track">
+                <div class="income-fill" style="width:40%;">300-2000元</div>
+              </div>
+            </div>
+            <div class="income-bar">
+              <span class="income-label">阿里众包</span>
+              <div class="income-track">
+                <div class="income-fill" style="width:50%;">500-3000元</div>
+              </div>
+            </div>
+            <div class="income-bar">
+              <span class="income-label">字节众包</span>
+              <div class="income-track">
+                <div class="income-fill" style="width:70%;">1000-5000元</div>
+              </div>
+            </div>
+            <div class="income-bar">
+              <span class="income-label">美团众包</span>
+              <div class="income-track">
+                <div class="income-fill" style="width:80%;background:linear-gradient(90deg,#22c55e,#16a34a);">3000-6000元</div>
+              </div>
+            </div>
+            <div class="income-bar">
+              <span class="income-label">猪八戒网</span>
+              <div class="income-track">
+                <div class="income-fill" style="width:90%;background:linear-gradient(90deg,#f59e0b,#d97706);">3000-10000元</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:16px;text-align:center;">
+            ⚠️ 收入数据为参考范围，实际收入取决于个人能力、投入时间、地区等因素
+          </p>
+        </div>
+
+        <div style="text-align:center;margin-top:32px;">
+          <a href="match.html" class="btn btn-primary btn-lg">🎯 智能匹配最适合我的平台</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <style>
+    .compare-card {
+      background: white;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .compare-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-md);
+    }
+    .compare-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .compare-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 4px;
+    }
+    .compare-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .compare-arrow {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: var(--primary-color);
+    }
+    .compare-section {
+      border: 2px solid var(--primary-color);
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    .compare-table th,
+    .compare-table td {
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+    .compare-table th {
+      background: var(--bg-color);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .compare-table td:first-child {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .compare-recommend {
+      background: #eff6ff;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .compare-recommend h4 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+    .compare-recommend ul {
+      list-style: none;
+    }
+    .compare-recommend li {
+      padding: 4px 0;
+      font-size: 0.9rem;
+    }
+    .income-compare {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .income-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .income-label {
+      width: 100px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: right;
+    }
+    .income-track {
+      flex: 1;
+      height: 28px;
+      background: var(--bg-color);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .income-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 0.75rem;
+      color: white;
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .compare-table th,
+      .compare-table td {
+        font-size: 0.8rem;
+        padding: 8px 4px;
+      }
+      .income-label {
+        width: 80px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+
+  <script>
+    function showCompare(type) {
+      document.querySelectorAll('.compare-section').forEach(el => {
+        el.style.display = 'none';
+      });
+      const target = document.getElementById('compare-' + type);
+      if (target) {
+        target.style.display = 'block';
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>

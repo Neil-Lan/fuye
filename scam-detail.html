@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>骗局详情 - 副业发现平台</title>
+  <meta name="description" content="了解骗局作案手法、识别方法和真实案例">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/favorites.js"></script>
+  <style>
+    .detail-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+    }
+    .action-btn.favorite-btn {
+      background: var(--bg-color);
+      color: var(--text-secondary);
+    }
+    .action-btn.favorite-btn.favorited {
+      background: #fef2f2;
+      color: #ef4444;
+    }
+    .action-btn.share-btn {
+      background: var(--bg-color);
+      color: var(--text-secondary);
+    }
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .share-modal.active {
+      display: flex;
+    }
+    .share-modal-content {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+    }
+    .share-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .share-option {
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--bg-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .share-option:hover {
+      background: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);">
+      <div class="container">
+        <h1 id="scam-title">骗局详情</h1>
+        <p id="scam-subtitle"></p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 操作按钮 -->
+        <div class="detail-actions" id="detail-actions" style="display:none;">
+          <button class="action-btn favorite-btn" data-favorite-btn="scam-TARGET" data-name="">
+            🤍 收藏
+          </button>
+          <button class="action-btn share-btn" onclick="showShareModal()">
+            📤 分享
+          </button>
+        </div>
+        
+        <div id="scam-detail" class="loading">加载中...</div>
+
+        <!-- 被骗后怎么办 -->
+        <div class="detail-section" id="help-section" style="display:none;margin-top:24px;background:#fef2f2;border:2px solid #fecaca;">
+          <h2 style="color:#991b1b;">🚨 被骗后怎么办？</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;">
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📞</div>
+              <h4 style="font-size:0.9rem;">立即报警</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">拨打110或前往派出所</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📱</div>
+              <h4 style="font-size:0.9rem;">下载反诈APP</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">国家反诈中心一键举报</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+              <h4 style="font-size:0.9rem;">保留证据</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">聊天记录、转账凭证</p>
+            </div>
+            <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">⚖️</div>
+              <h4 style="font-size:0.9rem;">法律维权</h4>
+              <p style="font-size:0.8rem;color:var(--text-secondary);">咨询律师，提起诉讼</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <a href="scams.html" class="btn btn-outline">← 返回骗局列表</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="share-modal">
+      <div class="share-modal-content">
+        <h3>分享给好友，提醒避坑</h3>
+        <div class="share-options">
+          <div class="share-option" onclick="shareToWechat()">
+            <div style="font-size:2rem;">💬</div>
+            <div style="font-size:0.85rem;margin-top:8px;">微信</div>
+          </div>
+          <div class="share-option" onclick="shareToXiaoHongShu()">
+            <div style="font-size:2rem;">📕</div>
+            <div style="font-size:0.85rem;margin-top:8px;">小红书</div>
+          </div>
+          <div class="share-option" onclick="copyShareLink()">
+            <div style="font-size:2rem;">🔗</div>
+            <div style="font-size:0.85rem;margin-top:8px;">复制链接</div>
+          </div>
+        </div>
+        <button onclick="closeShareModal()" class="btn btn-outline" style="margin-top:16px;">关闭</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="match.html">副业匹配</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 提醒：</strong>如已受骗，请立即报警！</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    async function loadScamDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const scamId = params.get('id');
+      if (!scamId) {
+        document.getElementById('scam-detail').innerHTML = '<p class="text-muted">未指定骗局</p>';
+        return;
+      }
+
+      try {
+        const res = await fetch('./data/scams.json');
+        const data = await res.json();
+        const scam = data.骗局案例.find(s => s.骗局名称 === scamId);
+
+        if (!scam) {
+          document.getElementById('scam-detail').innerHTML = '<p class="text-muted">未找到该骗局</p>';
+          return;
+        }
+
+        renderScamDetail(scam);
+        initFavoriteAndActions(scam);
+      } catch (e) {
+        console.error(e);
+        document.getElementById('scam-detail').innerHTML = '<p class="text-muted">加载失败</p>';
+      }
+    }
+    
+    let currentScam = null;
+    
+    function initFavoriteAndActions(scam) {
+      currentScam = scam;
+      const scamName = scam?.骗局名称;
+      if (!scamName) return;
+      
+      const favBtn = document.querySelector('.favorite-btn');
+      if (favBtn) {
+        favBtn.dataset.favoriteBtn = `scam-${scamName}`;
+        favBtn.dataset.name = scamName;
+        initFavoriteButton('scam', scamName);
+      }
+      
+      document.getElementById('detail-actions').style.display = 'flex';
+    }
+    
+    function showShareModal() {
+      document.getElementById('share-modal').classList.add('active');
+    }
+    
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.remove('active');
+    }
+    
+    function shareToWechat() {
+      const title = currentScam?.骗局名称 || '骗局预警';
+      alert(`微信分享提示：\n\n长按复制链接发送给好友：\n\n${window.location.href}\n\n「${title}」是诈骗陷阱，提醒朋友注意避坑！`);
+      copyShareLink();
+    }
+    
+    function shareToXiaoHongShu() {
+      const title = currentScam?.骗局名称 || '骗局';
+      alert(`小红书分享提示：\n\n复制链接后打开小红书APP分享：\n\n${window.location.href}\n\n#防骗 #骗局预警 #${title}`);
+      copyShareLink();
+    }
+    
+    function copyShareLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('链接已复制！');
+        closeShareModal();
+      }).catch(() => {
+        prompt('复制失败，请手动复制：', window.location.href);
+      });
+    }
+    
+    document.getElementById('share-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeShareModal();
+    });
+
+    function renderScamDetail(s) {
+      document.title = s.骗局名称 + ' - 骗局预警';
+      document.getElementById('scam-title').textContent = s.骗局名称;
+      document.getElementById('scam-subtitle').textContent = s.骗局类型 || '';
+
+      const dangerClass = s.危险等级 === '高危' ? 'danger-high' : 
+                          s.危险等级 === '中危' ? 'danger-medium' : 'danger-low';
+
+      let html = `
+        <div class="detail-section">
+          <div class="detail-header">
+            <div>
+              <h1 class="detail-title">${s.骗局名称}</h1>
+              <div class="detail-meta">
+                <span class="danger-level ${dangerClass}">⚠️ ${s.危险等级 || '中危'}</span>
+                <span class="tag">${s.骗局类型 || '其他'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h2>📊 基本信息</h2>
+          <div class="info-grid">
+            <div class="info-item"><label>涉案金额</label><span style="color:var(--danger-color);">${s.涉案金额 || '不等'}</span></div>
+            <div class="info-item"><label>受害人数</label><span>${s.受害人数 || '不详'}</span></div>
+            <div class="info-item"><label>骗局类型</label><span>${s.骗局类型 || '其他'}</span></div>
+          </div>
+          ${(s.别名 || []).length > 0 ? `
+          <div style="margin-top:16px;">
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">常见别名：</p>
+            <div class="scam-tags">
+              ${s.别名.map(a => `<span class="tag">${a}</span>`).join('')}
+            </div>
+          </div>
+          ` : ''}
+        </div>
+
+        <div class="detail-section">
+          <h2>🎯 作案手法</h2>
+          <div class="step-list">
+            ${(s.作案手法 || []).map((step, i) => `
+            <div class="step-item">
+              <div class="step-number" style="background:var(--danger-color);">${i + 1}</div>
+              <div class="step-content">
+                <p>${step}</p>
+              </div>
+            </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="detail-section" style="background:#fef2f2;border:1px solid #fecaca;">
+          <h2 style="color:#991b1b;">🔍 如何识别？</h2>
+          <ul class="detail-list">
+            ${(s.识别方法 || []).map(item => `
+            <li style="color:#991b1b;font-weight:500;">${item}</li>
+            `).join('')}
+          </ul>
+        </div>
+      `;
+
+      if (s.真实案例 && s.真实案例.length > 0) {
+        html += `
+        <div class="detail-section">
+          <h2>📖 真实案例</h2>
+          ${s.真实案例.map(c => `
+          <div style="padding:16px;background:#f8fafc;border-radius:8px;margin-bottom:12px;">
+            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;">${c}</p>
+          </div>
+          `).join('')}
+        </div>
+        `;
+      }
+
+      if (s.被骗后怎么办 && s.被骗后怎么办.length > 0) {
+        document.getElementById('help-section').style.display = 'block';
+      }
+
+      if (s.信息来源) {
+        html += `
+        <div class="detail-section">
+          <h2>📋 信息来源</h2>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">${s.信息来源}</p>
+          ${s.案例核实?.通报时间 ? `<p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">通报时间：${s.案例核实.通报时间}</p>` : ''}
+        </div>
+        `;
+      }
+
+      document.getElementById('scam-detail').innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadScamDetail);
+  </script>
+</body>
+</html>

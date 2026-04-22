@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平台详情 - 副业发现平台</title>
+  <meta name="description" content="查看平台详细信息、收入情况、风险提示和新手入门指南">
+  <!-- Open Graph -->
+  <meta property="og:title" content="平台详情 - 副业发现平台">
+  <meta property="og:description" content="查看平台详细信息、收入情况、风险提示和新手入门指南">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://fuye.example.com/platform-detail.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/favorites.js"></script>
+  <style>
+    .detail-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+    }
+    .action-btn.favorite-btn {
+      background: var(--bg-color);
+      color: var(--text-secondary);
+    }
+    .action-btn.favorite-btn:hover {
+      background: #fef2f2;
+    }
+    .action-btn.favorite-btn.favorited {
+      background: #fef2f2;
+      color: #ef4444;
+    }
+    .action-btn.share-btn {
+      background: var(--bg-color);
+      color: var(--text-secondary);
+    }
+    .action-btn.share-btn:hover {
+      background: #eff6ff;
+    }
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .share-modal.active {
+      display: flex;
+    }
+    .share-modal-content {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+    }
+    .share-modal h3 {
+      margin-bottom: 16px;
+    }
+    .share-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .share-option {
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--bg-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .share-option:hover {
+      background: #e2e8f0;
+    }
+    .share-option-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .share-option-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .qr-container {
+      margin: 16px 0;
+    }
+    .qr-container canvas, .qr-container img {
+      max-width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="submit.html" class="nav-link">我要投稿</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header">
+      <div class="container">
+        <h1 id="platform-title">平台详情</h1>
+        <p id="platform-subtitle"></p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 操作按钮 -->
+        <div class="detail-actions" id="detail-actions" style="display:none;">
+          <button class="action-btn favorite-btn" data-favorite-btn="platform-TARGET" data-name="">
+            🤍 收藏
+          </button>
+          <button class="action-btn share-btn" onclick="showShareModal()">
+            📤 分享
+          </button>
+        </div>
+        
+        <div id="platform-detail" class="loading">加载中...</div>
+
+        <!-- 新手入门指南 -->
+        <div class="detail-section getting-started-section" id="getting-started" style="display:none;margin-top:24px;">
+          <h2>📝 新手入门指南</h2>
+          <div class="steps-container" id="steps-list"></div>
+        </div>
+
+        <!-- 收入计算器 -->
+        <div class="detail-section" id="income-calculator" style="display:none;margin-top:24px;">
+          <h2>🧮 收入计算器</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:16px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">每天投入时间</label>
+              <select id="calc-hours" class="form-select" onchange="calculateIncome()">
+                <option value="1">1小时</option>
+                <option value="2" selected>2小时</option>
+                <option value="3">3小时</option>
+                <option value="5">5小时以上</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">熟练程度</label>
+              <select id="calc-level" class="form-select" onchange="calculateIncome()">
+                <option value="新手">新手期</option>
+                <option value="熟练" selected>熟练期</option>
+                <option value="资深">资深期</option>
+              </select>
+            </div>
+          </div>
+          <div id="calc-result" style="padding:24px;background:#eff6ff;border-radius:8px;text-align:center;">
+            <div style="font-size:2.5rem;font-weight:700;color:var(--primary-color);">-</div>
+            <div style="color:var(--text-secondary);margin-top:4px;">预计月收入</div>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;text-align:center;">
+            ⚠️ 此为参考值，实际收入因人而异
+          </p>
+        </div>
+
+        <!-- 相关骗局 -->
+        <div class="detail-section" id="related-scams" style="display:none;margin-top:24px;">
+          <h2>⚠️ 相关骗局提醒</h2>
+          <div id="scams-warning"></div>
+        </div>
+
+        <!-- 用户反馈 -->
+        <div class="detail-section" style="margin-top:24px;background:#f8fafc;">
+          <h2>💬 帮助改进</h2>
+          <p style="color:var(--text-secondary);margin-bottom:16px;">
+            如果你对这个平台有更多了解，欢迎分享你的经验帮助更多人
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="submit.html" class="btn btn-primary">📢 分享经验</a>
+            <a href="javascript:void(0)" onclick="alert('感谢反馈！')" class="btn btn-outline">❓ 信息有误？</a>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <a href="platforms.html" class="btn btn-outline">← 返回平台列表</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="share-modal">
+      <div class="share-modal-content">
+        <h3>分享到</h3>
+        <div class="share-options">
+          <div class="share-option" onclick="shareToWechat()">
+            <div class="share-option-icon">💬</div>
+            <div class="share-option-label">微信</div>
+          </div>
+          <div class="share-option" onclick="shareToXiaoHongShu()">
+            <div class="share-option-icon">📕</div>
+            <div class="share-option-label">小红书</div>
+          </div>
+          <div class="share-option" onclick="copyShareLink()">
+            <div class="share-option-icon">🔗</div>
+            <div class="share-option-label">复制链接</div>
+          </div>
+        </div>
+        <div class="qr-container" id="qr-container" style="display:none;"></div>
+        <button onclick="closeShareModal()" class="btn btn-outline" style="margin-top:16px;">关闭</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="match.html">副业匹配</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+              <li><a href="privacy.html">隐私政策</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 免责声明：</strong>数据仅供参考，实际收入因人而异，请以官方信息为准。</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台 · 全部功能免费开放</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    let currentPlatform = null;
+    let incomeCalcData = null;
+    let gettingStartedData = null;
+
+    async function loadData() {
+      const params = new URLSearchParams(window.location.search);
+      const platformId = params.get('id');
+      if (!platformId) {
+        document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未指定平台</p>';
+        return;
+      }
+
+      try {
+        const [platformsRes, incomeRes, gettingRes, scamsRes] = await Promise.all([
+          fetch('./data/platforms.json'),
+          fetch('./data/income_calculator.json'),
+          fetch('./data/getting_started.json'),
+          fetch('./data/scam_index.json')
+        ]);
+
+        const platforms = await platformsRes.json();
+        incomeCalcData = await incomeRes.json();
+        gettingStartedData = await gettingRes.json();
+        const scamsData = await scamsRes.json();
+
+        currentPlatform = platforms.find(p => p.平台名称 === platformId);
+        if (!currentPlatform) {
+          document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未找到该平台</p>';
+          return;
+        }
+
+        currentPlatform = getCorrectedData(currentPlatform);
+        renderPlatformDetail();
+        renderIncomeCalculator();
+        renderGettingStarted();
+        renderRelatedScams(scamsData);
+        initFavoriteAndActions();
+      } catch (e) {
+        console.error(e);
+        document.getElementById('platform-detail').innerHTML = '<p class="text-muted">加载失败</p>';
+      }
+    }
+    
+    function initFavoriteAndActions() {
+      const platformName = currentPlatform?.平台名称;
+      if (!platformName) return;
+      
+      // 更新收藏按钮
+      const favBtn = document.querySelector('.favorite-btn');
+      if (favBtn) {
+        favBtn.dataset.favoriteBtn = `platform-${platformName}`;
+        favBtn.dataset.name = platformName;
+        initFavoriteButton('platform', platformName);
+      }
+      
+      // 显示操作按钮
+      document.getElementById('detail-actions').style.display = 'flex';
+    }
+
+    function getCorrectedData(p) {
+      if (p.平台名称 === '阿里众包') {
+        return {...p, 收入范围: '时薪10-15元，新手日均10-30元，熟练后月入300-1000元', 数据可信度: {...(p.数据可信度||{}), 整体等级: 'C'}};
+      }
+      if (p.平台名称 === '小红书') {
+        return {...p, 收入范围: p.收入范围 + '（头部效应明显，普通博主变现周期长）', 风险提示: (p.风险提示||'') + ' | ⚠️万粉博主仅占少数'};
+      }
+      if (p.平台名称 === '抖音' || p.平台名称 === '抖音（字节跳动）') {
+        return {...p, 风险提示: (p.风险提示||'') + ' | ⚠️两极分化严重，需长期积累'};
+      }
+      return p;
+    }
+
+    function renderPlatformDetail() {
+      const p = currentPlatform;
+      document.title = p.平台名称 + ' - 副业发现平台';
+      document.getElementById('platform-title').textContent = p.平台名称;
+      document.getElementById('platform-subtitle').textContent = p.平台类型 || '任务型';
+
+      const trustLevel = p.数据可信度?.整体等级 || 'C';
+      const needWarning = ['C', 'D', 'E'].includes(trustLevel);
+
+      let html = `
+        <div class="detail-section">
+          <div class="detail-header">
+            <div>
+              <h1 class="detail-title">${p.平台名称}</h1>
+              <div class="detail-meta">
+                <span class="platform-type">${p.平台类型 || '任务型'}</span>
+                <span class="trust-badge trust-${trustLevel.charAt(0).toLowerCase()}">可信度${trustLevel}</span>
+              </div>
+            </div>
+          </div>
+          ${needWarning ? `<div class="warning-box"><h4>⚠️ 数据可信度提醒</h4><p>该平台数据可信度为${trustLevel}级，建议您多方核实后再做决定。</p></div>` : ''}
+        </div>
+
+        <div class="detail-section">
+          <h2>📊 基本信息</h2>
+          <div class="info-grid">
+            <div class="info-item"><label>运营主体</label><span>${p.运营主体 || '-'}</span></div>
+            <div class="info-item"><label>是否收费</label><span style="color:${p.是否收费==='免费'?'var(--success-color)':'var(--danger-color)'}">${p.是否收费 || '免费'}</span></div>
+            <div class="info-item"><label>结算周期</label><span>${p.结算周期 || '-'}</span></div>
+            <div class="info-item"><label>最低提现</label><span>${p.最低提现金额 || '-'}</span></div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h2>💰 收入情况</h2>
+          <div class="info-grid">
+            <div class="info-item"><label>时薪范围</label><span>${p.时薪范围 || '-'}</span></div>
+            <div class="info-item"><label>新手月入</label><span>${p.月薪_新手 || '-'}</span></div>
+            <div class="info-item"><label>熟练月入</label><span>${p.月薪_熟练 || '-'}</span></div>
+            <div class="info-item"><label>收入上限</label><span>${p.收入上限 || '-'}</span></div>
+          </div>
+          <p style="margin-top:12px;font-size:0.9rem;color:var(--text-secondary);padding:12px;background:#f8fafc;border-radius:8px;">
+            ${p.收入范围 || ''}
+          </p>
+        </div>
+
+        <div class="detail-section">
+          <h2>👥 适合人群</h2>
+          <div class="platform-tags" style="gap:8px;">
+            ${(p.人群标签 ? Object.entries(p.人群标签).filter(([k,v]) => v && v.includes('✅')).map(([k]) => `<span class="tag" style="padding:6px 12px;font-size:0.9rem;">✅ ${k}</span>`) : [(p.适合人群 || '')]).join('')}
+          </div>
+          <p style="margin-top:12px;font-size:0.9rem;color:var(--text-secondary);">
+            <strong>技能要求：</strong>${p.技能要求 || '无特殊要求'}
+          </p>
+          <p style="margin-top:8px;font-size:0.9rem;color:var(--text-secondary);">
+            <strong>时间投入：</strong>${p.时间投入 || '碎片时间即可'}
+          </p>
+        </div>
+
+        <div class="detail-section">
+          <h2>⭐ 入门难度</h2>
+          <p style="font-size:1.1rem;"><span class="difficulty-stars">${p.入门难度 || '⭐'}</span> ${p.新手门槛 || '零基础可做'}</p>
+          ${p.新手常见困难?.length ? `
+          <div style="margin-top:12px;padding:12px;background:#fef3c7;border-radius:8px;">
+            <p style="font-size:0.85rem;color:#92400e;"><strong>⚠️ 新手常见困难：</strong></p>
+            <ul style="font-size:0.85rem;color:#92400e;margin-top:8px;padding-left:20px;list-style:disc;">
+              ${p.新手常见困难.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+          ` : ''}
+        </div>
+
+        <div class="detail-section">
+          <h2>✨ 优缺点分析</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="padding:16px;background:#f0fdf4;border-radius:8px;">
+              <h4 style="color:#166534;margin-bottom:8px;">👍 优点</h4>
+              <ul class="detail-list">
+                ${(p.优点 || []).map(item => `<li>${item}</li>`).join('')}
+              </ul>
+            </div>
+            <div style="padding:16px;background:#fef2f2;border-radius:8px;">
+              <h4 style="color:#991b1b;margin-bottom:8px;">👎 缺点</h4>
+              <ul class="detail-list">
+                ${(p.缺点 || []).map(item => `<li>${item}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (p.风险提示) {
+        html += `
+        <div class="detail-section">
+          <h2>⚠️ 风险提示</h2>
+          <div class="warning-box">
+            <p>${p.风险提示}</p>
+          </div>
+        </div>
+        `;
+      }
+
+      if (p.数据可信度) {
+        html += `
+        <div class="detail-section">
+          <h2>📋 数据来源</h2>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">
+            <strong>可信度等级：</strong><span class="trust-badge trust-${trustLevel.charAt(0).toLowerCase()}">${trustLevel}</span><br><br>
+            <strong>数据来源：</strong>${(p.数据可信度.收入数据来源 || []).join('、')}<br><br>
+            ${p.数据可信度.核查备注 ? `<strong>核查备注：</strong>${p.数据可信度.核查备注}` : ''}
+          </p>
+        </div>
+        `;
+      }
+
+      document.getElementById('platform-detail').innerHTML = html;
+    }
+
+    function renderIncomeCalculator() {
+      document.getElementById('income-calculator').style.display = 'block';
+      calculateIncome();
+    }
+
+    function calculateIncome() {
+      const hours = document.getElementById('calc-hours').value;
+      const level = document.getElementById('calc-level').value;
+      const calcResult = document.getElementById('calc-result');
+
+      if (!incomeCalcData || !currentPlatform) return;
+
+      const timeKey = `每天${hours}小时`;
+      const levelKey = level;
+      const baseRange = incomeCalcData.计算规则[timeKey]?.[levelKey] || '数据暂无';
+
+      const platformName = currentPlatform.平台名称;
+      calcResult.innerHTML = `
+        <div style="font-size:2.5rem;font-weight:700;color:var(--primary-color);">${baseRange}</div>
+        <div style="color:var(--text-secondary);margin-top:4px;">
+          基于${currentPlatform.平台名称}平均数据
+        </div>
+      `;
+    }
+
+    function renderGettingStarted() {
+      const section = document.getElementById('getting-started');
+      section.style.display = 'block';
+
+      const type = currentPlatform?.平台类型 || '';
+      let pathType = '众包任务型';
+      if (type.includes('配送') || type.includes('众包')) pathType = '众包任务型';
+      else if (type.includes('外卖') || type.includes('骑手')) pathType = '外卖配送型';
+      else if (type.includes('设计') || type.includes('创意')) pathType = '技能变现型';
+      else if (type.includes('内容') || type.includes('创作')) pathType = '内容创作型';
+
+      const path = gettingStartedData?.入门路径?.[pathType];
+      if (!path) return;
+
+      let stepsHtml = `
+        <p style="color:var(--text-secondary);margin-bottom:16px;"><strong>适合人群：</strong>${path.适合人群}</p>
+        ${path.步骤?.map(step => `
+        <div class="step-item">
+          <div class="step-number">${step.步骤}</div>
+          <div class="step-content">
+            <h4>${step.标题}</h4>
+            <p>${step.操作}</p>
+            ${step.注意事项?.length ? `
+            <ul style="margin-top:8px;font-size:0.85rem;color:#92400e;">
+              <li>⚠️ ${step.注意事项.join('</li><li>⚠️ ')}</li>
+            </ul>
+            ` : ''}
+          </div>
+        </div>
+      `).join('') || ''}
+      `;
+
+      // 添加常见问题
+      if (path.常见问题?.length) {
+        stepsHtml += `<h3 style="margin:20px 0 12px;">❓ 常见问题</h3>`;
+        stepsHtml += path.常见问题.map(faq => `
+          <div style="margin-bottom:12px;padding:12px;background:#f8fafc;border-radius:6px;">
+            <h4 style="font-size:0.9rem;color:var(--text-primary);margin-bottom:4px;">Q: ${faq.问题}</h4>
+            <p style="font-size:0.85rem;color:var(--text-secondary);">A: ${faq.解答}</p>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('steps-list').innerHTML = stepsHtml;
+    }
+
+    function renderRelatedScams(scamsData) {
+      const section = document.getElementById('related-scams');
+      const platformName = currentPlatform?.平台名称 || '';
+
+      const keywords = Object.entries(scamsData?.快速查询关键词 || {}).filter(([key]) =>
+        platformName.includes(key) || key.includes(platformName)
+      );
+
+      if (keywords.length > 0) {
+        section.style.display = 'block';
+        document.getElementById('scams-warning').innerHTML = keywords.slice(0, 3).map(([key, info]) => `
+          <div class="alert-box">
+            <span class="alert-icon">⚠️</span>
+            <div class="alert-content">
+              <h4>${info.骗局类型}</h4>
+              <p>${info.一句话识别}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+    
+    // 分享功能
+    function showShareModal() {
+      document.getElementById('share-modal').classList.add('active');
+      document.getElementById('qr-container').style.display = 'none';
+    }
+    
+    function closeShareModal() {
+      document.getElementById('share-modal').classList.remove('active');
+    }
+    
+    function shareToWechat() {
+      // 微信不支持直接分享，显示二维码提示
+      const qrContainer = document.getElementById('qr-container');
+      qrContainer.style.display = 'block';
+      qrContainer.innerHTML = `
+        <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:12px;">
+          截图二维码，发给微信好友
+        </p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(window.location.href)}" alt="分享二维码" style="border-radius:8px;">
+      `;
+    }
+    
+    function shareToXiaoHongShu() {
+      const title = currentPlatform?.平台名称 || '副业平台';
+      const desc = `发现了一个不错的副业平台：${title}，分享给大家！`;
+      alert(`小红书分享提示：\n\n1. 长按复制链接\n2. 打开小红书APP粘贴分享\n\n链接：${window.location.href}\n\n推荐理由：${desc}`);
+      copyShareLink();
+    }
+    
+    function copyShareLink() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('链接已复制到剪贴板！');
+        closeShareModal();
+      }).catch(() => {
+        prompt('复制链接失败，请手动复制：', url);
+      });
+    }
+    
+    // 点击弹窗背景关闭
+    document.getElementById('share-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeShareModal();
+      }
+    });
+  </script>
+</body>
+</html>
