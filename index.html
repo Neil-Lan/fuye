@@ -42,7 +42,7 @@
           </div>
           <div class="hero-stats">
             <div class="hero-stat"><span class="hero-stat-num">60+</span><span class="hero-stat-label">靠谱平台</span></div>
-            <div class="hero-stat"><span class="hero-stat-num">50</span><span class="hero-stat-label">个骗局预警</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">49</span><span class="hero-stat-label">个骗局预警</span></div>
             <div class="hero-stat"><span class="hero-stat-num">1050+</span><span class="hero-stat-label">真实案例</span></div>
           </div>
         </div>
@@ -219,8 +219,11 @@
       const container = document.getElementById('success-cases');
       if (!container) return;
       
+      // 获取基础路径（兼容GitHub Pages子目录部署）
+      const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+      
       try {
-        const response = await fetch('./data/success_cases.json');
+        const response = await fetch(`${basePath}/data/success_cases.json`);
         const data = await response.json();
         const allCases = data.案例列表 || [];
         

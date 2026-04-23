@@ -200,8 +200,11 @@
         return;
       }
 
+      // 获取基础路径（兼容GitHub Pages子目录部署）
+      const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
       try {
-        const res = await fetch('./data/scams.json');
+        const res = await fetch(`${basePath}/data/scams.json`);
         const data = await res.json();
         const scam = data.骗局案例.find(s => s.骗局名称 === scamId);
 

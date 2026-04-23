@@ -1,4 +1,7 @@
 // 副业避坑导航 - 骗局列表页JavaScript
+// 获取基础路径（兼容GitHub Pages子目录部署）
+const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
 // ==================== 全局变量 ====================
 let scamsData = [];
 let currentScamType = '全部';
@@ -6,7 +9,7 @@ let currentScamType = '全部';
 // ==================== 初始化 ====================
 async function initScams() {
   try {
-    const res = await fetch('./data/scams.json');
+    const res = await fetch(`${basePath}/data/scams.json`);
     scamsData = await res.json();
     
     // 获取URL参数中的分类

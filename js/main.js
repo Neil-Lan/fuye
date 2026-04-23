@@ -1,4 +1,7 @@
 // 副业避坑导航 - 主页JavaScript
+// 获取基础路径（兼容GitHub Pages子目录部署）
+const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
 // ==================== 全局变量 ====================
 let platformsData = [];
 let scamsData = [];
@@ -8,9 +11,9 @@ let matchingRules = null;
 async function loadData() {
   try {
     const [platformsRes, scamsRes, rulesRes] = await Promise.all([
-      fetch('./data/platforms.json'),
-      fetch('./data/scams.json'),
-      fetch('./data/matching_rules.json')
+      fetch(`${basePath}/data/platforms.json`),
+      fetch(`${basePath}/data/scams.json`),
+      fetch(`${basePath}/data/matching_rules.json`)
     ]);
     
     platformsData = await platformsRes.json();

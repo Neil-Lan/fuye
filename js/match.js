@@ -1,4 +1,7 @@
 // 副业避坑导航 - 副业匹配页JavaScript (优化版)
+// 获取基础路径（兼容GitHub Pages子目录部署）
+const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
 // ==================== 全局变量 ====================
 let matchingRules = null;
 let platformsData = [];
@@ -11,8 +14,8 @@ let recommendedPlatformsList = []; // 当前推荐列表
 async function initMatch() {
   try {
     const [rulesRes, platformsRes] = await Promise.all([
-      fetch('./data/matching_rules.json'),
-      fetch('./data/platforms.json')
+      fetch(`${basePath}/data/matching_rules.json`),
+      fetch(`${basePath}/data/platforms.json`)
     ]);
     
     matchingRules = await rulesRes.json();

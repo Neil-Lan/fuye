@@ -5,18 +5,21 @@ let allCases = [];
 let casesByType = {};
 
 // 案例类型映射
+// 获取基础路径（兼容GitHub Pages子目录部署）
+const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
 const caseFiles = {
-  'task': { file: './data/cases_task.json', name: '任务型', icon: '📋' },
-  'delivery': { file: './data/cases_delivery.json', name: '配送型', icon: '🛵' },
-  'design': { file: './data/cases_design.json', name: '设计类', icon: '🎨' },
-  'tech': { file: './data/cases_tech.json', name: '技术类', icon: '💻' },
-  'writing': { file: './data/cases_writing.json', name: '写作类', icon: '✍️' },
-  'video': { file: './data/cases_video.json', name: '视频/直播', icon: '🎬' },
-  'ecommerce': { file: './data/cases_ecommerce.json', name: '电商类', icon: '🛒' },
-  'failed': { file: './data/cases_failed.json', name: '失败被骗', icon: '⚠️' },
-  'complaint': { file: './data/cases_complaint.json', name: '投诉维权', icon: '📢' },
-  'startup': { file: './data/cases_startup.json', name: '创业成功', icon: '🚀' },
-  'startup_failed': { file: './data/cases_startup_failed.json', name: '创业失败', icon: '💔' }
+  'task': { file: `${basePath}/data/cases_task.json`, name: '任务型', icon: '📋' },
+  'delivery': { file: `${basePath}/data/cases_delivery.json`, name: '配送型', icon: '🛵' },
+  'design': { file: `${basePath}/data/cases_design.json`, name: '设计类', icon: '🎨' },
+  'tech': { file: `${basePath}/data/cases_tech.json`, name: '技术类', icon: '💻' },
+  'writing': { file: `${basePath}/data/cases_writing.json`, name: '写作类', icon: '✍️' },
+  'video': { file: `${basePath}/data/cases_video.json`, name: '视频/直播', icon: '🎬' },
+  'ecommerce': { file: `${basePath}/data/cases_ecommerce.json`, name: '电商类', icon: '🛒' },
+  'failed': { file: `${basePath}/data/cases_failed.json`, name: '失败被骗', icon: '⚠️' },
+  'complaint': { file: `${basePath}/data/cases_complaint.json`, name: '投诉维权', icon: '📢' },
+  'startup': { file: `${basePath}/data/cases_startup.json`, name: '创业成功', icon: '🚀' },
+  'startup_failed': { file: `${basePath}/data/cases_startup_failed.json`, name: '创业失败', icon: '💔' }
 };
 
 // 加载所有案例数据

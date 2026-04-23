@@ -1,4 +1,7 @@
 // 副业避坑导航 - 平台列表页JavaScript
+// 获取基础路径（兼容GitHub Pages子目录部署）
+const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
 // ==================== 全局变量 ====================
 let platformsData = [];
 let currentCategory = '全部';
@@ -77,7 +80,7 @@ function getCorrectedPlatformData(platform) {
 // ==================== 初始化 ====================
 async function initPlatforms() {
   try {
-    const res = await fetch('./data/platforms.json');
+    const res = await fetch(`${basePath}/data/platforms.json`);
     platformsData = await res.json();
     
     // 获取URL参数中的分类

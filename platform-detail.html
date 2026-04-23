@@ -260,12 +260,15 @@
         return;
       }
 
+      // 获取基础路径（兼容GitHub Pages子目录部署）
+      const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+
       try {
         const [platformsRes, incomeRes, gettingRes, scamsRes] = await Promise.all([
-          fetch('./data/platforms.json'),
-          fetch('./data/income_calculator.json'),
-          fetch('./data/getting_started.json'),
-          fetch('./data/scam_index.json')
+          fetch(`${basePath}/data/platforms.json`),
+          fetch(`${basePath}/data/income_calculator.json`),
+          fetch(`${basePath}/data/getting_started.json`),
+          fetch(`${basePath}/data/scam_index.json`)
         ]);
 
         const platforms = await platformsRes.json();
