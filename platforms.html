@@ -22,8 +22,8 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link active">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
-          <a href="match.html" class="nav-link" style="color:var(--primary-color);font-weight:600;">🎯 测一测</a>
-          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="cases.html" class="nav-link">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
@@ -51,6 +51,15 @@
         </div>
 
         <div class="filter-bar">
+          <div class="filter-group">
+            <label class="filter-label">平台状态：</label>
+            <select id="status-filter" class="filter-select">
+              <option value="全部">全部</option>
+              <option value="正常运营">✅ 正常运营</option>
+              <option value="问题较多">⚠️ 问题较多</option>
+              <option value="已停运">❌ 已停运</option>
+            </select>
+          </div>
           <div class="filter-group">
             <label class="filter-label">平台类型：</label>
             <select id="category-filter" class="filter-select">
@@ -155,5 +164,10 @@
   </style>
 
   <script src="js/platforms.js"></script>
+  <!-- 数据统计 -->
+  <script src="js/analytics.js"></script>
+  
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>

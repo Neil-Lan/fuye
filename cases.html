@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>真实案例 - 副业发现平台</title>
+  <meta name="description" content="1100+真实案例，包含副业经验、创业故事、失败教训、维权经历，帮你避坑少走弯路">
+  <meta name="keywords" content="副业案例,真实案例,副业经验,副业避坑">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cases-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .filter-btn:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    .filter-btn.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    .cases-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+    }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    .stat-card .label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .case-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+    .case-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .case-card-warning {
+      border-left: 4px solid #ef4444;
+    }
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .case-type-badge {
+      background: #eff6ff;
+      color: var(--primary-color);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+    .case-platform {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    .case-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .case-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+    .case-nickname {
+      font-weight: 600;
+    }
+    .case-profile {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .case-experience {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .case-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .case-income {
+      color: var(--success-color);
+      font-weight: 600;
+    }
+    .case-income-loss {
+      color: #ef4444;
+    }
+    .case-credibility {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .load-more {
+      text-align: center;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="cases.html" class="nav-link active">真实案例</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header">
+      <div class="container">
+        <h1>📊 真实案例库</h1>
+        <p>900+真实案例，包含成功经验、失败教训、维权经历</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 统计数据 -->
+        <div class="cases-stats" id="cases-stats"></div>
+        
+        <!-- 类型筛选 -->
+        <div class="cases-filter">
+          <button class="filter-btn active" data-type="all">全部案例</button>
+          <button class="filter-btn" data-type="task">📋 任务型</button>
+          <button class="filter-btn" data-type="delivery">🛵 配送型</button>
+          <button class="filter-btn" data-type="design">🎨 设计类</button>
+          <button class="filter-btn" data-type="tech">💻 技术类</button>
+          <button class="filter-btn" data-type="writing">✍️ 写作类</button>
+          <button class="filter-btn" data-type="video">🎬 视频/直播</button>
+          <button class="filter-btn" data-type="ecommerce">🛒 电商类</button>
+          <button class="filter-btn" data-type="startup">🚀 创业成功</button>
+          <button class="filter-btn" data-type="startup_failed">💔 创业失败</button>
+          <button class="filter-btn" data-type="failed">⚠️ 失败被骗</button>
+          <button class="filter-btn" data-type="complaint">📢 投诉维权</button>
+        </div>
+        
+        <!-- 案例列表 -->
+        <div class="cases-grid" id="cases-container">
+          <div class="loading">加载案例数据...</div>
+        </div>
+        
+        <!-- 加载更多 -->
+        <div class="load-more">
+          <button class="btn btn-outline" id="load-more-btn" style="display:none;">加载更多</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/cases.js"></script>
+  <script>
+    let currentType = 'all';
+    let currentPage = 1;
+    const pageSize = 20;
+    
+    // 初始化
+    async function init() {
+      await CasesManager.loadAllCases();
+      renderStats();
+      renderCases();
+      bindFilters();
+    }
+    
+    // 渲染统计
+    function renderStats() {
+      const stats = CasesManager.getCasesStats();
+      const container = document.getElementById('cases-stats');
+      
+      let html = `
+        <div class="stat-card">
+          <div class="num">${stats.total}</div>
+          <div class="label">总案例数</div>
+        </div>
+      `;
+      
+      Object.entries(stats.byType).forEach(([type, data]) => {
+        html += `
+          <div class="stat-card">
+            <div class="num">${data.count}</div>
+            <div class="label">${data.name}</div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    // 渲染案例
+    function renderCases(append = false) {
+      const container = document.getElementById('cases-container');
+      const cases = currentType === 'all' 
+        ? CasesManager.getAllCases() 
+        : CasesManager.getCasesByType(currentType);
+      
+      const start = append ? (currentPage - 1) * pageSize : 0;
+      const end = currentPage * pageSize;
+      const pageCases = cases.slice(start, end);
+      
+      if (!append) {
+        container.innerHTML = '';
+      }
+      
+      if (pageCases.length === 0 && !append) {
+        container.innerHTML = '<p class="text-muted">暂无案例数据</p>';
+        return;
+      }
+      
+      pageCases.forEach(c => CasesManager.renderCaseCard(c, container));
+      
+      // 显示/隐藏加载更多按钮
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      if (end < cases.length) {
+        loadMoreBtn.style.display = 'inline-block';
+      } else {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+    
+    // 绑定筛选
+    function bindFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentType = btn.dataset.type;
+          currentPage = 1;
+          renderCases();
+        });
+      });
+      
+      document.getElementById('load-more-btn').addEventListener('click', () => {
+        currentPage++;
+        renderCases(true);
+      });
+    }
+    
+    init();
+  </script>
+  
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
+</body>
+</html>

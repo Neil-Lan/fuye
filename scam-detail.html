@@ -102,6 +102,7 @@
 
     <main class="main-content">
       <div class="container">
+        <div class="scam-detail-wrapper">
         <!-- 操作按钮 -->
         <div class="detail-actions" id="detail-actions" style="display:none;">
           <button class="action-btn favorite-btn" data-favorite-btn="scam-TARGET" data-name="">
@@ -115,34 +116,35 @@
         <div id="scam-detail" class="loading">加载中...</div>
 
         <!-- 被骗后怎么办 -->
-        <div class="detail-section" id="help-section" style="display:none;margin-top:24px;background:#fef2f2;border:2px solid #fecaca;">
+        <div class="detail-section" id="help-section" style="display:none;background:#fef2f2;border:2px solid #fecaca;">
           <h2 style="color:#991b1b;">🚨 被骗后怎么办？</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:16px;">
             <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
               <div style="font-size:2rem;margin-bottom:8px;">📞</div>
-              <h4 style="font-size:0.9rem;">立即报警</h4>
-              <p style="font-size:0.8rem;color:var(--text-secondary);">拨打110或前往派出所</p>
+              <h4 style="font-size:0.85rem;">立即报警</h4>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">拨打110</p>
             </div>
             <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
               <div style="font-size:2rem;margin-bottom:8px;">📱</div>
-              <h4 style="font-size:0.9rem;">下载反诈APP</h4>
-              <p style="font-size:0.8rem;color:var(--text-secondary);">国家反诈中心一键举报</p>
+              <h4 style="font-size:0.85rem;">反诈APP</h4>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">一键举报</p>
             </div>
             <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
               <div style="font-size:2rem;margin-bottom:8px;">📋</div>
-              <h4 style="font-size:0.9rem;">保留证据</h4>
-              <p style="font-size:0.8rem;color:var(--text-secondary);">聊天记录、转账凭证</p>
+              <h4 style="font-size:0.85rem;">保留证据</h4>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">聊天转账记录</p>
             </div>
             <div style="background:white;padding:16px;border-radius:8px;text-align:center;">
               <div style="font-size:2rem;margin-bottom:8px;">⚖️</div>
-              <h4 style="font-size:0.9rem;">法律维权</h4>
-              <p style="font-size:0.8rem;color:var(--text-secondary);">咨询律师，提起诉讼</p>
+              <h4 style="font-size:0.85rem;">法律维权</h4>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">咨询律师</p>
             </div>
           </div>
         </div>
 
         <div style="margin-top:24px;">
           <a href="scams.html" class="btn btn-outline">← 返回骗局列表</a>
+        </div>
         </div>
       </div>
     </main>
@@ -360,5 +362,7 @@
 
     document.addEventListener('DOMContentLoaded', loadScamDetail);
   </script>
+  <!-- 数据统计 -->
+  <script src="js/analytics.js"></script>
 </body>
 </html>

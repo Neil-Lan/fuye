@@ -9,7 +9,7 @@
   <meta property="og:title" content="平台详情 - 副业发现平台">
   <meta property="og:description" content="查看平台详细信息、收入情况、风险提示和新手入门指南">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://fuye.example.com/platform-detail.html">
+  <meta property="og:url" content="https://fuyep.com/platform-detail.html">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/favorites.js"></script>
   <style>
@@ -116,7 +116,7 @@
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
           <a href="match.html" class="nav-link">测一测</a>
-          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
     </nav>
@@ -319,6 +319,24 @@
       }
       return p;
     }
+    
+    // 判断平台状态
+    function getPlatformStatus(p) {
+      const name = p.平台名称;
+      const dataLevel = p.数据可信度?.整体等级 || 'C';
+      const status = p.运营状态 || '';
+      
+      if (status.includes('停运') || name === '阿里众包' || name === '字节众包' || name === '甜薪工场') {
+        return { status: 'stopped', label: '❌ 已停运', color: '#64748b' };
+      }
+      if (status.includes('危险') || name === '甜薪工场') {
+        return { status: 'danger', label: '🚫 极度危险', color: '#dc2626' };
+      }
+      if (name === '猪八戒网' || name === '百度众测' || name === '京东微工' || dataLevel === 'D') {
+        return { status: 'warning', label: '⚠️ 问题较多', color: '#d97706' };
+      }
+      return { status: 'normal', label: '✅ 正常运营', color: '#16a34a' };
+    }
 
     function renderPlatformDetail() {
       const p = currentPlatform;
@@ -328,8 +346,19 @@
 
       const trustLevel = p.数据可信度?.整体等级 || 'C';
       const needWarning = ['C', 'D', 'E'].includes(trustLevel);
+      const platformStatus = getPlatformStatus(p);  // 获取平台状态
 
       let html = `
+        <!-- 平台状态警告 -->
+        ${platformStatus.status !== 'normal' ? `
+        <div style="margin-bottom:20px;padding:16px;background:${platformStatus.status === 'stopped' ? '#f1f5f9' : platformStatus.status === 'danger' ? '#fee2e2' : '#fef3c7'};border:2px solid ${platformStatus.status === 'stopped' ? '#cbd5e1' : platformStatus.status === 'danger' ? '#fca5a5' : '#fcd34d'};border-radius:8px;">
+          <h4 style="color:${platformStatus.color};margin-bottom:8px;">${platformStatus.label}</h4>
+          ${platformStatus.status === 'stopped' ? '<p style="color:#475569;font-size:0.9rem;">该平台已停止运营，相关信息仅供参考，请勿尝试注册使用。</p>' : ''}
+          ${platformStatus.status === 'danger' ? '<p style="color:#dc2626;font-size:0.9rem;"><strong>严重警告：</strong>该平台存在重大风险，不建议使用！请勿点击任何相关链接。</p>' : ''}
+          ${platformStatus.status === 'warning' ? '<p style="color:#92400e;font-size:0.9rem;">该平台存在较多用户投诉，建议谨慎选择，多方了解后再做决定。</p>' : ''}
+        </div>
+        ` : ''}
+        
         <div class="detail-section">
           <div class="detail-header">
             <div>
@@ -337,10 +366,11 @@
               <div class="detail-meta">
                 <span class="platform-type">${p.平台类型 || '任务型'}</span>
                 <span class="trust-badge trust-${trustLevel.charAt(0).toLowerCase()}">可信度${trustLevel}</span>
+                <span style="padding:4px 10px;background:${platformStatus.status === 'normal' ? '#dcfce7' : platformStatus.status === 'stopped' ? '#f1f5f9' : platformStatus.status === 'danger' ? '#fee2e2' : '#fef3c7'};color:${platformStatus.color};border-radius:4px;font-size:0.8rem;font-weight:600;">${platformStatus.label}</span>
               </div>
             </div>
           </div>
-          ${needWarning ? `<div class="warning-box"><h4>⚠️ 数据可信度提醒</h4><p>该平台数据可信度为${trustLevel}级，建议您多方核实后再做决定。</p></div>` : ''}
+          ${needWarning && platformStatus.status === 'normal' ? `<div class="warning-box"><h4>⚠️ 数据可信度提醒</h4><p>该平台数据可信度为${trustLevel}级，建议您多方核实后再做决定。</p></div>` : ''}
         </div>
 
         <div class="detail-section">
@@ -465,47 +495,120 @@
 
     function renderGettingStarted() {
       const section = document.getElementById('getting-started');
+      const platformName = currentPlatform?.平台名称 || '';
+      
+      // 尝试精确匹配平台名称
+      let guide = gettingStartedData?.平台指南?.[platformName];
+      
+      // 如果没有精确匹配，尝试模糊匹配
+      if (!guide) {
+        const platformKeys = Object.keys(gettingStartedData?.平台指南 || {});
+        guide = platformKeys.find(key => platformName.includes(key) || key.includes(platformName));
+        if (guide) guide = gettingStartedData?.平台指南?.[guide];
+      }
+      
+      if (!guide) {
+        section.style.display = 'none';
+        return;
+      }
+      
       section.style.display = 'block';
-
-      const type = currentPlatform?.平台类型 || '';
-      let pathType = '众包任务型';
-      if (type.includes('配送') || type.includes('众包')) pathType = '众包任务型';
-      else if (type.includes('外卖') || type.includes('骑手')) pathType = '外卖配送型';
-      else if (type.includes('设计') || type.includes('创意')) pathType = '技能变现型';
-      else if (type.includes('内容') || type.includes('创作')) pathType = '内容创作型';
-
-      const path = gettingStartedData?.入门路径?.[pathType];
-      if (!path) return;
-
+      const steps3 = guide.快速3步;
+      
+      // 渲染3步快速开始
       let stepsHtml = `
-        <p style="color:var(--text-secondary);margin-bottom:16px;"><strong>适合人群：</strong>${path.适合人群}</p>
-        ${path.步骤?.map(step => `
-        <div class="step-item">
-          <div class="step-number">${step.步骤}</div>
-          <div class="step-content">
-            <h4>${step.标题}</h4>
-            <p>${step.操作}</p>
-            ${step.注意事项?.length ? `
-            <ul style="margin-top:8px;font-size:0.85rem;color:#92400e;">
-              <li>⚠️ ${step.注意事项.join('</li><li>⚠️ ')}</li>
-            </ul>
+        <div style="display:grid;gap:16px;margin-bottom:24px;">
+          <div style="padding:16px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border-radius:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:2rem;">📝</span>
+              <div>
+                <h4 style="margin:0;font-size:1.1rem;">第一步：${steps3.第一步_注册?.标题 || '注册账号'}</h4>
+                <p style="margin:4px 0 0;font-size:0.9rem;opacity:0.9;">${steps3.第一步_注册?.操作 || ''}</p>
+              </div>
+            </div>
+            <div style="margin-top:12px;font-size:0.85rem;opacity:0.9;">
+              <strong>需要材料：</strong>${steps3.第一步_注册?.需要材料 || '-'}
+            </div>
+            ${steps3.第一步_注册?.注意事项?.length ? `
+            <div style="margin-top:8px;font-size:0.8rem;background:rgba(255,255,255,0.2);padding:8px;border-radius:6px;">
+              <strong>注意：</strong>${steps3.第一步_注册.注意事项.join('；')}
+            </div>
+            ` : ''}
+          </div>
+          
+          <div style="padding:16px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white;border-radius:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:2rem;">🔐</span>
+              <div>
+                <h4 style="margin:0;font-size:1.1rem;">第二步：${steps3.第二步_认证?.标题 || '完成认证'}</h4>
+                <p style="margin:4px 0 0;font-size:0.9rem;opacity:0.9;">${steps3.第二步_认证?.操作 || ''}</p>
+              </div>
+            </div>
+            <div style="margin-top:12px;font-size:0.85rem;opacity:0.9;">
+              <strong>需要材料：</strong>${steps3.第二步_认证?.需要材料 || '-'}
+            </div>
+            ${steps3.第二步_认证?.注意事项?.length ? `
+            <div style="margin-top:8px;font-size:0.8rem;background:rgba(255,255,255,0.2);padding:8px;border-radius:6px;">
+              <strong>注意：</strong>${steps3.第二步_认证.注意事项.join('；')}
+            </div>
+            ` : ''}
+          </div>
+          
+          <div style="padding:16px;background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);color:white;border-radius:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:2rem;">💰</span>
+              <div>
+                <h4 style="margin:0;font-size:1.1rem;">第三步：${steps3.第三步_接单?.标题 || '开始赚钱'}</h4>
+                <p style="margin:4px 0 0;font-size:0.9rem;opacity:0.9;">${steps3.第三步_接单?.操作 || ''}</p>
+              </div>
+            </div>
+            ${steps3.第三步_接单?.如何找任务?.length ? `
+            <div style="margin-top:12px;font-size:0.85rem;">
+              <strong>如何找任务：</strong>
+              <ul style="margin:4px 0 0 16px;">
+                ${steps3.第三步_接单.如何找任务.map(t => `<li>${t}</li>`).join('')}
+              </ul>
+            </div>
+            ` : ''}
+            ${steps3.第三步_接单?.提现规则 ? `
+            <div style="margin-top:8px;font-size:0.85rem;background:rgba(255,255,255,0.2);padding:8px;border-radius:6px;">
+              <strong>💵 提现规则：</strong>${steps3.第三步_接单.提现规则}
+            </div>
+            ` : ''}
+            ${steps3.第三步_接单?.提高收入技巧?.length ? `
+            <div style="margin-top:8px;font-size:0.85rem;">
+              <strong>提高收入技巧：</strong>${steps3.第三步_接单.提高收入技巧.join('；')}
+            </div>
             ` : ''}
           </div>
         </div>
-      `).join('') || ''}
       `;
-
-      // 添加常见问题
-      if (path.常见问题?.length) {
-        stepsHtml += `<h3 style="margin:20px 0 12px;">❓ 常见问题</h3>`;
-        stepsHtml += path.常见问题.map(faq => `
-          <div style="margin-bottom:12px;padding:12px;background:#f8fafc;border-radius:6px;">
-            <h4 style="font-size:0.9rem;color:var(--text-primary);margin-bottom:4px;">Q: ${faq.问题}</h4>
-            <p style="font-size:0.85rem;color:var(--text-secondary);">A: ${faq.解答}</p>
-          </div>
-        `).join('');
+      
+      // 添加常见问题FAQ
+      if (guide.新手FAQ?.length) {
+        stepsHtml += `<h3 style="margin:20px 0 12px;font-size:1.1rem;">❓ 新手常见问题</h3>`;
+        stepsHtml += `<div style="display:grid;gap:12px;">`;
+        guide.新手FAQ.forEach(faq => {
+          stepsHtml += `
+            <div style="padding:12px;background:#f8fafc;border-radius:8px;border-left:4px solid var(--primary-color);">
+              <h4 style="font-size:0.9rem;color:var(--text-primary);margin:0 0 4px;">Q: ${faq.问题}</h4>
+              <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">A: ${faq.解答}</p>
+            </div>
+          `;
+        });
+        stepsHtml += `</div>`;
       }
-
+      
+      // 添加避坑提示
+      if (guide.避坑提示?.length) {
+        stepsHtml += `<h3 style="margin:20px 0 12px;font-size:1.1rem;color:var(--danger-color);">⚠️ 新手避坑提示</h3>`;
+        stepsHtml += `<div style="padding:12px;background:#fef2f2;border-radius:8px;">`;
+        guide.避坑提示.forEach(tip => {
+          stepsHtml += `<p style="margin:0 0 8px;font-size:0.9rem;color:#991b1b;">${tip}</p>`;
+        });
+        stepsHtml += `</div>`;
+      }
+      
       document.getElementById('steps-list').innerHTML = stepsHtml;
     }
 
@@ -579,5 +682,7 @@
       }
     });
   </script>
+  <!-- 数据统计 -->
+  <script src="js/analytics.js"></script>
 </body>
 </html>

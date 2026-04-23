@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我要投稿 - 副业发现平台</title>
-  <meta name="description" content="分享你的副业经验或举报骗局，帮助更多人避坑">
-  <meta name="keywords" content="投稿,副业经验,骗局举报">
+  <title>用户反馈 - 副业发现平台</title>
+  <meta name="description" content="提交平台纠错、案例投稿、问题反馈或建议意见，帮助我们改进服务">
+  <meta name="keywords" content="用户反馈,平台纠错,问题反馈,建议意见">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Web3Forms 表单服务 -->
   <style>
     .form-success {
       text-align: center;
@@ -28,6 +27,46 @@
       opacity: 0.7;
       pointer-events: none;
     }
+    .feedback-types {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 480px) {
+      .feedback-types {
+        grid-template-columns: 1fr;
+      }
+    }
+    .feedback-type-card {
+      padding: 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .feedback-type-card:hover {
+      border-color: var(--primary-color);
+      background: #f8fafc;
+    }
+    .feedback-type-card.selected {
+      border-color: var(--primary-color);
+      background: #eff6ff;
+    }
+    .feedback-type-card .icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .feedback-type-card .title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .feedback-type-card .desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
   </style>
 </head>
 <body>
@@ -41,16 +80,15 @@
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
           <a href="match.html" class="nav-link">测一测</a>
-          <a href="submit.html" class="nav-link active">我要投稿</a>
-          <a href="about.html" class="nav-link">关于</a>
+          <a href="about.html" class="nav-link active">关于</a>
         </div>
       </div>
     </nav>
 
     <header class="page-header">
       <div class="container">
-        <h1>📢 我要投稿</h1>
-        <p>分享你的经验，帮助更多人避坑</p>
+        <h1>💬 用户反馈</h1>
+        <p>您的意见对我们很重要，帮助我们做得更好</p>
       </div>
     </header>
 
@@ -61,85 +99,69 @@
             <form id="submit-form" action="https://api.web3forms.com/submit" method="POST">
               <!-- Web3Forms 必需字段 -->
               <input type="hidden" name="access_key" value="19eab3d5-d0b7-4e0b-adf4-8f1827bd1182">
-              <input type="hidden" name="subject" value="【副业发现】新的投稿提交">
+              <input type="hidden" name="subject" value="【副业发现】新的用户反馈">
               <input type="hidden" name="from_name" value="副业发现平台">
               <!-- 防垃圾邮件 -->
               <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-              <!-- 隐藏字段用于追踪投稿类型 -->
-              <input type="hidden" name="投稿类型" id="hidden-type" value="platform">
+              <!-- 隐藏字段用于追踪反馈类型 -->
+              <input type="hidden" name="反馈类型" id="hidden-type" value="correction">
               <input type="hidden" name="提交时间" id="submit-time">
               
               <div class="form-group">
-                <label class="form-label">投稿类型 *</label>
-                <div class="form-radio-group">
-                  <label class="form-radio selected" onclick="selectType(this, 'platform')">
-                    <input type="radio" name="type" value="platform" checked>
-                    <span>🏢 平台经验分享</span>
-                  </label>
-                  <label class="form-radio" onclick="selectType(this, 'scam')">
-                    <input type="radio" name="type" value="scam">
-                    <span>⚠️ 骗局举报</span>
-                  </label>
-                  <label class="form-radio" onclick="selectType(this, 'case')">
-                    <input type="radio" name="type" value="case">
-                    <span>💬 成功案例</span>
-                  </label>
+                <label class="form-label">反馈类型 *</label>
+                <div class="feedback-types">
+                  <div class="feedback-type-card selected" onclick="selectType(this, 'correction')">
+                    <div class="icon">🔧</div>
+                    <div class="title">平台纠错</div>
+                    <div class="desc">平台信息有误？</div>
+                  </div>
+                  <div class="feedback-type-card" onclick="selectType(this, 'case')">
+                    <div class="icon">📝</div>
+                    <div class="title">案例投稿</div>
+                    <div class="desc">分享您的副业经历</div>
+                  </div>
+                  <div class="feedback-type-card" onclick="selectType(this, 'bug')">
+                    <div class="icon">🐛</div>
+                    <div class="title">问题反馈</div>
+                    <div class="desc">网站使用遇到问题</div>
+                  </div>
+                  <div class="feedback-type-card" onclick="selectType(this, 'suggestion')">
+                    <div class="icon">💡</div>
+                    <div class="title">建议意见</div>
+                    <div class="desc">对平台有好的想法</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="form-label">平台/项目名称 *</label>
-                <input type="text" id="platform-name" name="平台名称" class="form-input" placeholder="请输入平台或项目名称" required>
-              </div>
-
-              <div class="form-group" id="scam-type-group" style="display:none;">
-                <label class="form-label">骗局类型</label>
-                <select class="form-select" id="scam-type" name="骗局类型">
-                  <option value="">请选择</option>
-                  <option value="培训类">培训类</option>
-                  <option value="兼职类">兼职类</option>
-                  <option value="金融投资类">金融投资类</option>
-                  <option value="电商消费类">电商消费类</option>
-                  <option value="其他">其他</option>
-                </select>
+              <div class="form-group" id="platform-name-group">
+                <label class="form-label">相关平台名称</label>
+                <input type="text" id="platform-name" name="平台名称" class="form-input" placeholder="如有，请输入平台名称">
               </div>
 
               <div class="form-group">
-                <label class="form-label">您的经历/举报内容 *</label>
-                <textarea id="content" name="投稿内容" class="form-textarea" placeholder="请详细描述您的经历（不少于50字）：
-- 如何接触到这个平台/项目
-- 具体的操作过程
-- 实际收入情况（如有）
-- 您的感受和建议" required></textarea>
-                <p class="form-hint">请尽量详细描述，方便其他人参考</p>
+                <label class="form-label">反馈内容 *</label>
+                <textarea id="content" name="反馈内容" class="form-textarea" placeholder="请详细描述您的反馈内容" required></textarea>
+                <p class="form-hint">请尽量详细描述，方便我们处理</p>
               </div>
 
               <div class="form-group">
                 <label class="form-label">联系方式</label>
-                <input type="text" id="contact" name="联系方式" class="form-input" placeholder="微信或邮箱（选填，方便核实时联系）">
+                <input type="text" id="contact" name="联系方式" class="form-input" placeholder="邮箱（选填，方便回复时联系）">
                 <p class="form-hint">我们不会公开您的联系方式</p>
               </div>
 
-              <div class="form-group">
-                <label class="form-label">验证码 *</label>
-                <div style="display:flex;gap:12px;">
-                  <input type="text" id="captcha" class="form-input" placeholder="请输入右侧验证码" style="flex:1;" required>
-                  <div id="captcha-display" style="padding:12px 20px;background:#f1f5f9;border-radius:8px;font-weight:700;cursor:pointer;min-width:80px;text-align:center;" onclick="refreshCaptcha()">刷新</div>
-                </div>
-              </div>
-
               <div style="background:#eff6ff;border-radius:8px;padding:16px;margin-top:20px;">
-                <h4 style="color:var(--primary-color);margin-bottom:8px;">📌 投稿须知</h4>
+                <h4 style="color:var(--primary-color);margin-bottom:8px;">📌 反馈须知</h4>
                 <ul style="font-size:0.85rem;color:var(--text-secondary);padding-left:16px;list-style:decimal;line-height:1.8;">
-                  <li>投稿即表示同意我们将内容整理后公开分享</li>
-                  <li>为保护隐私，涉及个人隐私信息会自动隐藏</li>
-                  <li>骗局举报内容经核实后会添加防骗提醒</li>
+                  <li>感谢您抽出时间提供反馈</li>
+                  <li>我们会认真处理每一条反馈</li>
+                  <li>如需回复，请在联系方式中填写邮箱</li>
                   <li>我们不会向您收取任何费用</li>
                 </ul>
               </div>
 
               <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:20px;" id="submit-btn">
-                提交投稿
+                提交反馈
               </button>
             </form>
             
@@ -147,10 +169,11 @@
             <div id="success-message" style="display:none;">
               <div class="form-success">
                 <div class="form-success-icon">🎉</div>
-                <h3>投稿成功！</h3>
-                <p>感谢您的分享，我们会尽快审核后公开</p>
+                <h3>感谢您的反馈！</h3>
+                <p>我们已收到您的反馈，会尽快处理</p>
+                <p style="margin-top:8px;font-size:0.9rem;">如需回复，我们会通过您留下的联系方式与您取得联系</p>
                 <div style="margin-top:24px;">
-                  <a href="submit.html" class="btn btn-outline" style="margin-right:12px;">继续投稿</a>
+                  <a href="submit.html" class="btn btn-outline" style="margin-right:12px;">继续反馈</a>
                   <a href="index.html" class="btn btn-primary">返回首页</a>
                 </div>
               </div>
@@ -181,41 +204,23 @@
   </div>
 
   <script>
-    let captchaCode = '';
-    
-    function generateCaptcha() {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-      captchaCode = '';
-      for (let i = 0; i < 4; i++) {
-        captchaCode += chars[Math.floor(Math.random() * chars.length)];
-      }
-      document.getElementById('captcha-display').textContent = captchaCode;
-    }
-    
-    function refreshCaptcha() {
-      generateCaptcha();
-    }
-    
     function selectType(el, type) {
-      document.querySelectorAll('.form-radio').forEach(r => r.classList.remove('selected'));
+      document.querySelectorAll('.feedback-type-card').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
-      el.querySelector('input').checked = true;
-      document.getElementById('scam-type-group').style.display = type === 'scam' ? 'block' : 'none';
       document.getElementById('hidden-type').value = type;
+      
+      // 平台名称仅在纠错和案例投稿时显示
+      const nameGroup = document.getElementById('platform-name-group');
+      if (type === 'correction' || type === 'case') {
+        nameGroup.style.display = 'block';
+      } else {
+        nameGroup.style.display = 'none';
+      }
     }
     
     // Web3Forms 表单提交
     async function handleSubmit(event) {
       event.preventDefault();
-      
-      // 验证验证码
-      const captcha = document.getElementById('captcha').value;
-      if (captcha.toLowerCase() !== captchaCode.toLowerCase()) {
-        alert('验证码错误，请重新输入');
-        refreshCaptcha();
-        document.getElementById('captcha').value = '';
-        return;
-      }
       
       // 添加提交时间
       document.getElementById('submit-time').value = new Date().toLocaleString('zh-CN');
@@ -246,16 +251,16 @@
         }
       } catch (error) {
         submitBtn.classList.remove('submitting');
-        submitBtn.textContent = '提交投稿';
+        submitBtn.textContent = '提交反馈';
         alert('提交失败，请稍后重试');
-        refreshCaptcha();
       }
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-      generateCaptcha();
       document.getElementById('submit-form').addEventListener('submit', handleSubmit);
     });
   </script>
+  <!-- 数据统计 -->
+  <script src="js/analytics.js"></script>
 </body>
 </html>

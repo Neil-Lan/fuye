@@ -11,8 +11,8 @@
   <meta property="og:title" content="副业智能匹配测试 - 3分钟找到适合你的副业">
   <meta property="og:description" content="回答7个问题，智能匹配最适合你的副业方向和平台。免费测试，即时出结果。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fuye.example.com/match.html">
-  <meta property="og:image" content="https://fuye.example.com/images/match-og.png">
+  <meta property="og:url" content="https://fuyep.com/match.html">
+  <meta property="og:image" content="https://fuyep.com/images/match-og.png">
   <style>
     .previous-result-banner {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -58,8 +58,8 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
-          <a href="match.html" class="nav-link active" style="color:var(--primary-color);font-weight:600;">🎯 测一测</a>
-          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="match.html" class="nav-link active">测一测</a>
+          <a href="cases.html" class="nav-link">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
@@ -67,8 +67,17 @@
 
     <header class="page-header match-header">
       <div class="container">
-        <h1>🎯 副业智能匹配</h1>
-        <p>回答7个问题，找到最适合你的副业方向</p>
+        <h1>🎯 智能匹配测试</h1>
+        <p>找到最适合你的副业/创业方向</p>
+        <!-- Tab切换 -->
+        <div class="match-tabs">
+          <button class="match-tab active" data-tab="fuye" onclick="switchMatchTab('fuye')">
+            📈 副业匹配
+          </button>
+          <button class="match-tab" data-tab="startup" onclick="switchMatchTab('startup')">
+            🚀 创业匹配
+          </button>
+        </div>
       </div>
     </header>
 
@@ -83,6 +92,10 @@
         
         <div class="quiz-container">
           <div id="quiz-container">
+            <div class="loading">加载中...</div>
+          </div>
+          <!-- 创业匹配区域 -->
+          <div id="startup-quiz-container" style="display:none;">
             <div class="loading">加载中...</div>
           </div>
         </div>
@@ -185,11 +198,134 @@
     .income-calc-section {
       border: 2px solid #667eea;
     }
+    /* Tab切换样式 */
+    .match-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .match-tab {
+      padding: 10px 24px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 30px;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .match-tab:hover {
+      border-color: rgba(255,255,255,0.6);
+      color: white;
+    }
+    .match-tab.active {
+      background: white;
+      color: #667eea;
+      border-color: white;
+      font-weight: 600;
+    }
+    /* 创业匹配结果样式 */
+    .startup-result-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .startup-result-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .startup-result-card .result-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .startup-result-card .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .badge-invest { background: #dbeafe; color: #1e40af; }
+    .badge-income { background: #dcfce7; color: #166534; }
+    .badge-risk { background: #fef3c7; color: #92400e; }
+    .badge-difficulty { background: #f3e8ff; color: #7e22ce; }
+    .startup-result-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .startup-result-card .case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 10px;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+    /* 创业匹配进度条颜色 */
+    #startup-quiz-container .quiz-progress-fill {
+      background: linear-gradient(90deg, #f59e0b, #ef4444);
+    }
   </style>
 
   <script src="js/match.js"></script>
   <script src="js/match-result.js"></script>
+  <script src="js/startup-match.js"></script>
   <script>
+    // Tab切换功能
+    let currentTab = 'fuye';
+    
+    function switchMatchTab(tab) {
+      currentTab = tab;
+      
+      // 更新Tab状态
+      document.querySelectorAll('.match-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === tab);
+      });
+      
+      // 切换内容区域
+      const fuyeContainer = document.getElementById('quiz-container');
+      const startupContainer = document.getElementById('startup-quiz-container');
+      const incomeCalcSection = document.getElementById('income-calc-section');
+      const matchDescSection = document.querySelector('.detail-section');
+      const shareSection = document.querySelectorAll('.detail-section')[1];
+      
+      if (tab === 'fuye') {
+        fuyeContainer.style.display = 'block';
+        startupContainer.style.display = 'none';
+        if (incomeCalcSection) incomeCalcSection.style.display = 'block';
+        if (matchDescSection) matchDescSection.style.display = 'block';
+        if (shareSection) shareSection.style.display = 'block';
+        
+        // 重新渲染副业问卷
+        if (typeof reinitMatch === 'function') {
+          reinitMatch();
+        }
+      } else {
+        fuyeContainer.style.display = 'none';
+        startupContainer.style.display = 'block';
+        if (incomeCalcSection) incomeCalcSection.style.display = 'none';
+        if (matchDescSection) matchDescSection.style.display = 'none';
+        if (shareSection) shareSection.style.display = 'none';
+        
+        // 初始化创业匹配（如果还没初始化）
+        if (typeof initStartupMatch === 'function' && !window.startupMatchInited) {
+          initStartupMatch();
+          window.startupMatchInited = true;
+        }
+      }
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
       checkPreviousResult();
       
@@ -244,5 +380,10 @@
       });
     }
   </script>
+  <!-- 数据统计 -->
+  <script src="js/analytics.js"></script>
+  
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>

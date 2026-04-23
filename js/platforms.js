@@ -3,6 +3,41 @@
 let platformsData = [];
 let currentCategory = '全部';
 let currentDifficulty = '全部';
+let currentStatus = '全部';  // 新增：平台状态筛选
+
+// ==================== 平台状态判断函数 ====================
+function getPlatformStatus(platform) {
+  const name = platform.平台名称;
+  const dataLevel = platform.数据可信度?.整体等级 || 'C';
+  const status = platform.运营状态 || '';
+  
+  // 已停运平台
+  if (status.includes('停运') || name === '阿里众包' || name === '字节众包' || name === '甜薪工场') {
+    return 'stopped';
+  }
+  
+  // 高风险平台
+  if (status.includes('危险') || name === '甜薪工场') {
+    return 'danger';
+  }
+  
+  // 问题平台
+  if (name === '猪八戒网' || name === '百度众测' || name === '京东微工' || dataLevel === 'D') {
+    return 'warning';
+  }
+  
+  // 正常运营
+  return 'normal';
+}
+
+function getStatusLabel(status) {
+  switch(status) {
+    case 'stopped': return '<span class="status-tag status-stopped">❌ 已停运</span>';
+    case 'danger': return '<span class="status-tag status-danger">🚫 极度危险</span>';
+    case 'warning': return '<span class="status-tag status-warning">⚠️ 问题较多</span>';
+    default: return '<span class="status-tag status-normal">✅ 正常运营</span>';
+  }
+}
 
 // ==================== 数据修正函数 ====================
 function getCorrectedPlatformData(platform) {
@@ -114,6 +149,19 @@ function renderPlatforms() {
     });
   }
   
+  // 状态筛选（新增）
+  if (currentStatus !== '全部') {
+    filtered = filtered.filter(p => {
+      const status = getPlatformStatus(p);
+      switch (currentStatus) {
+        case '正常运营': return status === 'normal';
+        case '问题较多': return status === 'warning';
+        case '已停运': return status === 'stopped';
+        default: return true;
+      }
+    });
+  }
+  
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
@@ -128,13 +176,16 @@ function renderPlatforms() {
   container.innerHTML = filtered.map(p => {
     const trustLevel = p.数据可信度?.整体等级 || 'C';
     const needWarning = trustLevel === 'C' || trustLevel === 'D';
+    const platformStatus = getPlatformStatus(p);  // 获取平台状态
+    const statusLabel = getStatusLabel(platformStatus);  // 获取状态标签
     
     return `
-    <div class="card platform-card fade-in" onclick="location.href='platform-detail.html?id=${encodeURIComponent(p.平台名称)}'" style="cursor:pointer;">
+    <div class="card platform-card fade-in" onclick="location.href='platform-detail.html?id=${encodeURIComponent(p.平台名称)}'" style="cursor:pointer;${platformStatus === 'stopped' ? 'opacity:0.6;' : ''}">
       <div class="platform-header">
         <span class="platform-name">${p.平台名称}</span>
         <span class="platform-type">${p.平台类型 || '任务型'}</span>
       </div>
+      <div style="margin-bottom:8px;">${statusLabel}</div>
       <div class="platform-tags">
         ${(p.人群标签 ? Object.entries(p.人群标签).filter(([k,v]) => v && v.includes('✅')).map(([k]) => `<span class="tag">${k}</span>`) : []).slice(0, 4).join('')}
       </div>
@@ -175,6 +226,12 @@ function bindFilterEvents() {
   
   document.getElementById('difficulty-filter')?.addEventListener('change', (e) => {
     currentDifficulty = e.target.value;
+    renderPlatforms();
+  });
+  
+  // 新增：状态筛选事件
+  document.getElementById('status-filter')?.addEventListener('change', (e) => {
+    currentStatus = e.target.value;
     renderPlatforms();
   });
 }
