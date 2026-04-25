@@ -38,6 +38,11 @@ async function initAIAssistant() {
         botId: AI_ASSISTANT_CONFIG.botId,
         isIframe: false,
       },
+      auth: {
+        type: 'token',
+        token: 'pat_KqxURyPBFagK7Wdkp41OzP8AgRUyDRf9xW6tyLwC77y9rz1BefIcOOfV4B4RS12H',
+        onRefreshToken: async () => 'pat_KqxURyPBFagK7Wdkp41OzP8AgRUyDRf9xW6tyLwC77y9rz1BefIcOOfV4B4RS12H',
+      },
       userInfo: {
         id: 'user_' + Date.now(),
         nickname: '访客',
