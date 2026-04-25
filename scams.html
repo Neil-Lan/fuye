@@ -3,14 +3,231 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>骗局预警 - 揭露49种常见副业骗局</title>
-  <meta name="description" content="揭露配音培训、AI带货、刷单返利等49种常见副业骗局，手把手教你识别诈骗">
-  <meta name="keywords" content="副业骗局,诈骗预警,配音兼职骗局,刷单诈骗,培训贷陷阱">
-  <!-- Open Graph -->
-  <meta property="og:title" content="骗局预警 - 揭露49种常见副业骗局">
-  <meta property="og:description" content="揭露配音培训、AI带货、刷单返利等常见副业骗局，手把手教你识别诈骗">
+  <title>骗局预警 - 揭露100种常见副业骗局 | 副业发现平台</title>
+  <meta name="description" content="揭露配音培训、AI带货、刷单返利等100种常见副业骗局，手把手教你识别诈骗套路，避免上当受骗。包含2026年最新骗局预警和真实被骗案例。">
+  <meta name="keywords" content="副业骗局,诈骗预警,配音兼职骗局,刷单诈骗,培训贷陷阱,副业避坑,防骗指南,2026骗局">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/scams.html">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/scams.html">
+  <meta property="og:title" content="骗局预警 - 揭露100种常见副业骗局">
+  <meta property="og:description" content="揭露配音培训、AI带货、刷单返利等常见副业骗局，手把手教你识别诈骗">
+  <meta property="og:image" content="https://fuyep.top/images/og-scams.png">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="骗局预警 - 揭露100种常见副业骗局">
+  <meta name="twitter:description" content="揭露100种常见副业骗局，手把手教你识别诈骗套路">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .alert-banner {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .alert-banner-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .alert-banner-content {
+      flex: 1;
+    }
+    .alert-banner-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .alert-banner-text {
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+    .new-scam-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 2px solid #ef4444;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+    }
+    .new-scam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .new-scam-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .scam-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .scam-tag {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+    .scam-tag-new {
+      background: #fef2f2;
+      color: #ef4444;
+    }
+    .scam-tag-hot {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .scam-tag-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .subscribe-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 24px;
+    }
+    .subscribe-section h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+    }
+    .subscribe-section p {
+      margin: 0 0 16px 0;
+      opacity: 0.9;
+    }
+    .subscribe-form {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .subscribe-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .subscribe-form button {
+      padding: 12px 24px;
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .subscribe-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .report-channels {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 24px;
+    }
+    .report-channels h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.1rem;
+    }
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .channel-item {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .channel-icon {
+      font-size: 1.5rem;
+    }
+    .channel-info {
+      flex: 1;
+    }
+    .channel-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .channel-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .city-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .city-item {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .city-item strong {
+      color: var(--primary-color);
+    }
+    .weekly-alert {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .weekly-alert-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .weekly-alert-icon {
+      font-size: 2rem;
+    }
+    .weekly-alert h3 {
+      margin: 0;
+      color: #92400e;
+      font-size: 1.1rem;
+    }
+    .weekly-alert-meta {
+      font-size: 0.8rem;
+      color: #b45309;
+    }
+    .weekly-alert ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .weekly-alert li {
+      margin-bottom: 6px;
+      color: #78350f;
+      font-size: 0.9rem;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "骗局预警 - 揭露100种常见副业骗局",
+    "description": "揭露配音培训、AI带货、刷单返利等常见副业骗局，包含2026年最新骗局预警",
+    "url": "https://fuyep.top/scams.html",
+    "dateModified": "2026-04-24"
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrapper">
@@ -22,6 +239,7 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link active">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
           <a href="cases.html" class="nav-link">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
@@ -32,13 +250,41 @@
     <header class="page-header" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);">
       <div class="container">
         <h1>⚠️ 骗局预警</h1>
-        <p>已揭露 <span id="scam-count">49</span> 种常见骗局</p>
+        <p>已揭露 <span id="scam-count">49</span> 种常见骗局 · 本周新增 <span id="new-count">3</span> 种</p>
       </div>
     </header>
 
     <main class="main-content">
       <div class="container">
-        <div class="search-section" style="margin-bottom:24px;">
+        <!-- 本周预警提示 -->
+        <div class="weekly-alert" id="weekly-alert">
+          <div class="weekly-alert-header">
+            <span class="weekly-alert-icon">🚨</span>
+            <div>
+              <h3>本周最新骗局预警</h3>
+              <span class="weekly-alert-meta" id="alert-week">2026年第17周 · 预警等级：高</span>
+            </div>
+          </div>
+          <div id="alert-threats"></div>
+        </div>
+
+        <!-- 紧急提示横幅 -->
+        <div class="alert-banner" id="urgent-alert" style="display:none;">
+          <span class="alert-banner-icon">🚨</span>
+          <div class="alert-banner-content">
+            <div class="alert-banner-title" id="urgent-title">紧急预警</div>
+            <div class="alert-banner-text" id="urgent-text"></div>
+          </div>
+        </div>
+
+        <!-- 最新骗局专题 -->
+        <div id="latest-scams-section">
+          <h2 style="font-size:1.3rem;margin-bottom:16px;">🔥 本周新增骗局</h2>
+          <div id="latest-scams-list"></div>
+        </div>
+
+        <!-- 搜索和筛选 -->
+        <div class="search-section" style="margin:24px 0;">
           <div class="search-box">
             <input type="text" id="scam-search-input" class="search-input" placeholder="搜索骗局名称，如"配音"、"刷单"、"培训"...">
             <button id="scam-search-btn" class="search-btn" onclick="searchScams()">🔍 搜索</button>
@@ -48,7 +294,7 @@
         <div class="filter-bar">
           <div class="filter-group">
             <label class="filter-label">骗局类型：</label>
-            <select id="type-filter" class="filter-select">
+            <select id="type-filter" class="filter-select" onchange="filterScams()">
               <option value="全部">全部</option>
               <option value="培训类">培训类</option>
               <option value="兼职类">兼职类</option>
@@ -63,6 +309,7 @@
 
         <div id="scams-list" class="card-grid"><div class="loading">加载中...</div></div>
 
+        <!-- 防骗口诀 -->
         <div class="detail-section" style="margin-top:32px;background:#fef2f2;border:2px solid #fecaca;">
           <h2 style="color:#991b1b;">🚨 防骗口诀</h2>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:16px;">
@@ -94,6 +341,66 @@
           </div>
         </div>
 
+        <!-- 举报渠道 -->
+        <div class="report-channels">
+          <h3>🚔 举报渠道汇总</h3>
+          <div class="channel-grid">
+            <div class="channel-item">
+              <span class="channel-icon">📱</span>
+              <div class="channel-info">
+                <div class="channel-name">国家反诈中心APP</div>
+                <div class="channel-desc">一键举报 · 诈骗预警</div>
+              </div>
+            </div>
+            <div class="channel-item">
+              <span class="channel-icon">📞</span>
+              <div class="channel-info">
+                <div class="channel-name">反诈热线</div>
+                <div class="channel-desc">24小时：96110</div>
+              </div>
+            </div>
+            <div class="channel-item">
+              <span class="channel-icon">🐱</span>
+              <div class="channel-info">
+                <div class="channel-name">黑猫投诉</div>
+                <div class="channel-desc">消费者维权平台</div>
+              </div>
+            </div>
+            <div class="channel-item">
+              <span class="channel-icon">📞</span>
+              <div class="channel-info">
+                <div class="channel-name">12315热线</div>
+                <div class="channel-desc">消费者投诉举报</div>
+              </div>
+            </div>
+          </div>
+          <h4 style="font-size:0.95rem;margin:20px 0 12px;color:#374151;">各地反诈中心</h4>
+          <div class="city-list">
+            <div class="city-item"><strong>北京：</strong>010-110</div>
+            <div class="city-item"><strong>上海：</strong>021-110</div>
+            <div class="city-item"><strong>广州：</strong>020-110</div>
+            <div class="city-item"><strong>深圳：</strong>0755-110</div>
+            <div class="city-item"><strong>杭州：</strong>0571-110</div>
+            <div class="city-item"><strong>南京：</strong>025-110</div>
+            <div class="city-item"><strong>武汉：</strong>027-110</div>
+            <div class="city-item"><strong>成都：</strong>028-110</div>
+            <div class="city-item"><strong>重庆：</strong>023-110</div>
+            <div class="city-item"><strong>西安：</strong>029-110</div>
+          </div>
+        </div>
+
+        <!-- 预警订阅 -->
+        <div class="subscribe-section">
+          <h3>📧 骗局预警订阅</h3>
+          <p>订阅我们的预警推送，每周获取最新骗局动态，不再错过任何新型诈骗手法</p>
+          <form class="subscribe-form" onsubmit="return subscribeAlert(event)">
+            <input type="email" id="subscribe-email" placeholder="请输入您的邮箱地址" required>
+            <button type="submit">立即订阅</button>
+          </form>
+          <p style="font-size:0.8rem;margin-top:12px;opacity:0.8;">🔒 我们不会向第三方透露您的邮箱</p>
+        </div>
+
+        <!-- 如已受骗 -->
         <div class="detail-section" style="margin-top:24px;">
           <h2>🚨 如已受骗怎么办？</h2>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;">
@@ -137,15 +444,131 @@
   </div>
   <script src="js/scams.js"></script>
   <script>
+    let latestScamsData = null;
+    let allScamsData = null;
+    
+    // 加载最新骗局数据
+    async function loadLatestScams() {
+      try {
+        const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
+        const [latestRes, scamsRes] = await Promise.all([
+          fetch(`${basePath}/data/latest_scams.json`).catch(() => null),
+          fetch(`${basePath}/data/scams.json`).catch(() => null)
+        ]);
+        
+        if (latestRes && latestRes.ok) {
+          latestScamsData = await latestRes.json();
+          renderLatestScams();
+          renderWeeklyAlert();
+        }
+        
+        if (scamsRes && scamsRes.ok) {
+          allScamsData = await scamsRes.json();
+          document.getElementById('scam-count').textContent = allScamsData.骗局案例?.length || 49;
+        }
+        
+        // 初始化筛选后的骗局列表
+        if (typeof initScamsDisplay === 'function') {
+          initScamsDisplay();
+        }
+      } catch (e) {
+        console.error('加载骗局数据失败:', e);
+        if (typeof initScamsDisplay === 'function') {
+          initScamsDisplay();
+        }
+      }
+    }
+    
+    // 渲染本周预警
+    function renderWeeklyAlert() {
+      if (!latestScamsData?.weeklyAlert) return;
+      
+      const alert = latestScamsData.weeklyAlert;
+      document.getElementById('alert-week').textContent = `${alert.currentWeek} · 预警等级：${alert.alertLevel}`;
+      
+      const threatsHtml = alert.mainThreats.map(t => `<li>${t}</li>`).join('');
+      document.getElementById('alert-threats').innerHTML = `<ul>${threatsHtml}</ul>`;
+      
+      // 更新最新骗局数量
+      const newCount = latestScamsData.latestScams?.filter(s => s.isNew)?.length || 0;
+      document.getElementById('new-count').textContent = newCount;
+    }
+    
+    // 渲染最新骗局
+    function renderLatestScams() {
+      if (!latestScamsData?.latestScams) return;
+      
+      const container = document.getElementById('latest-scams-list');
+      const latestScams = latestScamsData.latestScams.slice(0, 5);
+      
+      if (latestScams.length === 0) {
+        container.innerHTML = '';
+        document.getElementById('latest-scams-section').style.display = 'none';
+        return;
+      }
+      
+      container.innerHTML = latestScams.map(scam => `
+        <div class="new-scam-card">
+          <div class="new-scam-header">
+            <div>
+              <div class="new-scam-title">${scam.name}</div>
+              <div class="scam-tags">
+                ${scam.isNew ? '<span class="scam-tag scam-tag-new">🆕 最新</span>' : ''}
+                ${scam.isHot ? '<span class="scam-tag scam-tag-hot">🔥 热门</span>' : ''}
+                <span class="scam-tag scam-tag-danger">⚠️ ${scam.dangerLevel}</span>
+                <span class="scam-tag" style="background:#f3f4f6;color:#374151;">${scam.category}</span>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:0.9rem;color:#6b7280;margin-bottom:12px;">
+            <strong>受害人数：</strong>${scam.victimsCount} · <strong>涉案金额：</strong>${scam.financialLoss}
+          </div>
+          <div style="font-size:0.85rem;">
+            <strong style="color:#374151;">常见手法：</strong>
+            <ul style="margin:8px 0 0 0;padding-left:20px;color:#6b7280;">
+              ${scam.modus operandi.slice(0, 3).map(m => `<li>${m}</li>`).join('')}
+            </ul>
+          </div>
+          <div style="margin-top:12px;padding:10px;background:#fef2f2;border-radius:6px;">
+            <strong style="color:#991b1b;font-size:0.85rem;">💡 识别方法：</strong>
+            <span style="color:#7f1d1d;font-size:0.85rem;">${scam.identification[0]}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // 筛选骗局
+    function filterScams() {
+      const type = document.getElementById('type-filter').value;
+      if (typeof renderScams === 'function') {
+        renderScams(type === '全部' ? null : type);
+      }
+    }
+    
+    // 搜索骗局
     function searchScams() {
       const query = document.getElementById('scam-search-input').value.trim();
       if (query) {
         location.href = `search.html?q=${encodeURIComponent(query)}&type=scam`;
       }
     }
+    
+    // 订阅预警
+    function subscribeAlert(e) {
+      e.preventDefault();
+      const email = document.getElementById('subscribe-email').value;
+      alert(`感谢您的订阅！\n\n邮箱：${email}\n\n我们将每周推送最新骗局预警到您的邮箱。\n\n（提示：当前为演示功能，实际订阅需要后端支持）`);
+      document.getElementById('subscribe-email').value = '';
+      return false;
+    }
+    
+    // 键盘搜索
     document.getElementById('scam-search-input')?.addEventListener('keypress', e => {
       if (e.key === 'Enter') searchScams();
     });
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', loadLatestScams);
   </script>
   <!-- 数据统计 -->
   <script src="js/analytics.js"></script>

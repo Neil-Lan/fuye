@@ -19,7 +19,8 @@ function loadCozeSDK() {
   
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
-    script.src = 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/latest/libs/cn/index.js';
+    // 使用带版本号的SDK URL（国内版）
+    script.src = 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.20/libs/cn/index.js';
     script.async = true;
     script.onload = resolve;
     script.onerror = reject;
@@ -40,6 +41,7 @@ async function initAIAssistant() {
       userInfo: {
         id: 'user_' + Date.now(),
         nickname: '访客',
+        url: AI_ASSISTANT_CONFIG.icon,
       },
       ui: {
         base: {
@@ -56,8 +58,10 @@ async function initAIAssistant() {
           width: 420,
           height: 600,
           uploadable: false,
-          isNeedAddNewConversation: true,
-          isNeedQuote: false,
+        },
+        footer: {
+          isShow: true,
+          expressionText: 'Powered by 副业发现',
         },
       },
     });

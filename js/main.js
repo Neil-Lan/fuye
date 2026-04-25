@@ -16,10 +16,23 @@ async function loadData() {
       fetch(`${basePath}/data/matching_rules.json`)
     ]);
     
-    platformsData = await platformsRes.json();
-    scamsData = await scamsRes.json();
+    // 解析平台数据（字典结构转数组）
+    const platformsDict = await platformsRes.json();
+    platformsData = [];
+    const categories = ['大厂平台', '技能平台', '内容平台'];
+    categories.forEach(cat => {
+      if (platformsDict[cat] && Array.isArray(platformsDict[cat])) {
+        platformsData = platformsData.concat(platformsDict[cat]);
+      }
+    });
+    
+    // 解析骗局数据
+    const scamsDict = await scamsRes.json();
+    scamsData = scamsDict.骗局案例 || [];
+    
     matchingRules = await rulesRes.json();
     
+    console.log('数据加载成功: 平台', platformsData.length, '个, 骗局', scamsData.length, '个');
     return true;
   } catch (error) {
     console.error('数据加载失败:', error);

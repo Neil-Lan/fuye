@@ -81,7 +81,26 @@ function getCorrectedPlatformData(platform) {
 async function initPlatforms() {
   try {
     const res = await fetch(`${basePath}/data/platforms.json`);
-    platformsData = await res.json();
+    const data = await res.json();
+    
+    // 将分类数据合并为平台数组
+    platformsData = [];
+    const categories = ['大厂平台', '技能平台', '内容平台'];
+    categories.forEach(cat => {
+      if (data[cat] && Array.isArray(data[cat])) {
+        data[cat].forEach(p => {
+          // 添加分类标签
+          if (!p.平台类型) {
+            if (cat === '大厂平台') p.平台类型 = '大厂平台';
+            else if (cat === '技能平台') p.平台类型 = '技能变现';
+            else if (cat === '内容平台') p.平台类型 = '内容创作';
+          }
+          platformsData.push(p);
+        });
+      }
+    });
+    
+    console.log('加载平台数据成功，共', platformsData.length, '个平台');
     
     // 获取URL参数中的分类
     const params = new URLSearchParams(window.location.search);

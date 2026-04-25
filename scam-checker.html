@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI骗局识别工具 - 智能检测项目风险 | 副业发现平台</title>
+  <meta name="description" content="AI智能识别副业项目风险，输入项目描述，自动检测高危、中危关键词，给出风险等级和避坑建议。保护你的钱袋子！">
+  <meta name="keywords" content="骗局识别,项目风险,AI检测,防骗指南,副业避坑,诈骗识别">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/scam-checker.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/scam-checker.html">
+  <meta property="og:title" content="AI骗局识别工具 - 智能检测项目风险">
+  <meta property="og:description" content="输入项目描述，AI智能识别骗局风险，保护你的钱袋子">
+  <meta property="og:locale" content="zh_CN">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 骗局识别工具专用样式 */
+    .scam-checker-hero {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: white;
+      padding: 40px 0;
+      margin-bottom: 32px;
+    }
+    .scam-checker-hero h1 {
+      color: white;
+      margin-bottom: 8px;
+    }
+    .scam-checker-hero p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    .checker-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .input-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .input-section h3 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-section h3 .icon {
+      font-size: 1.5rem;
+    }
+    .input-hint {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .project-input {
+      width: 100%;
+      min-height: 150px;
+      padding: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 1rem;
+      resize: vertical;
+      transition: all 0.2s;
+    }
+    .project-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .input-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-analyze {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-analyze:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+    .btn-analyze:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-reset {
+      background: #f1f5f9;
+      color: var(--text-secondary);
+      padding: 14px 24px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover {
+      background: #e2e8f0;
+    }
+    .example-box {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .example-box h4 {
+      color: #b45309;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .example-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .example-tag {
+      background: white;
+      border: 1px solid #f59e0b;
+      color: #b45309;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .example-tag:hover {
+      background: #f59e0b;
+      color: white;
+    }
+    /* 结果展示 */
+    .result-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .result-section.show {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .risk-level-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .risk-level {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .risk-level.high { color: #dc2626; }
+    .risk-level.medium { color: #f59e0b; }
+    .risk-level.suspicious { color: #eab308; }
+    .risk-level.safe { color: #22c55e; }
+    .risk-level-label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .risk-score {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+    .keywords-detected {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .keywords-detected h3 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .keyword-group {
+      margin-bottom: 16px;
+    }
+    .keyword-group:last-child {
+      margin-bottom: 0;
+    }
+    .keyword-group-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .keyword-group-title.high { color: #dc2626; }
+    .keyword-group-title.medium { color: #f59e0b; }
+    .keyword-group-title.suspicious { color: #eab308; }
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .keyword-tag {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .keyword-tag.high {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+    .keyword-tag.medium {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .keyword-tag.suspicious {
+      background: #fef9c3;
+      color: #a16207;
+    }
+    .analysis-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .analysis-section h3 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .analysis-list {
+      list-style: none;
+    }
+    .analysis-item {
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border-left: 4px solid #e2e8f0;
+      line-height: 1.6;
+    }
+    .analysis-item:last-child {
+      margin-bottom: 0;
+    }
+    .analysis-item.high { border-left-color: #dc2626; background: #fef2f2; }
+    .analysis-item.medium { border-left-color: #f59e0b; background: #fffbeb; }
+    .advice-section {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .advice-section h3 {
+      color: white;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .advice-list {
+      list-style: none;
+    }
+    .advice-item {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .advice-item:last-child {
+      border-bottom: none;
+    }
+    .advice-item .icon {
+      font-size: 1.2rem;
+    }
+    .similar-scams {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .similar-scams h3 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .scam-card {
+      border: 1px solid #fee2e2;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #fef2f2;
+    }
+    .scam-card:last-child {
+      margin-bottom: 0;
+    }
+    .scam-card-title {
+      font-weight: 600;
+      color: #dc2626;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .scam-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .cta-section {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    .cta-section h3 {
+      color: white;
+      margin-bottom: 12px;
+    }
+    .cta-section p {
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-white {
+      background: white;
+      color: var(--primary-color);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-white:hover {
+      background: #f0f9ff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    /* 快速指南 */
+    .quick-tips {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .quick-tips h3 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .tip-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .tip-card .icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .tip-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .tip-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    /* 加载动画 */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .loading-overlay.show {
+      display: flex;
+    }
+    .loading-spinner {
+      text-align: center;
+    }
+    .loading-spinner .icon {
+      font-size: 3rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.95); }
+    }
+    .loading-text {
+      margin-top: 16px;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .risk-level {
+        font-size: 2rem;
+      }
+      .risk-level-label {
+        font-size: 1.2rem;
+      }
+      .btn-analyze {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="cases.html" class="nav-link">真实案例</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="scam-checker-hero">
+      <div class="container">
+        <h1>🛡️ AI骗局识别工具</h1>
+        <p>输入项目描述，AI智能识别风险等级，保护你的钱袋子</p>
+      </div>
+    </section>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="checker-container">
+          <!-- 输入区域 -->
+          <div class="input-section">
+            <h3><span class="icon">📝</span> 输入项目描述</h3>
+            <p class="input-hint">粘贴你想了解的项目宣传内容、招募文案或合作描述，AI将自动分析风险</p>
+            <textarea id="project-input" class="project-input" placeholder="例如：
+某平台招募兼职，日薪500-800元，无需经验，时间自由。
+只需交500元保证金，每天动动手指就能赚钱！
+承诺保本，稳赚不赔！"></textarea>
+            
+            <div class="input-actions">
+              <button class="btn-analyze" onclick="analyzeProject()">
+                <span>🔍</span>
+                <span id="analyze-btn-text">开始分析</span>
+              </button>
+              <button class="btn-reset" onclick="resetChecker()">
+                <span>🔄</span> 清空重写
+              </button>
+            </div>
+
+            <div class="example-box">
+              <h4>💡 示例描述（点击可填入）：</h4>
+              <div class="example-tags">
+                <span class="example-tag" onclick="fillExample(1)">刷单兼职</span>
+                <span class="example-tag" onclick="fillExample(2)">配音培训</span>
+                <span class="example-tag" onclick="fillExample(3)">投资理财</span>
+                <span class="example-tag" onclick="fillExample(4)">代理加盟</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 结果区域 -->
+          <div class="result-section" id="result-section">
+            <!-- 风险等级 -->
+            <div class="risk-level-card" id="risk-level-card">
+              <div class="risk-level" id="risk-icon">⏳</div>
+              <div class="risk-level-label" id="risk-label">分析中...</div>
+              <div class="risk-score" id="risk-score">
+                <span>⚠️</span>
+                <span>风险评分：-</span>
+              </div>
+            </div>
+
+            <!-- 关键词检测 -->
+            <div class="keywords-detected" id="keywords-section">
+              <h3><span>🔎</span> 关键词检测结果</h3>
+              <div id="keywords-content"></div>
+            </div>
+
+            <!-- 风险分析 -->
+            <div class="analysis-section" id="analysis-section">
+              <h3><span>📊</span> 风险分析</h3>
+              <ul class="analysis-list" id="analysis-list"></ul>
+            </div>
+
+            <!-- 建议 -->
+            <div class="advice-section" id="advice-section">
+              <h3><span>💡</span> 安全建议</h3>
+              <ul class="advice-list" id="advice-list"></ul>
+            </div>
+
+            <!-- 类似骗局 -->
+            <div class="similar-scams" id="similar-scams-section">
+              <h3><span>⚠️</span> 类似骗局案例</h3>
+              <div id="similar-scams-list"></div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="cta-section">
+              <h3>想找靠谱副业？</h3>
+              <p>我们帮你筛选了60+正规平台，可以先看看</p>
+              <div class="cta-buttons">
+                <a href="platforms.html" class="btn-white">📂 查看正规平台</a>
+                <a href="match.html" class="btn-outline-white">🎯 智能匹配</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 快速指南 -->
+          <div class="quick-tips">
+            <h3><span>📚</span> 快速识别骗局指南</h3>
+            <div class="tips-grid">
+              <div class="tip-card">
+                <div class="icon">💰</div>
+                <h4>要你先交钱</h4>
+                <p>保证金、押金、培训费等都是骗子常用手段</p>
+              </div>
+              <div class="tip-card">
+                <div class="icon">📈</div>
+                <h4>承诺高回报</h4>
+                <p>日赚500、月入过万，听起来太好往往是陷阱</p>
+              </div>
+              <div class="tip-card">
+                <div class="icon">🛡️</div>
+                <h4>声称零风险</h4>
+                <p>任何投资都有风险，零风险承诺100%是骗局</p>
+              </div>
+              <div class="tip-card">
+                <div class="icon">⏰</div>
+                <h4>催促你行动</h4>
+                <p>限时优惠、名额有限，逼你冲动做决定</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+              <li><a href="disclaimer.html">免责声明</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner">
+          <strong>⚠️ 免责声明：</strong>AI识别结果仅供参考，请结合实际情况判断。如已上当受骗，请及时报警。
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 副业发现平台 · <strong style="color:var(--primary-color);">全部功能免费开放</strong></p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner">
+      <div class="icon">🛡️</div>
+      <div class="loading-text">AI正在分析中...</div>
+    </div>
+  </div>
+
+  <script src="js/scam-checker.js"></script>
+  <script src="js/ai-assistant.js"></script>
+  <script src="js/analytics.js"></script>
+</body>
+</html>

@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>副业智能匹配测试 - 3分钟找到适合你的副业</title>
-  <meta name="description" content="回答7个问题，智能匹配最适合你的副业方向和平台。免费测试，即时出结果。">
-  <meta name="keywords" content="副业测试,副业匹配,副业推荐,适合我的副业,智能匹配">
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Open Graph -->
-  <meta property="og:title" content="副业智能匹配测试 - 3分钟找到适合你的副业">
-  <meta property="og:description" content="回答7个问题，智能匹配最适合你的副业方向和平台。免费测试，即时出结果。">
+  <title>副业智能匹配测试 - 3分钟找到适合你的副业 | 副业发现平台</title>
+  <meta name="description" content="回答7个问题，智能匹配最适合你的副业方向和平台推荐。根据你的时间、技能、预期收入精准推荐，完全免费，即时出结果。">
+  <meta name="keywords" content="副业测试,副业匹配,副业推荐,适合我的副业,智能匹配,副业测评">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/match.html">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fuyep.com/match.html">
-  <meta property="og:image" content="https://fuyep.com/images/match-og.png">
+  <meta property="og:url" content="https://fuyep.top/match.html">
+  <meta property="og:title" content="副业智能匹配测试 - 3分钟找到适合你的副业">
+  <meta property="og:description" content="回答7个问题，智能匹配最适合你的副业方向和平台推荐。">
+  <meta property="og:image" content="https://fuyep.top/images/og-match.png">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "副业智能匹配测试",
+    "description": "通过7个问题智能匹配最适合用户的副业方向",
+    "url": "https://fuyep.top/match.html"
+  }
+  </script>
   <style>
     .previous-result-banner {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -58,6 +72,7 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link active">测一测</a>
           <a href="cases.html" class="nav-link">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
@@ -287,6 +302,7 @@
     
     function switchMatchTab(tab) {
       currentTab = tab;
+      window.currentMatchTab = tab; // 同步更新到全局变量
       
       // 更新Tab状态
       document.querySelectorAll('.match-tab').forEach(t => {

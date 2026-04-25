@@ -10,6 +10,9 @@ let userAnswers = {};
 let alternativePlatforms = []; // 备选平台列表
 let recommendedPlatformsList = []; // 当前推荐列表
 
+// 当前Tab状态（供外部修改）
+window.currentMatchTab = 'fuye';
+
 // ==================== 初始化 ====================
 async function initMatch() {
   try {
@@ -19,10 +22,21 @@ async function initMatch() {
     ]);
     
     matchingRules = await rulesRes.json();
-    platformsData = await platformsRes.json();
+    
+    // 解析平台数据（字典结构转数组）
+    const platformsDict = await platformsRes.json();
+    platformsData = [];
+    const categories = ['大厂平台', '技能平台', '内容平台'];
+    categories.forEach(cat => {
+      if (platformsDict[cat] && Array.isArray(platformsDict[cat])) {
+        platformsData = platformsData.concat(platformsDict[cat]);
+      }
+    });
+    
+    console.log('匹配数据加载成功: 平台', platformsData.length, '个');
     
     // 只有在副业Tab时才渲染问卷
-    if (currentTab === 'fuye') {
+    if (window.currentMatchTab === 'fuye') {
       renderQuestion();
     }
   } catch (error) {
@@ -252,7 +266,7 @@ function filterActivePlatforms(platforms) {
   return platforms.filter(p => !inactivePlatforms.includes(p.平台名称));
 }
 
-// 计算匹配结果
+// 计算匹配结果（增强版）
 function calculateMatch() {
   const rules = matchingRules?.匹配规则 || {};
   const profiles = matchingRules?.用户画像分类 || {};
@@ -549,10 +563,10 @@ function getHowToStart(platform) {
   return steps.length > 0 ? steps.join('<br>') : '请前往平台官网了解具体流程';
 }
 
-// 显示结果
+// 显示结果（增强版）
 function showResult() {
   const container = document.getElementById('quiz-container');
-  const { platformDetails, reason, expectedIncome, warnings } = calculateMatch();
+  const { platformDetails, reason, expectedIncome, warnings, directionConfidence } = calculateMatch();
   
   // 构建警告HTML
   const warningsHtml = warnings && warnings.length > 0 ? `
@@ -562,68 +576,103 @@ function showResult() {
     </div>
   ` : '';
   
-  // 构建平台卡片HTML
-  const platformsHtml = platformDetails.map(p => `
-    <div class="result-platform-card" data-platform="${p.name}">
-      <div class="platform-card-header">
-        <div class="platform-name-wrap">
-          <h4 class="platform-name-text">${p.name}</h4>
-          <span class="status-badge status-${p.status}">${p.statusLabel}</span>
-        </div>
-        <div class="match-score">
-          <span class="score-label">匹配度</span>
-          <span class="score-value">${p.matchScore}%</span>
+  // 构建匹配置信度展示
+  const confidenceHtml = directionConfidence ? `
+    <div class="confidence-section">
+      <div class="confidence-header">
+        <h3>📊 综合匹配置信度</h3>
+        <div class="confidence-badge confidence-${directionConfidence.level}">
+          ${directionConfidence.confidence}%
         </div>
       </div>
-      
-      <div class="platform-card-meta">
-        <span class="meta-tag">${p.type}</span>
-        <span class="meta-tag">${p.difficulty}</span>
-        <span class="meta-tag trust-${p.dataCredibility.toLowerCase()}">可信度${p.dataCredibility}</span>
+      <div class="confidence-bar">
+        <div class="confidence-fill confidence-fill-${directionConfidence.level}" style="width: ${directionConfidence.confidence}%"></div>
       </div>
-      
-      <div class="platform-card-income">
-        <span class="income-label">收入范围</span>
-        <span class="income-value">${p.income}</span>
-      </div>
-      
-      ${p.matchReason ? `
-      <div class="platform-card-reason">
-        <span class="reason-icon">💡</span>
-        <span>${p.matchReason}</span>
-      </div>
-      ` : ''}
-      
-      ${p.pros.length > 0 ? `
-      <div class="platform-card-pros">
-        <span class="pros-icon">✨</span>
-        <div class="pros-list">${p.pros.map(pro => `<span class="pro-tag">${pro}</span>`).join('')}</div>
-      </div>
-      ` : ''}
-      
-      ${p.cons.length > 0 ? `
-      <div class="platform-card-cons">
-        <span class="cons-icon">⚠️</span>
-        <div class="cons-list">${p.cons.map(con => `<span class="con-tag">${con}</span>`).join('')}</div>
-      </div>
-      ` : ''}
-      
-      <div class="platform-card-howto">
-        <div class="howto-header" onclick="toggleHowTo(this)">
-          <span>🚀 怎么开始</span>
-          <span class="howto-arrow">▼</span>
-        </div>
-        <div class="howto-content">
-          <p>${p.howToStart}</p>
-        </div>
-      </div>
-      
-      <div class="platform-card-actions">
-        <button class="btn btn-sm btn-outline" onclick="showAlternative()">换一个</button>
-        <a href="${p.url}" target="_blank" class="btn btn-sm btn-primary">快速开始 →</a>
+      <div class="confidence-desc">
+        <span class="confidence-level-text">${getConfidenceText(directionConfidence.level)}</span>
       </div>
     </div>
-  `).join('');
+  ` : '';
+  
+  // 构建适合/不适合原因
+  const reasonsHtml = directionConfidence && (directionConfidence.fitReasons.length > 0 || directionConfidence.unfitReasons.length > 0) ? `
+    <div class="match-reasons-section">
+      ${directionConfidence.fitReasons.length > 0 ? `
+        <div class="fit-reasons">
+          <h4>✅ 适合你的原因</h4>
+          <ul>
+            ${directionConfidence.fitReasons.map(r => `<li>${r}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      ${directionConfidence.unfitReasons.length > 0 ? `
+        <div class="unfit-reasons">
+          <h4>⚠️ 需要注意</h4>
+          <ul>
+            ${directionConfidence.unfitReasons.map(r => `<li>${r}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+    </div>
+  ` : '';
+  
+  // 构建主推荐平台HTML
+  const mainPlatform = platformDetails[0];
+  const mainPlatformHtml = mainPlatform ? `
+    <div class="main-recommendation">
+      <div class="main-rec-header">
+        <div class="main-rec-badge">
+          <span class="badge-icon">🎯</span>
+          <span class="badge-text">主推荐</span>
+        </div>
+        <div class="main-rec-confidence">
+          <span class="conf-label">匹配度</span>
+          <span class="conf-value">${mainPlatform.matchScore}%</span>
+        </div>
+      </div>
+      <div class="main-rec-platform">
+        <h3>${mainPlatform.name}</h3>
+        <div class="platform-tags">
+          <span class="tag type-tag">${mainPlatform.type}</span>
+          <span class="tag difficulty-tag">${mainPlatform.difficulty}</span>
+          <span class="tag status-${mainPlatform.status}">${mainPlatform.statusLabel}</span>
+        </div>
+      </div>
+      <div class="main-rec-income">
+        <span class="income-label">预期月收入</span>
+        <span class="income-value">${mainPlatform.income}</span>
+      </div>
+      ${mainPlatform.matchReason ? `
+      <div class="main-rec-reason">
+        <span class="reason-icon">💡</span>
+        <span>${mainPlatform.matchReason}</span>
+      </div>
+      ` : ''}
+    </div>
+  ` : '';
+  
+  // 构建其他推荐平台
+  const otherPlatforms = platformDetails.slice(1);
+  const otherPlatformsHtml = otherPlatforms.length > 0 ? `
+    <div class="other-recommendations">
+      <h4>📋 其他推荐</h4>
+      <div class="other-platforms-grid">
+        ${otherPlatforms.map(p => `
+          <div class="other-platform-card">
+            <div class="other-platform-header">
+              <span class="other-platform-name">${p.name}</span>
+              <span class="other-platform-score">${p.matchScore}%</span>
+            </div>
+            <div class="other-platform-meta">
+              <span>${p.type}</span>
+              <span>${p.income}</span>
+            </div>
+            ${p.matchReason ? `<div class="other-platform-reason">${p.matchReason}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
   
   container.innerHTML = `
     <div class="result-container fade-in">
@@ -824,6 +873,113 @@ function updateCalcResult() {
   document.getElementById('calc-daily').textContent = `${dailyMin}-${dailyMax}元`;
   document.getElementById('calc-weekly').textContent = `${weeklyMin}-${weeklyMax}元`;
   document.getElementById('calc-monthly').textContent = `${monthlyMin}-${monthlyMax}元`;
+}
+
+// ==================== 匹配置信度计算（增强版） ====================
+
+/**
+ * 计算综合匹配置信度
+ */
+function calculateMatchConfidence(profile, direction) {
+  let confidence = 0;
+  let fitReasons = [];
+  let unfitReasons = [];
+  
+  // 时间匹配度 (0-25分)
+  const timeScores = {
+    '碎片时间': { '灵活/碎片': 25, '整块': 10, '全职': 5 },
+    '整块时间': { '整块/固定': 25, '灵活/碎片': 15, '全职': 20 },
+    '全职投入': { '全职': 25, '整块': 20, '灵活/碎片': 10 }
+  };
+  
+  const timeMatch = timeScores[profile.timeTag]?.[direction.timeMatch] || 10;
+  confidence += timeMatch;
+  if (timeMatch >= 20) {
+    fitReasons.push(`✅ 时间投入匹配度高（${profile.timeTag} + ${direction.timeMatch}）`);
+  } else if (timeMatch < 10) {
+    unfitReasons.push(`❌ 时间投入不匹配：你有时间${profile.timeTag}，但该方向需要${direction.timeMatch}`);
+  }
+  
+  // 技能匹配度 (0-30分)
+  const skillScores = {
+    '无技能': { '无要求': 30, '技能型': 5 },
+    '写作技能': { '写作/文案': 30, '技能型': 15, '无要求': 10 },
+    '设计技能': { '设计/美工': 30, '技能型': 20, '无要求': 10 },
+    '技术技能': { '技术/编程': 30, '技能型': 25, '无要求': 10 },
+    '视频技能': { '视频/剪辑': 30, '技能型': 20, '无要求': 10 },
+    '其他技能': { '技能型': 25, '无要求': 15 }
+  };
+  
+  const skillMatch = skillScores[profile.skillTag]?.[direction.skillMatch] || 10;
+  confidence += skillMatch;
+  if (skillMatch >= 25) {
+    fitReasons.push(`✅ 技能完美匹配：${profile.skillTag} + ${direction.skillMatch}`);
+  } else if (skillMatch < 15 && profile.skillTag !== '无技能') {
+    unfitReasons.push(`❌ 技能不匹配：你有${profile.skillTag}，但该方向需要${direction.skillMatch}`);
+  }
+  
+  // 收入预期匹配 (0-15分)
+  const incomeScores = {
+    '低收入预期': { '低': 15, '中': 12, '高': 5 },
+    '中等收入预期': { '中': 15, '低': 10, '高': 10 },
+    '较高收入预期': { '高': 15, '中': 12, '需要积累': 10 },
+    '高收入预期': { '高': 15, '需要积累': 12, '中': 8 }
+  };
+  
+  const incomeMatch = incomeScores[profile.incomeTag]?.[direction.incomeLevel] || 8;
+  confidence += incomeMatch;
+  if (incomeMatch >= 12) {
+    fitReasons.push(`✅ 收入预期匹配：${profile.incomeTag}`);
+  } else if (incomeMatch < 8) {
+    unfitReasons.push(`⚠️ 收入预期可能不符：该方向${direction.incomeNote || '收入增长需要时间'}`);
+  }
+  
+  // 发展倾向匹配 (0-15分)
+  const focusScores = {
+    '短期收益': { '短期变现': 15, '灵活': 12, '长期积累': 5 },
+    '长期发展': { '长期积累': 15, '灵活': 10, '短期变现': 5 },
+    '平衡': { '灵活': 15, '短期变现': 10, '长期积累': 10 }
+  };
+  
+  const focusMatch = focusScores[profile.focusTag]?.[direction.developModel] || 10;
+  confidence += focusMatch;
+  if (focusMatch >= 12) {
+    fitReasons.push(`✅ 发展模式契合：${profile.focusTag}`);
+  }
+  
+  // 设备匹配 (0-15分)
+  const deviceScores = {
+    '手机用户': { '手机': 15, '通用': 12, '电脑': 5 },
+    '电脑用户': { '电脑': 15, '通用': 12, '手机': 8 },
+    '专业设备用户': { '专业设备': 15, '电脑': 12, '手机': 8 }
+  };
+  
+  const deviceMatch = deviceScores[profile.deviceTag]?.[direction.deviceReq] || 8;
+  confidence += deviceMatch;
+  if (deviceMatch >= 12) {
+    fitReasons.push(`✅ 设备条件满足：${profile.deviceTag}`);
+  } else if (deviceMatch < 8) {
+    unfitReasons.push(`❌ 设备不足：你只有${profile.deviceTag}，该方向需要${direction.deviceReq}`);
+  }
+  
+  // 限制分数范围
+  confidence = Math.min(100, Math.max(0, confidence));
+  
+  // 添加特殊条件分析
+  if (profile.outdoorTag === '室内优先' && direction.outdoor) {
+    unfitReasons.push(`❌ 不适合室内用户：该方向需要${direction.outdoor}`);
+  }
+  
+  if ((profile.englishTag === '英语弱' || profile.englishTag === '英语一般') && direction.englishRequired) {
+    unfitReasons.push(`⚠️ 英语要求较高：你英语水平${profile.englishTag}，可能影响收入`);
+  }
+  
+  return {
+    confidence,
+    level: confidence >= 85 ? 'excellent' : confidence >= 70 ? 'good' : confidence >= 50 ? 'fair' : 'poor',
+    fitReasons,
+    unfitReasons
+  };
 }
 
 // 重置测试

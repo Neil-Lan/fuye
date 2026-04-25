@@ -3,9 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>真实案例 - 副业发现平台</title>
-  <meta name="description" content="1050+真实案例，包含副业经验、创业故事、失败教训、维权经历，帮你避坑少走弯路">
-  <meta name="keywords" content="副业案例,真实案例,副业经验,副业避坑">
+  <title>真实案例 - 副业/创业/失败案例大全 | 副业发现平台</title>
+  <meta name="description" content="1150+真实案例，包含副业经验、创业故事、100个失败教训、维权经历，帮你避坑少走弯路。涵盖电商、自媒体、技能变现等多种副业类型。">
+  <meta name="keywords" content="副业案例,真实案例,副业经验,副业避坑,创业失败案例,失败教训,副业故事">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/cases.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/cases.html">
+  <meta property="og:title" content="真实案例 - 副业/创业/失败案例大全">
+  <meta property="og:description" content="1150+真实案例，包含副业经验、创业故事、100个失败教训，帮你避坑">
+  <meta property="og:image" content="https://fuyep.top/images/og-cases.png">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .cases-filter {
@@ -143,7 +154,211 @@
       text-align: center;
       margin-top: 24px;
     }
+    
+    /* 高级筛选器样式 */
+    .advanced-filters {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .filter-section {
+      margin-bottom: 16px;
+    }
+    .filter-section:last-child {
+      margin-bottom: 0;
+    }
+    .filter-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-chip {
+      padding: 6px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      background: #f9fafb;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    .filter-chip.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    .filter-divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 16px 0;
+    }
+    .filter-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: #eff6ff;
+      border-radius: 8px;
+      margin-top: 16px;
+    }
+    .filter-result-count {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    .clear-filters {
+      font-size: 0.85rem;
+      color: #6b7280;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .clear-filters:hover {
+      color: var(--primary-color);
+    }
+    
+    /* 案例详情弹窗样式 */
+    .case-detail-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .case-detail-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .case-detail-content {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .case-detail-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: #f3f4f6;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .case-detail-close:hover {
+      background: #e5e7eb;
+    }
+    .case-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .case-detail-content h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.2rem;
+    }
+    .case-profile-detail {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin: 0 0 16px 0;
+    }
+    .case-stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .case-stat-item {
+      flex: 1;
+      min-width: 100px;
+      background: #f9fafb;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .case-stat-item .stat-label {
+      display: block;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .case-stat-item .stat-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .case-experience-full {
+      background: #f9fafb;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .case-experience-full h4 {
+      margin: 0 0 8px 0;
+      font-size: 0.95rem;
+    }
+    .case-experience-full p {
+      margin: 0;
+      line-height: 1.7;
+      color: #374151;
+    }
+    
+    @media (max-width: 768px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-options {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 8px;
+      }
+      .filter-chip {
+        white-space: nowrap;
+      }
+    }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "真实案例 - 副业/创业/失败案例大全",
+    "description": "1150+真实案例，包含副业经验、创业故事、100个失败教训、维权经历，帮你避坑少走弯路。",
+    "url": "https://fuyep.top/cases.html",
+    "inLanguage": "zh-CN",
+    "dateModified": "2026-04-24"
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrapper">
@@ -155,6 +370,7 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
           <a href="cases.html" class="nav-link active">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
@@ -165,29 +381,81 @@
     <header class="page-header">
       <div class="container">
         <h1>📊 真实案例库</h1>
-        <p>1050+真实案例，包含成功经验、失败教训、维权经历</p>
+        <p>1050+真实案例，包含成功经验、失败教训、维权经历 · 支持多维度筛选</p>
       </div>
     </header>
 
     <main class="main-content">
       <div class="container">
         <!-- 统计数据 -->
-        <div class="cases-stats" id="cases-stats"></div>
+        <div class="cases-stats" id="cases-stats">
+          <div class="stat-card">
+            <div class="num">-</div>
+            <div class="label">加载中...</div>
+          </div>
+        </div>
         
         <!-- 类型筛选 -->
         <div class="cases-filter">
-          <button class="filter-btn active" data-type="all">全部案例</button>
-          <button class="filter-btn" data-type="task">📋 任务型</button>
-          <button class="filter-btn" data-type="delivery">🛵 配送型</button>
-          <button class="filter-btn" data-type="design">🎨 设计类</button>
-          <button class="filter-btn" data-type="tech">💻 技术类</button>
-          <button class="filter-btn" data-type="writing">✍️ 写作类</button>
-          <button class="filter-btn" data-type="video">🎬 视频/直播</button>
-          <button class="filter-btn" data-type="ecommerce">🛒 电商类</button>
-          <button class="filter-btn" data-type="startup">🚀 创业成功</button>
-          <button class="filter-btn" data-type="startup_failed">💔 创业失败</button>
-          <button class="filter-btn" data-type="failed">⚠️ 失败被骗</button>
-          <button class="filter-btn" data-type="complaint">📢 投诉维权</button>
+          <button class="filter-btn active" data-filter-type="all" data-type="all">全部案例</button>
+          <button class="filter-btn" data-filter-type="task" data-type="task">📋 任务型</button>
+          <button class="filter-btn" data-filter-type="delivery" data-type="delivery">🛵 配送型</button>
+          <button class="filter-btn" data-filter-type="design" data-type="design">🎨 设计类</button>
+          <button class="filter-btn" data-filter-type="tech" data-type="tech">💻 技术类</button>
+          <button class="filter-btn" data-filter-type="writing" data-type="writing">✍️ 写作类</button>
+          <button class="filter-btn" data-filter-type="video" data-type="video">🎬 视频/直播</button>
+          <button class="filter-btn" data-filter-type="ecommerce" data-type="ecommerce">🛒 电商类</button>
+          <button class="filter-btn" data-filter-type="startup" data-type="startup">🚀 创业成功</button>
+          <button class="filter-btn" data-filter-type="startup_failed" data-type="startup_failed">💔 创业失败</button>
+          <button class="filter-btn" data-filter-type="failed" data-type="failed">⚠️ 失败被骗</button>
+          <button class="filter-btn" data-filter-type="complaint" data-type="complaint">📢 投诉维权</button>
+        </div>
+        
+        <!-- 高级筛选器 -->
+        <div class="advanced-filters">
+          <!-- 收入区间筛选 -->
+          <div class="filter-section">
+            <div class="filter-title">💰 收入区间</div>
+            <div class="filter-options">
+              <span class="filter-chip active" data-filter-income="all">&lt;1000元</span>
+              <span class="filter-chip" data-filter-income="income_0_1000">1000-3000元</span>
+              <span class="filter-chip" data-filter-income="income_3000_5000">3000-5000元</span>
+              <span class="filter-chip" data-filter-income="income_5000_10000">5000-10000元</span>
+              <span class="filter-chip" data-filter-income="income_10000_plus">10000+元</span>
+            </div>
+          </div>
+          
+          <div class="filter-divider"></div>
+          
+          <!-- 时间投入筛选 -->
+          <div class="filter-section">
+            <div class="filter-title">⏰ 时间投入</div>
+            <div class="filter-options">
+              <span class="filter-chip active" data-filter-time="all">全部</span>
+              <span class="filter-chip" data-filter-time="parttime">兼职(&lt;4小时/天)</span>
+              <span class="filter-chip" data-filter-time="halftime">半职(4-8小时/天)</span>
+              <span class="filter-chip" data-filter-time="fulltime">全职(&gt;8小时/天)</span>
+            </div>
+          </div>
+          
+          <div class="filter-divider"></div>
+          
+          <!-- 技能门槛筛选 -->
+          <div class="filter-section">
+            <div class="filter-title">🎯 技能门槛</div>
+            <div class="filter-options">
+              <span class="filter-chip active" data-filter-skill="all">全部</span>
+              <span class="filter-chip" data-filter-skill="none">🏅 无门槛</span>
+              <span class="filter-chip" data-filter-skill="basic">📚 入门级</span>
+              <span class="filter-chip" data-filter-skill="professional">💎 专业级</span>
+            </div>
+          </div>
+          
+          <!-- 筛选结果摘要 -->
+          <div class="filter-summary">
+            <span class="filter-result-count" id="filter-result-count">共找到 0 个案例</span>
+            <span class="clear-filters" onclick="clearAllFilters()">清除所有筛选</span>
+          </div>
         </div>
         
         <!-- 案例列表 -->
@@ -208,13 +476,14 @@
     let currentType = 'all';
     let currentPage = 1;
     const pageSize = 20;
+    let totalFiltered = 0;
     
     // 初始化
     async function init() {
       await CasesManager.loadAllCases();
       renderStats();
-      renderCases();
       bindFilters();
+      renderCases();
     }
     
     // 渲染统计
@@ -233,7 +502,7 @@
         html += `
           <div class="stat-card">
             <div class="num">${data.count}</div>
-            <div class="label">${data.name}</div>
+            <div class="label">${data.icon} ${data.name}</div>
           </div>
         `;
       });
@@ -244,46 +513,120 @@
     // 渲染案例
     function renderCases(append = false) {
       const container = document.getElementById('cases-container');
-      const cases = currentType === 'all' 
-        ? CasesManager.getAllCases() 
-        : CasesManager.getCasesByType(currentType);
+      
+      // 应用筛选
+      CasesManager.currentFilters.type = currentType;
+      const filteredCases = CasesManager.getFilteredCases();
+      totalFiltered = filteredCases.length;
       
       const start = append ? (currentPage - 1) * pageSize : 0;
       const end = currentPage * pageSize;
-      const pageCases = cases.slice(start, end);
+      const pageCases = filteredCases.slice(start, end);
       
       if (!append) {
         container.innerHTML = '';
       }
       
       if (pageCases.length === 0 && !append) {
-        container.innerHTML = '<p class="text-muted">暂无案例数据</p>';
+        container.innerHTML = `
+          <div style="text-align:center;padding:60px 20px;color:#6b7280;">
+            <div style="font-size:48px;margin-bottom:16px;">🔍</div>
+            <h3>暂无符合条件的案例</h3>
+            <p>试试调整筛选条件</p>
+          </div>
+        `;
+        document.getElementById('filter-result-count').textContent = '共找到 0 个案例';
         return;
       }
       
       pageCases.forEach(c => CasesManager.renderCaseCard(c, container));
       
+      // 更新筛选结果数量
+      document.getElementById('filter-result-count').textContent = 
+        `共找到 ${totalFiltered} 个案例${currentType !== 'all' ? ' (已按类型筛选)' : ''}`;
+      
       // 显示/隐藏加载更多按钮
       const loadMoreBtn = document.getElementById('load-more-btn');
-      if (end < cases.length) {
+      if (end < filteredCases.length) {
         loadMoreBtn.style.display = 'inline-block';
       } else {
         loadMoreBtn.style.display = 'none';
       }
     }
     
+    // 清除所有筛选
+    function clearAllFilters() {
+      currentType = 'all';
+      CasesManager.currentFilters = {
+        type: 'all',
+        income: 'all',
+        cost: 'all',
+        time: 'all',
+        skill: 'all',
+        search: ''
+      };
+      currentPage = 1;
+      
+      // 重置UI
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-type="all"]').classList.add('active');
+      
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.filter-chip[data-filter-income="all"]').forEach(c => c.classList.add('active'));
+      document.querySelectorAll('.filter-chip[data-filter-time="all"]').forEach(c => c.classList.add('active'));
+      document.querySelectorAll('.filter-chip[data-filter-skill="all"]').forEach(c => c.classList.add('active'));
+      
+      renderCases();
+    }
+    
     // 绑定筛选
     function bindFilters() {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
+      // 类型筛选
+      document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentType = btn.dataset.type;
+          CasesManager.currentFilters.type = currentType;
           currentPage = 1;
           renderCases();
         });
       });
       
+      // 收入筛选
+      document.querySelectorAll('[data-filter-income]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-income]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          CasesManager.currentFilters.income = chip.dataset.filterIncome;
+          currentPage = 1;
+          renderCases();
+        });
+      });
+      
+      // 时间筛选
+      document.querySelectorAll('[data-filter-time]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-time]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          CasesManager.currentFilters.time = chip.dataset.filterTime;
+          currentPage = 1;
+          renderCases();
+        });
+      });
+      
+      // 技能筛选
+      document.querySelectorAll('[data-filter-skill]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-skill]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          CasesManager.currentFilters.skill = chip.dataset.filterSkill;
+          currentPage = 1;
+          renderCases();
+        });
+      });
+      
+      // 加载更多
       document.getElementById('load-more-btn').addEventListener('click', () => {
         currentPage++;
         renderCases(true);

@@ -3,49 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>搜索结果 - 副业避坑导航</title>
-  <meta name="description" content="搜索副业平台和骗局预警结果">
+  <title>搜索结果 - 副业发现平台</title>
+  <meta name="keywords" content="搜索副业,副业搜索,平台搜索,案例搜索,骗局搜索">
+  <meta name="description" content="搜索副业平台、骗局预警和真实案例，支持多维度筛选和排序">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="canonical" href="https://fuyep.top/search.html">
+  <meta property="og:title" content="搜索副业 - 副业发现平台">
+  <meta property="og:description" content="搜索副业项目、平台和骗局案例，找到适合你的赚钱机会。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <style>
+    .search-page-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .search-hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .search-hero h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .search-hero p {
+      color: var(--text-secondary);
+    }
+    .search-box-large {
+      display: flex;
+      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .search-box-large input {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+    .search-box-large input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    .search-box-large button {
+      padding: 14px 28px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .search-box-large button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    .search-sidebar {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .search-sidebar {
+        grid-template-columns: 1fr;
+      }
+    }
+    .search-sidebar-left {
+      min-width: 0;
+    }
+    .search-sidebar-right {
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+    }
+    .history-card, .hot-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .advanced-filter-bar {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .filter-select {
+      padding: 6px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      background: white;
+      cursor: pointer;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    .section-header {
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #374151;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: all 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .platform-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .platform-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .platform-type {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: #eff6ff;
+      color: var(--primary-color);
+      border-radius: 10px;
+    }
+    .platform-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: #f3f4f6;
+      color: #6b7280;
+      border-radius: 10px;
+    }
+    .platform-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #f3f4f6;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-value {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+    .trust-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .trust-a { background: #dcfce7; color: #16a34a; }
+    .trust-b { background: #fef9c3; color: #ca8a04; }
+    .trust-c { background: #fed7aa; color: #ea580c; }
+    .trust-d, .trust-e, .trust-f { background: #fee2e2; color: #dc2626; }
+    .scam-card {
+      border-left: 3px solid #ef4444;
+    }
+    .scam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .scam-name {
+      font-weight: 600;
+    }
+    .danger-level {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .danger-high { background: #fee2e2; color: #dc2626; }
+    .danger-medium { background: #fed7aa; color: #ea580c; }
+    .danger-low { background: #dcfce7; color: #16a34a; }
+    .scam-stats {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+    .mb-6 { margin-bottom: 24px; }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+    .empty-state h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .text-muted {
+      color: var(--text-secondary);
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+    }
+    .btn-outline {
+      background: white;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+    }
+    .btn-outline:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "搜索副业 - 副业发现平台",
+    "description": "搜索副业项目、平台和骗局案例，找到适合你的赚钱机会。",
+    "url": "https://fuyep.top/search.html"
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrapper">
     <nav class="navbar">
       <div class="navbar-inner">
-        <a href="index.html" class="logo"><span class="logo-icon">🛡️</span><span>副业避坑导航</span></a>
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
         <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
         <div class="nav-links">
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">平台大全</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">副业匹配</a>
           <a href="submit.html" class="nav-link">我要投稿</a>
         </div>
       </div>
     </nav>
 
-    <header class="page-header">
-      <div class="container">
-        <h1>🔍 搜索结果</h1>
-        <p>关键词：<span id="search-query"></span></p>
+    <main class="search-page-container">
+      <!-- 搜索英雄区 -->
+      <div class="search-hero">
+        <h1>🔍 搜索副业</h1>
+        <p>查找平台、骗局预警和真实案例</p>
       </div>
-    </header>
 
-    <main class="main-content">
-      <div class="container">
-        <div class="search-section" style="margin-bottom:24px;">
-          <div class="search-box">
-            <input type="text" id="search-input" class="search-input" placeholder="重新搜索...">
-            <button class="search-btn" onclick="doSearch()">🔍 搜索</button>
+      <!-- 搜索框 -->
+      <div class="search-box-large">
+        <input type="text" id="search-input" placeholder="输入关键词，如"配音"、"刷单"、"设计"..." onkeypress="if(event.key==='Enter')SearchManager.doSearch()">
+        <button onclick="SearchManager.doSearch()">搜索</button>
+      </div>
+
+      <!-- 搜索结果区域 -->
+      <div class="search-sidebar" style="margin-top:32px;">
+        <div class="search-sidebar-left">
+          <!-- 高级筛选 -->
+          <div class="advanced-filter-bar">
+            <div id="advanced-filters">
+              <!-- 由JS渲染 -->
+            </div>
+          </div>
+
+          <!-- 搜索结果 -->
+          <div id="search-results">
+            <div class="empty-state">
+              <div class="empty-icon">🔍</div>
+              <h3>开始搜索</h3>
+              <p class="text-muted">输入关键词查找副业平台、骗局预警或真实案例</p>
+            </div>
+          </div>
+
+          <!-- 返回链接 -->
+          <div style="margin-top:24px;text-align:center;">
+            <a href="platforms.html" class="btn btn-outline">浏览全部平台</a>
+            <a href="scams.html" class="btn btn-outline" style="margin-left:8px;">浏览骗局预警</a>
           </div>
         </div>
 
-        <div id="search-results">
-          <div class="loading">加载中...</div>
-        </div>
+        <!-- 侧边栏 -->
+        <div class="search-sidebar-right">
+          <!-- 搜索历史 -->
+          <div class="history-card" id="search-history">
+            <!-- 由JS渲染 -->
+          </div>
 
-        <div style="margin-top:32px;text-align:center;">
-          <a href="platforms.html" class="btn btn-outline">浏览全部平台</a>
-          <a href="scams.html" class="btn btn-outline" style="margin-left:8px;">浏览骗局预警</a>
+          <!-- 热门搜索 -->
+          <div class="hot-card" id="hot-searches">
+            <!-- 由JS渲染 -->
+          </div>
         </div>
       </div>
     </main>
@@ -63,23 +347,15 @@
             </ul>
           </div>
         </div>
-        <div class="footer-bottom"><p>© 2026 副业避坑导航</p></div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台</p></div>
       </div>
     </footer>
   </div>
+
   <script src="js/search.js"></script>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById('search-input').value = params.get('q') || '';
-    document.getElementById('search-input').addEventListener('keypress', e => {
-      if (e.key === 'Enter') doSearch();
-    });
-    function doSearch() {
-      const q = document.getElementById('search-input').value.trim();
-      if (q) location.href = 'search.html?q=' + encodeURIComponent(q);
-    }
-  </script>
   <!-- 数据统计 -->
   <script src="js/analytics.js"></script>
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>

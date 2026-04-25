@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>运营日报模板 - 副业发现平台</title>
+  <title>每日副业报告 - 副业发现平台</title>
+  <meta name="keywords" content="副业日报,运营日报,副业动态,平台活动,行业趋势,副业赚钱">
+  <meta name="description" content="每日更新副业赚钱最新动态、平台活动和行业趋势，助你把握副业赚钱机会。">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="canonical" href="https://fuyep.top/daily-report.html">
+  <meta property="og:title" content="每日副业报告 - 副业发现平台">
+  <meta property="og:description" content="每日更新副业赚钱最新动态、平台活动和行业趋势，助你把握副业赚钱机会。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
   <style>
     .report-container {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 40px 20px;
     }
@@ -28,168 +35,218 @@
       font-size: 14px;
     }
     
-    .report-form {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-    }
-    
-    .form-section {
+    /* 每日动态展示区 */
+    .daily-insights {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
       margin-bottom: 32px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #f0f0f0;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
     }
-    
-    .form-section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-    
-    .form-section h3 {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 16px;
+    .daily-insights-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      margin-bottom: 20px;
     }
-    
-    .form-row {
+    .daily-insights-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+    .daily-insights-date {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .insights-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
-      margin-bottom: 16px;
+    }
+    .insight-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .insight-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .insight-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      opacity: 0.95;
+      line-height: 1.5;
     }
     
-    .form-group {
-      margin-bottom: 16px;
+    /* 最新动态列表 */
+    .news-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #555;
-      font-size: 14px;
+    .news-section h3 {
+      font-size: 1.1rem;
+      margin: 0 0 16px 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f0f0f0;
     }
-    
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-sizing: border-box;
+    .news-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    .news-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
     }
-    
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
+    .news-item:last-child {
+      border-bottom: none;
     }
-    
-    .form-group small {
-      display: block;
-      margin-top: 4px;
+    .news-tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .news-tag.hot { background: #fef2f2; color: #ef4444; }
+    .news-tag.new { background: #eff6ff; color: #2563eb; }
+    .news-tag.warning { background: #fef3c7; color: #d97706; }
+    .news-tag.trend { background: #f0fdf4; color: #16a34a; }
+    .news-content {
+      flex: 1;
+    }
+    .news-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .news-desc {
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.4;
+    }
+    .news-time {
+      font-size: 0.75rem;
       color: #999;
-      font-size: 12px;
+      white-space: nowrap;
     }
     
-    .number-input {
+    /* 热门副业推荐 */
+    .trending-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .trending-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 4px solid var(--primary-color);
+    }
+    .trending-card h4 {
+      margin: 0 0 8px 0;
+      font-size: 1rem;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    
-    .number-input input {
-      flex: 1;
-    }
-    
-    .number-input span {
+    .trending-card p {
+      margin: 0;
+      font-size: 0.85rem;
       color: #666;
-      font-size: 14px;
+      line-height: 1.5;
+    }
+    .trending-income {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #16a34a;
+      font-weight: 600;
     }
     
-    .btn-group {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 24px;
+    /* 行业数据 */
+    .data-overview {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    
-    .btn {
-      padding: 12px 24px;
+    .data-overview h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.1rem;
+    }
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+    .data-item {
+      text-align: center;
+      padding: 16px;
+      background: #f8fafc;
       border-radius: 8px;
-      border: none;
+    }
+    .data-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    .data-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 4px;
+    }
+    
+    /* 历史报告切换标签 */
+    .report-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .report-tab {
+      padding: 8px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      background: #f9fafb;
+      font-size: 0.85rem;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
       transition: all 0.2s;
     }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
+    .report-tab:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    .report-tab.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
     }
     
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-    
-    .btn-secondary {
-      background: #f5f5f5;
-      color: #666;
-    }
-    
-    .btn-secondary:hover {
-      background: #e8e8e8;
-    }
-    
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #ddd;
-      color: #666;
-    }
-    
-    .btn-outline:hover {
-      border-color: #667eea;
-      color: #667eea;
-    }
-    
+    /* 历史报告列表 */
     .report-history {
-      background: #fff;
-      border-radius: 12px;
+      background: white;
+      border-radius: 16px;
       padding: 24px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    
-    .report-history h2 {
-      font-size: 18px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #f0f0f0;
-    }
-    
     .history-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    
     .history-item {
       padding: 16px;
       background: #f9f9f9;
@@ -199,143 +256,80 @@
       transition: all 0.2s;
       border-left: 4px solid transparent;
     }
-    
     .history-item:hover {
       background: #f0f0f0;
       border-left-color: #667eea;
     }
-    
     .history-item-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
     }
-    
     .history-date {
       font-weight: 600;
       color: #333;
     }
-    
     .history-type {
-      font-size: 12px;
+      font-size: 0.8rem;
       padding: 2px 8px;
       border-radius: 4px;
       background: #e6f7ff;
       color: #1890ff;
     }
-    
-    .history-type.weekly {
-      background: #fff7e6;
-      color: #fa8c16;
-    }
-    
-    .history-summary {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-    }
-    
-    .history-stats {
-      display: flex;
-      gap: 16px;
-      margin-top: 8px;
-      font-size: 12px;
-      color: #999;
-    }
-    
-    .history-stats span {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .history-type.weekly { background: #fff7e6; color: #fa8c16; }
+    .history-summary { font-size: 0.85rem; color: #666; }
     
     .empty-history {
       text-align: center;
       padding: 40px;
       color: #999;
     }
+    .empty-history-icon { font-size: 48px; margin-bottom: 12px; }
     
-    .empty-history-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-      opacity: 0.5;
+    /* 日报表单样式 */
+    .report-form {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
     }
-    
+    .form-section {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .form-section h3 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: #555; font-size: 0.9rem; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; box-sizing: border-box;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .form-group small { display: block; margin-top: 4px; color: #999; font-size: 0.75rem; }
+    .btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); }
+    .btn-secondary { background: #f5f5f5; color: #666; }
+    .btn-outline { background: transparent; border: 1px solid #ddd; color: #666; }
+    .btn-group { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
     .report-preview {
-      margin-top: 24px;
-      padding: 20px;
-      background: #fafafa;
-      border-radius: 8px;
-      border: 1px dashed #ddd;
-      display: none;
+      margin-top: 16px; padding: 16px; background: #fafafa; border-radius: 8px; border: 1px dashed #ddd; display: none;
     }
-    
-    .report-preview.show {
-      display: block;
-    }
-    
-    .report-preview h4 {
-      font-size: 14px;
-      color: #667eea;
-      margin-bottom: 12px;
-    }
-    
-    .report-preview pre {
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      font-size: 13px;
-      color: #333;
-      line-height: 1.6;
-      background: #fff;
-      padding: 16px;
-      border-radius: 6px;
-      border: 1px solid #eee;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    
-    .quick-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    
-    .quick-stat {
-      background: #f5f5f5;
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-    }
-    
-    .quick-stat-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: #667eea;
-    }
-    
-    .quick-stat-label {
-      font-size: 12px;
-      color: #999;
-    }
+    .report-preview.show { display: block; }
+    .report-preview pre { white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; color: #333; line-height: 1.6; background: #fff; padding: 12px; border-radius: 6px; }
     
     @media (max-width: 768px) {
-      .report-form {
-        padding: 20px;
-      }
-      
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-      
-      .btn-group {
-        flex-direction: column;
-      }
-      
-      .btn {
-        width: 100%;
-      }
+      .report-container { padding: 20px 16px; }
+      .report-form { padding: 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .btn-group { flex-direction: column; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
@@ -349,10 +343,10 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
+          <a href="cases.html" class="nav-link">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
-          <a href="stats.html" class="nav-link">📊 数据</a>
-          <a href="daily-report.html" class="nav-link active">📝 日报</a>
         </div>
       </div>
     </nav>
@@ -360,8 +354,144 @@
     <main class="report-container">
       <!-- 头部 -->
       <div class="report-header">
-        <h1>📝 运营日报模板</h1>
-        <p>记录每日运营数据，追踪平台发展情况 · 数据保存在本地</p>
+        <h1>📝 每日副业日报</h1>
+        <p>每日更新副业赚钱最新动态、平台活动和行业趋势 · 最后更新：<span id="update-time">加载中...</span></p>
+      </div>
+
+      <!-- 每日动态展示 -->
+      <div class="daily-insights" id="daily-insights">
+        <div class="daily-insights-header">
+          <h2>📰 今日速览</h2>
+          <span class="daily-insights-date" id="today-date"></span>
+        </div>
+        <div class="insights-grid">
+          <div class="insight-card">
+            <h4>🔥 热门机会</h4>
+            <p id="insight-hot">AI数据标注需求增长，适合新手入门...</p>
+          </div>
+          <div class="insight-card">
+            <h4>⚠️ 预警提示</h4>
+            <p id="insight-warning">配音培训骗局仍活跃，请勿轻信高价承诺...</p>
+          </div>
+          <div class="insight-card">
+            <h4>📈 行业趋势</h4>
+            <p id="insight-trend">短视频带货持续火热，平台流量扶持加大...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 行业数据概览 -->
+      <div class="data-overview">
+        <h3>📊 行业数据速览</h3>
+        <div class="data-grid">
+          <div class="data-item">
+            <div class="data-value" id="data-platforms">50+</div>
+            <div class="data-label">收录平台</div>
+          </div>
+          <div class="data-item">
+            <div class="data-value" id="data-cases">1000+</div>
+            <div class="data-label">真实案例</div>
+          </div>
+          <div class="data-item">
+            <div class="data-value" id="data-scams">60+</div>
+            <div class="data-label">骗局预警</div>
+          </div>
+          <div class="data-item">
+            <div class="data-value" id="data-updates">12</div>
+            <div class="data-label">本周更新</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 最新动态 -->
+      <div class="news-section">
+        <h3>📢 最新动态</h3>
+        <ul class="news-list" id="news-list">
+          <li class="news-item">
+            <span class="news-tag new">新上线</span>
+            <div class="news-content">
+              <div class="news-title">平台入驻指南全面更新</div>
+              <div class="news-desc">新增闲鱼、美团众包、滴滴代驾等20个热门平台详细入驻教程</div>
+            </div>
+            <span class="news-time">今日</span>
+          </li>
+          <li class="news-item">
+            <span class="news-tag warning">预警</span>
+            <div class="news-content">
+              <div class="news-title">AI换脸诈骗案件频发</div>
+              <div class="news-desc">本周已发生多起通过AI换脸冒充熟人诈骗的案件，最高涉案金额达286万元</div>
+            </div>
+            <span class="news-time">今日</span>
+          </li>
+          <li class="news-item">
+            <span class="news-tag hot">热门</span>
+            <div class="news-content">
+              <div class="news-title">短视频带货仍是最佳副业选择</div>
+              <div class="news-desc">抖音、快手、小红书三大平台持续释放流量红利，新手友好度高</div>
+            </div>
+            <span class="news-time">2天前</span>
+          </li>
+          <li class="news-item">
+            <span class="news-tag trend">趋势</span>
+            <div class="news-content">
+              <div class="news-title">技能服务平台需求上涨</div>
+              <div class="news-desc">猪八戒网、一品威客等平台设计、开发类需求增加，单价有所提升</div>
+            </div>
+            <span class="news-time">3天前</span>
+          </li>
+          <li class="news-item">
+            <span class="news-tag new">新骗局</span>
+            <div class="news-content">
+              <div class="news-title">跨境电商代运营骗局抬头</div>
+              <div class="news-desc">骗子以\"亚马逊代运营\"\"Shopee招商\"为名收取高额费用后消失</div>
+            </div>
+            <span class="news-time">3天前</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 热门副业推荐 -->
+      <div class="trending-section">
+        <div class="trending-card">
+          <h4>🎬 短视频带货</h4>
+          <p>抖音、快手、小红书三大平台流量红利期，零粉也能带货，适合有表现力的用户</p>
+          <div class="trending-income">预计月入：500-50000元</div>
+        </div>
+        <div class="trending-card">
+          <h4>📋 任务型副业</h4>
+          <p>腾讯搜活帮、美团众包等平台，零门槛、碎片时间可做，适合新手入门</p>
+          <div class="trending-income">预计月入：300-3000元</div>
+        </div>
+        <div class="trending-card">
+          <h4>💻 技术外包</h4>
+          <p>程序员客栈、猪八戒网等平台，适合有技术背景的用户，单价较高</p>
+          <div class="trending-income">预计月入：3000-30000元</div>
+        </div>
+      </div>
+
+      <!-- 报告历史标签 -->
+      <div class="report-tabs">
+        <span class="report-tab active" data-type="all">全部报告</span>
+        <span class="report-tab" data-type="daily">日报</span>
+        <span class="report-tab" data-type="weekly">周报</span>
+        <span class="report-tab" data-type="monthly">月报</span>
+      </div>
+
+      <!-- 历史报告 -->
+      <div class="report-history">
+        <h3>📚 历史报告</h3>
+        <ul class="history-list" id="historyList">
+          <li class="empty-history">
+            <div class="empty-history-icon">📋</div>
+            <p>暂无历史报告</p>
+            <small>保存的日报/周报会显示在这里</small>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 分割线 -->
+      <div style="margin: 40px 0; text-align: center; color: #999; font-size: 0.85rem;">
+        ———— 我是分割线 ————
       </div>
 
       <!-- 日报表单 -->
@@ -386,53 +516,27 @@
 
         <div class="form-section">
           <h3>📊 数据统计</h3>
-          <div class="quick-stats">
-            <div class="quick-stat">
-              <div class="quick-stat-value" id="todayViews">-</div>
-              <div class="quick-stat-label">今日访问</div>
-            </div>
-            <div class="quick-stat">
-              <div class="quick-stat-value" id="totalViews">-</div>
-              <div class="quick-stat-label">总访问量</div>
-            </div>
-            <div class="quick-stat">
-              <div class="quick-stat-value" id="submissions">-</div>
-              <div class="quick-stat-label">投稿数</div>
-            </div>
-          </div>
           <div class="form-row">
             <div class="form-group">
               <label>新增案例/平台</label>
-              <div class="number-input">
-                <input type="number" id="newCases" value="0" min="0">
-                <span>个</span>
-              </div>
+              <input type="number" id="newCases" value="0" min="0">
               <small>今日新增收录的副业案例或平台数量</small>
             </div>
             <div class="form-group">
               <label>新增骗局预警</label>
-              <div class="number-input">
-                <input type="number" id="newScams" value="0" min="0">
-                <span>个</span>
-              </div>
+              <input type="number" id="newScams" value="0" min="0">
               <small>今日新增的骗局预警数量</small>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>用户投稿数</label>
-              <div class="number-input">
-                <input type="number" id="userSubmissions" value="0" min="0">
-                <span>条</span>
-              </div>
+              <input type="number" id="userSubmissions" value="0" min="0">
               <small>今日收到的用户投稿数量</small>
             </div>
             <div class="form-group">
               <label>处理投诉数</label>
-              <div class="number-input">
-                <input type="number" id="complaintsHandled" value="0" min="0">
-                <span>条</span>
-              </div>
+              <input type="number" id="complaintsHandled" value="0" min="0">
               <small>今日处理的投诉/反馈数量</small>
             </div>
           </div>
@@ -491,67 +595,81 @@
           <button type="button" class="btn btn-secondary" onclick="clearForm()">🗑️ 清空</button>
         </div>
       </div>
-
-      <!-- 历史报告 -->
-      <div class="report-history">
-        <h2>📚 历史报告</h2>
-        <ul class="history-list" id="historyList">
-          <li class="empty-history">
-            <div class="empty-history-icon">📋</div>
-            <p>暂无历史报告</p>
-            <small>保存的日报/周报会显示在这里</small>
-          </li>
-        </ul>
-      </div>
     </main>
   </div>
 
   <script>
     // 存储键名
     const STORAGE_KEY = 'fuye_daily_reports';
-
-    // 初始化日期
-    document.getElementById('reportDate').valueAsDate = new Date();
-
-    // 加载实时统计数据
-    function loadQuickStats() {
-      try {
-        var pageviews = JSON.parse(localStorage.getItem('fuye_pageviews') || '{}');
-        var submissions = JSON.parse(localStorage.getItem('fuye_submissions') || '[]');
-        
-        var totalViews = 0;
-        for (var key in pageviews) {
-          totalViews += pageviews[key].count || 0;
-        }
-        
-        document.getElementById('totalViews').textContent = totalViews;
-        document.getElementById('submissions').textContent = submissions.length;
-        
-        // 今日访问（估算）
-        var today = new Date().toISOString().slice(0, 10);
-        var todayViews = 0;
-        for (var key in pageviews) {
-          var lastVisit = pageviews[key].lastVisit || '';
-          if (lastVisit.slice(0, 10) === today) {
-            todayViews += pageviews[key].count || 0;
-          }
-        }
-        document.getElementById('todayViews').textContent = todayViews;
-      } catch (e) {
-        console.error('加载统计数据失败:', e);
+    
+    // 每日数据（可扩展为从服务器获取）
+    const DAILY_DATA = {
+      insights: {
+        hot: 'AI数据标注需求增长，适合新手入门，日薪可达150-300元',
+        warning: '配音培训骗局仍活跃，请勿轻信高价承诺和先交学费的模式',
+        trend: '短视频带货持续火热，平台流量扶持加大，新账号更容易获得曝光'
+      },
+      stats: {
+        platforms: 50,
+        cases: 1050,
+        scams: 60,
+        weeklyUpdates: 12
       }
+    };
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      initDate();
+      renderDailyInsights();
+      loadQuickStats();
+      bindEventListeners();
+      renderHistory();
+    });
+
+    function initDate() {
+      const today = new Date();
+      document.getElementById('reportDate').valueAsDate = today;
+      document.getElementById('today-date').textContent = today.toLocaleDateString('zh-CN', {
+        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+      });
+      document.getElementById('update-time').textContent = today.toLocaleString('zh-CN');
     }
 
-    // 生成预览
+    function renderDailyInsights() {
+      document.getElementById('insight-hot').textContent = DAILY_DATA.insights.hot;
+      document.getElementById('insight-warning').textContent = DAILY_DATA.insights.warning;
+      document.getElementById('insight-trend').textContent = DAILY_DATA.insights.trend;
+      document.getElementById('data-platforms').textContent = DAILY_DATA.stats.platforms + '+';
+      document.getElementById('data-cases').textContent = DAILY_DATA.stats.cases + '+';
+      document.getElementById('data-scams').textContent = DAILY_DATA.stats.scams + '+';
+      document.getElementById('data-updates').textContent = DAILY_DATA.stats.weeklyUpdates;
+    }
+
+    function loadQuickStats() {
+      // 模拟加载统计数据
+      document.getElementById('todayViews').textContent = '-';
+      document.getElementById('totalViews').textContent = '-';
+      document.getElementById('submissions').textContent = '0';
+    }
+
+    function bindEventListeners() {
+      // 报告类型标签切换
+      document.querySelectorAll('.report-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.report-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          renderHistory(tab.dataset.type);
+        });
+      });
+    }
+
     function generatePreview() {
-      var data = getFormData();
-      var reportText = generateReportText(data);
-      
+      const data = getFormData();
+      const reportText = generateReportText(data);
       document.getElementById('reportContent').textContent = reportText;
       document.getElementById('reportPreview').classList.add('show');
     }
 
-    // 获取表单数据
     function getFormData() {
       return {
         date: document.getElementById('reportDate').value,
@@ -569,15 +687,9 @@
       };
     }
 
-    // 生成报告文本
     function generateReportText(data) {
-      var typeName = {
-        daily: '日报',
-        weekly: '周报',
-        monthly: '月报'
-      };
-      
-      var text = `【${data.date} ${typeName[data.type]}】
+      const typeName = { daily: '日报', weekly: '周报', monthly: '月报' };
+      return `【${data.date} ${typeName[data.type]}】
 
 ━━━ 📊 数据统计 ━━━
 • 新增案例/平台：${data.newCases} 个
@@ -598,54 +710,38 @@ ${data.issues || '（无）'}
 ${data.tomorrowPlans || '（无）'}
 
 ━━━ 📌 备注 ━━━
-${data.notes || '（无）'}
-`;
-      return text;
+${data.notes || '（无）'}`;
     }
 
-    // 保存报告
     function saveReport() {
-      var data = getFormData();
-      
+      const data = getFormData();
       if (!data.date) {
         alert('请选择日期');
         return;
       }
       
       try {
-        var reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        
-        // 检查是否已存在同日期报告
-        var existIndex = reports.findIndex(function(r) {
-          return r.date === data.date && r.type === data.type;
-        });
+        let reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const existIndex = reports.findIndex(r => r.date === data.date && r.type === data.type);
         
         if (existIndex >= 0) {
-          if (!confirm('已存在该日期的报告，是否覆盖？')) {
-            return;
-          }
+          if (!confirm('已存在该日期的报告，是否覆盖？')) return;
           reports[existIndex] = data;
         } else {
           reports.push(data);
         }
         
-        // 按日期倒序排列
-        reports.sort(function(a, b) {
-          return new Date(b.date) - new Date(a.date);
-        });
-        
+        reports.sort((a, b) => new Date(b.date) - new Date(a.date));
         localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
         
         alert('报告保存成功！');
         renderHistory();
         clearForm();
-        
       } catch (e) {
         alert('保存失败: ' + e.message);
       }
     }
 
-    // 清空表单
     function clearForm() {
       document.getElementById('reportDate').valueAsDate = new Date();
       document.getElementById('reportType').value = 'daily';
@@ -661,12 +757,15 @@ ${data.notes || '（无）'}
       document.getElementById('reportPreview').classList.remove('show');
     }
 
-    // 加载历史记录
-    function renderHistory() {
-      var container = document.getElementById('historyList');
+    function renderHistory(filterType = 'all') {
+      const container = document.getElementById('historyList');
       
       try {
-        var reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        let reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        
+        if (filterType !== 'all') {
+          reports = reports.filter(r => r.type === filterType);
+        }
         
         if (reports.length === 0) {
           container.innerHTML = `
@@ -679,45 +778,35 @@ ${data.notes || '（无）'}
           return;
         }
         
-        var typeName = {
-          daily: '日报',
-          weekly: '周报',
-          monthly: '月报'
-        };
+        const typeName = { daily: '日报', weekly: '周报', monthly: '月报' };
         
-        var html = '';
-        reports.forEach(function(report, index) {
-          var summary = [];
+        container.innerHTML = reports.map((report, index) => {
+          const summary = [];
           if (report.newCases > 0) summary.push(`+${report.newCases}案例`);
           if (report.userSubmissions > 0) summary.push(`${report.userSubmissions}投稿`);
           if (report.updates) summary.push('有更新');
           
-          html += `
+          return `
             <li class="history-item" onclick="viewReport(${index})">
               <div class="history-item-header">
                 <span class="history-date">${report.date}</span>
-                <span class="history-type ${report.type === 'weekly' ? 'weekly' : ''}">${typeName[report.type]}</span>
+                <span class="history-type ${report.type}">${typeName[report.type]}</span>
               </div>
               <div class="history-summary">${summary.length > 0 ? summary.join(' · ') : '无数据更新'}</div>
             </li>
           `;
-        });
-        
-        container.innerHTML = html;
-        
+        }).join('');
       } catch (e) {
         console.error('加载历史记录失败:', e);
       }
     }
 
-    // 查看报告详情
     function viewReport(index) {
       try {
-        var reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        var report = reports[index];
+        const reports = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const report = reports[index];
         
         if (report) {
-          // 填充表单
           document.getElementById('reportDate').value = report.date;
           document.getElementById('reportType').value = report.type;
           document.getElementById('newCases').value = report.newCases || 0;
@@ -729,23 +818,15 @@ ${data.notes || '（无）'}
           document.getElementById('issues').value = report.issues || '';
           document.getElementById('tomorrowPlans').value = report.tomorrowPlans || '';
           document.getElementById('notes').value = report.notes || '';
-          
-          // 显示预览
           generatePreview();
-          
-          // 滚动到顶部
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } catch (e) {
         console.error('查看报告失败:', e);
       }
     }
-
-    // 页面加载
-    document.addEventListener('DOMContentLoaded', function() {
-      loadQuickStats();
-      renderHistory();
-    });
   </script>
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>

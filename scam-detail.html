@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>骗局详情 - 副业发现平台</title>
+  <meta name="keywords" content="骗局详情,骗局曝光,防骗指南,骗局案例,诈骗手法,网络诈骗">
   <meta name="description" content="了解骗局作案手法、识别方法和真实案例">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/favorites.js"></script>
@@ -76,6 +77,39 @@
       background: #e2e8f0;
     }
   </style>
+<link rel="canonical" href="https://fuyep.top/scam-detail.html.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="骗局详情 - 副业发现平台">
+  <meta property="og:description" content="揭露各类副业骗局套路，了解骗子的常用手法，避免上当受骗。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/scam-detail.html.html">
+  <meta property="og:site_name" content="副业发现平台">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://fuyep.top/images/og-default.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="骗局详情 - 副业发现平台">
+  <meta name="twitter:description" content="揭露各类副业骗局套路，了解骗子的常用手法，避免上当受骗。">
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "骗局详情 - 副业发现平台",
+    "description": "揭露各类副业骗局套路，了解骗子的常用手法，避免上当受骗。",
+    "url": "https://fuyep.top/scam-detail.html.html",
+    "inLanguage": "zh-CN",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "副业发现平台",
+      "url": "https://fuyep.top"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "副业推荐"
+    }
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrapper">
@@ -87,6 +121,7 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
           <a href="submit.html" class="nav-link">我要投稿</a>
         </div>
@@ -294,40 +329,52 @@
 
         <div class="detail-section">
           <h2>📊 基本信息</h2>
-          <div class="info-grid">
-            <div class="info-item"><label>涉案金额</label><span style="color:var(--danger-color);">${s.涉案金额 || '不等'}</span></div>
-            <div class="info-item"><label>受害人数</label><span>${s.受害人数 || '不详'}</span></div>
-            <div class="info-item"><label>骗局类型</label><span>${s.骗局类型 || '其他'}</span></div>
+          <div class="info-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px;">
+            <div style="background:#fef2f2;padding:16px;border-radius:8px;border-left:4px solid var(--danger-color);">
+              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">涉案金额</label>
+              <span style="font-size:1.1rem;font-weight:600;color:var(--danger-color);">${s.涉案金额 || '不等'}</span>
+            </div>
+            <div style="background:#eff6ff;padding:16px;border-radius:8px;border-left:4px solid var(--primary-color);">
+              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">受害人数</label>
+              <span style="font-size:1.1rem;font-weight:600;color:var(--primary-color);">${s.受害人数 || '不详'}</span>
+            </div>
+            <div style="background:#f0fdf4;padding:16px;border-radius:8px;border-left:4px solid #10b981;">
+              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">骗局类型</label>
+              <span style="font-size:1.1rem;font-weight:600;color:#10b981;">${s.骗局类型 || '其他'}</span>
+            </div>
           </div>
           ${(s.别名 || []).length > 0 ? `
-          <div style="margin-top:16px;">
-            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">常见别名：</p>
-            <div class="scam-tags">
-              ${s.别名.map(a => `<span class="tag">${a}</span>`).join('')}
+          <div style="margin-top:16px;padding:12px;background:#f8fafc;border-radius:8px;">
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;font-weight:500;">常见别名：</p>
+            <div class="scam-tags" style="gap:8px;">
+              ${s.别名.map(a => `<span class="tag" style="background:#e2e8f0;color:#475569;">${a}</span>`).join('')}
             </div>
           </div>
           ` : ''}
         </div>
 
-        <div class="detail-section">
-          <h2>🎯 作案手法</h2>
-          <div class="step-list">
+        <div class="detail-section" style="border-left:4px solid var(--danger-color);">
+          <h2 style="color:var(--danger-color);">🎯 作案手法</h2>
+          <div class="step-list" style="margin-top:16px;">
             ${(s.作案手法 || []).map((step, i) => `
-            <div class="step-item">
-              <div class="step-number" style="background:var(--danger-color);">${i + 1}</div>
-              <div class="step-content">
-                <p>${step}</p>
+            <div class="step-item" style="margin-bottom:12px;padding:16px;background:white;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+              <div class="step-number" style="background:var(--danger-color);width:28px;height:28px;min-width:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;margin-right:12px;">${i + 1}</div>
+              <div class="step-content" style="flex:1;">
+                <p style="margin:0;font-size:0.95rem;line-height:1.6;">${step}</p>
               </div>
             </div>
             `).join('')}
           </div>
         </div>
 
-        <div class="detail-section" style="background:#fef2f2;border:1px solid #fecaca;">
+        <div class="detail-section" style="background:#fef2f2;border-left:4px solid #dc2626;">
           <h2 style="color:#991b1b;">🔍 如何识别？</h2>
-          <ul class="detail-list">
-            ${(s.识别方法 || []).map(item => `
-            <li style="color:#991b1b;font-weight:500;">${item}</li>
+          <ul class="detail-list" style="margin-top:12px;padding-left:0;list-style:none;">
+            ${(s.识别方法 || []).map((item, i) => `
+            <li style="display:flex;align-items:flex-start;margin-bottom:12px;padding:12px;background:white;border-radius:6px;">
+              <span style="background:#dc2626;color:white;width:20px;height:20px;min-width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:bold;margin-right:10px;margin-top:2px;">${i + 1}</span>
+              <span style="color:#991b1b;font-weight:500;line-height:1.5;">${item}</span>
+            </li>
             `).join('')}
           </ul>
         </div>
@@ -335,13 +382,18 @@
 
       if (s.真实案例 && s.真实案例.length > 0) {
         html += `
-        <div class="detail-section">
-          <h2>📖 真实案例</h2>
-          ${s.真实案例.map(c => `
-          <div style="padding:16px;background:#f8fafc;border-radius:8px;margin-bottom:12px;">
-            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;">${c}</p>
+        <div class="detail-section" style="border-left:4px solid var(--primary-color);">
+          <h2 style="color:var(--primary-color);">📖 真实案例</h2>
+          <div style="margin-top:12px;">
+            ${s.真实案例.map((c, i) => `
+            <div style="padding:16px;background:#f8fafc;border-radius:8px;margin-bottom:12px;border-left:3px solid var(--primary-color);">
+              <div style="display:flex;align-items:center;margin-bottom:8px;">
+                <span style="background:var(--primary-color);color:white;padding:2px 10px;border-radius:20px;font-size:0.8rem;font-weight:500;">案例${i + 1}</span>
+              </div>
+              <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;margin:0;">${c}</p>
+            </div>
+            `).join('')}
           </div>
-          `).join('')}
         </div>
         `;
       }
@@ -352,10 +404,25 @@
 
       if (s.信息来源) {
         html += `
-        <div class="detail-section">
-          <h2>📋 信息来源</h2>
-          <p style="color:var(--text-secondary);font-size:0.9rem;">${s.信息来源}</p>
-          ${s.案例核实?.通报时间 ? `<p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">通报时间：${s.案例核实.通报时间}</p>` : ''}
+        <div class="detail-section" style="background:#f8fafc;border-left:4px solid #64748b;">
+          <h2 style="color:#475569;">📋 信息来源</h2>
+          <div style="margin-top:12px;padding:16px;background:white;border-radius:8px;">
+            <p style="color:var(--text-secondary);font-size:0.9rem;margin:0 0 8px;">${s.信息来源}</p>
+            ${s.案例核实?.通报时间 ? `
+            <div style="display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
+              <div style="flex:1;">
+                <span style="font-size:0.8rem;color:var(--text-muted);">通报时间</span>
+                <p style="margin:4px 0 0;font-weight:500;">${s.案例核实.通报时间}</p>
+              </div>
+              ${s.案例核实?.涉案数据 ? `
+              <div style="flex:2;">
+                <span style="font-size:0.8rem;color:var(--text-muted);">涉案数据</span>
+                <p style="margin:4px 0 0;font-weight:500;">${s.案例核实.涉案数据}</p>
+              </div>
+              ` : ''}
+            </div>
+            ` : ''}
+          </div>
         </div>
         `;
       }
@@ -367,5 +434,7 @@
   </script>
   <!-- 数据统计 -->
   <script src="js/analytics.js"></script>
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>

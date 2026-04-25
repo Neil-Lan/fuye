@@ -1,0 +1,35 @@
+# robots.txt for 副业发现平台 fuyep.top
+# https://fuyep.top
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fuyep.top/sitemap.xml
+
+# Disallow sensitive paths
+Disallow: /data/
+Disallow: /js/
+Disallow: /css/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /CNAME
+
+# Allow search engines to crawl main pages
+Allow: /index.html
+Allow: /platforms.html
+Allow: /scams.html
+Allow: /scam-checker.html
+Allow: /match.html
+Allow: /cases.html
+Allow: /about.html
+Allow: /success-cases.html
+Allow: /favorites.html
+Allow: /stats.html
+Allow: /search.html
+Allow: /platform-detail.html
+Allow: /scam-detail.html
+
+# Crawl delay for polite bots
+Crawl-delay: 1

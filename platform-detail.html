@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>平台详情 - 副业发现平台</title>
+  <meta name="keywords" content="平台详情,副业平台,平台评测,平台对比,收入情况,风险提示">
   <meta name="description" content="查看平台详细信息、收入情况、风险提示和新手入门指南">
   <!-- Open Graph -->
   <meta property="og:title" content="平台详情 - 副业发现平台">
@@ -103,7 +104,170 @@
     .qr-container canvas, .qr-container img {
       max-width: 200px;
     }
+    /* 用户评价样式 */
+    .reviews-section {
+      margin-top: 24px;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .reviews-stats {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .reviews-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+    .reviews-rating {
+      text-align: center;
+      padding: 16px 24px;
+      background: white;
+      border-radius: 8px;
+    }
+    .rating-number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+    .rating-stars {
+      display: block;
+      font-size: 1.2rem;
+      margin: 4px 0;
+    }
+    .rating-count {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    .reviews-income-dist {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .reviews-income-dist h4 {
+      margin: 0 0 12px 0;
+      font-size: 0.95rem;
+    }
+    .income-dist-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .income-dist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+    .income-range {
+      width: 80px;
+      color: #6b7280;
+    }
+    .income-bar {
+      flex: 1;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .income-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      border-radius: 4px;
+    }
+    .income-percent {
+      width: 40px;
+      text-align: right;
+      color: #374151;
+      font-weight: 500;
+    }
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .review-card {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .review-rating {
+      font-size: 1rem;
+    }
+    .review-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+    .review-experience {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+    .review-pros-cons {
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+    .review-pros-cons .pros {
+      color: #16a34a;
+      margin-bottom: 4px;
+    }
+    .review-pros-cons .cons {
+      color: #dc2626;
+    }
+    .review-footer {
+      text-align: right;
+    }
+    .review-date {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
   </style>
+<link rel="canonical" href="https://fuyep.top/platform-detail.html.html">
+  <!-- Open Graph -->
+  <meta property="og:title" content="平台详情 - 副业发现平台">
+  <meta property="og:description" content="查看平台详细信息、收入情况、风险提示和新手入门指南。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/platform-detail.html.html">
+  <meta property="og:site_name" content="副业发现平台">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://fuyep.top/images/og-default.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="平台详情 - 副业发现平台">
+  <meta name="twitter:description" content="查看平台详细信息、收入情况、风险提示和新手入门指南。">
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "平台详情 - 副业发现平台",
+    "description": "查看平台详细信息、收入情况、风险提示和新手入门指南。",
+    "url": "https://fuyep.top/platform-detail.html.html",
+    "inLanguage": "zh-CN",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "副业发现平台",
+      "url": "https://fuyep.top"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "副业推荐"
+    }
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrapper">
@@ -115,6 +279,7 @@
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
@@ -146,6 +311,13 @@
         <div class="detail-section getting-started-section" id="getting-started" style="display:none;margin-top:24px;">
           <h2>📝 新手入门指南</h2>
           <div class="steps-container" id="steps-list"></div>
+        </div>
+
+        <!-- 入驻操作指南 -->
+        <div class="detail-section" id="platform-guide-section" style="display:none;margin-top:24px;background:#fffbeb;">
+          <h2>🎯 入驻操作指南</h2>
+          <p style="color:var(--text-secondary);margin-bottom:16px;">详细的手把手入驻教程，让你快速上手</p>
+          <div id="platform-guide-content"></div>
         </div>
 
         <!-- 收入计算器 -->
@@ -183,6 +355,13 @@
         <div class="detail-section" id="related-scams" style="display:none;margin-top:24px;">
           <h2>⚠️ 相关骗局提醒</h2>
           <div id="scams-warning"></div>
+        </div>
+
+        <!-- 用户评价 -->
+        <div class="reviews-section" id="platform-reviews-section" style="display:none;">
+          <h2>💬 用户评价</h2>
+          <div id="reviews-stats"></div>
+          <div id="reviews-list"></div>
         </div>
 
         <!-- 用户反馈 -->
@@ -251,6 +430,8 @@
     let currentPlatform = null;
     let incomeCalcData = null;
     let gettingStartedData = null;
+    let platformGuidesData = null;
+    let platformReviewsData = null;
 
     async function loadData() {
       const params = new URLSearchParams(window.location.search);
@@ -264,19 +445,37 @@
       const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
 
       try {
-        const [platformsRes, incomeRes, gettingRes, scamsRes] = await Promise.all([
+        const [platformsRes, incomeRes, gettingRes, scamsRes, guidesRes, reviewsRes] = await Promise.all([
           fetch(`${basePath}/data/platforms.json`),
           fetch(`${basePath}/data/income_calculator.json`),
           fetch(`${basePath}/data/getting_started.json`),
-          fetch(`${basePath}/data/scam_index.json`)
+          fetch(`${basePath}/data/scam_index.json`),
+          fetch(`${basePath}/data/platform_guides.json`).catch(() => null),
+          fetch(`${basePath}/data/platform_reviews.json`).catch(() => null)
         ]);
 
-        const platforms = await platformsRes.json();
+        const platformsDict = await platformsRes.json();
         incomeCalcData = await incomeRes.json();
         gettingStartedData = await gettingRes.json();
         const scamsData = await scamsRes.json();
+        
+        if (guidesRes && guidesRes.ok) {
+          platformGuidesData = await guidesRes.json();
+        }
+        if (reviewsRes && reviewsRes.ok) {
+          platformReviewsData = await reviewsRes.json();
+        }
 
-        currentPlatform = platforms.find(p => p.平台名称 === platformId);
+        // 将分类数据合并为平台数组
+        let platformsArray = [];
+        const categories = ['大厂平台', '技能平台', '内容平台'];
+        categories.forEach(cat => {
+          if (platformsDict[cat] && Array.isArray(platformsDict[cat])) {
+            platformsArray = platformsArray.concat(platformsDict[cat]);
+          }
+        });
+
+        currentPlatform = platformsArray.find(p => p.平台名称 === platformId);
         if (!currentPlatform) {
           document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未找到该平台</p>';
           return;
@@ -286,12 +485,265 @@
         renderPlatformDetail();
         renderIncomeCalculator();
         renderGettingStarted();
+        renderPlatformGuide(); // 新增：渲染入驻指南
+        renderPlatformReviews(); // 新增：渲染用户评价
         renderRelatedScams(scamsData);
         initFavoriteAndActions();
       } catch (e) {
         console.error(e);
         document.getElementById('platform-detail').innerHTML = '<p class="text-muted">加载失败</p>';
       }
+    }
+    
+    // 渲染用户评价
+    function renderPlatformReviews() {
+      const section = document.getElementById('platform-reviews-section');
+      if (!section || !platformReviewsData || !currentPlatform) {
+        section.style.display = 'none';
+        return;
+      }
+      
+      const platformName = currentPlatform.平台名称;
+      
+      // 查找匹配的评论数据
+      let matchedReviews = null;
+      const platformKeyMap = {
+        '闲鱼': 'xianyu',
+        '美团众包': 'meituan_crowdsourcing',
+        '猪八戒网': 'zbj',
+        '程序员客栈': 'proginn',
+        '抖音': 'douyin',
+        '小红书': 'xiaohongshu',
+        'Upwork': 'upwork',
+        '喜马拉雅': 'ximalaya'
+      };
+      
+      const reviewId = platformKeyMap[platformName];
+      if (reviewId) {
+        matchedReviews = platformReviewsData.reviews.find(r => r.platform_id === reviewId);
+      }
+      
+      if (!matchedReviews) {
+        section.style.display = 'none';
+        return;
+      }
+      
+      section.style.display = 'block';
+      const stats = matchedReviews.stats;
+      const reviews = matchedReviews.reviews;
+      
+      // 渲染评分统计
+      let starsHtml = '';
+      const fullStars = Math.floor(stats.average_rating);
+      for (let i = 0; i < 5; i++) {
+        starsHtml += i < fullStars ? '⭐' : '☆';
+      }
+      
+      document.getElementById('reviews-stats').innerHTML = `
+        <div class="reviews-rating">
+          <span class="rating-number">${stats.average_rating.toFixed(1)}</span>
+          <span class="rating-stars">${starsHtml}</span>
+          <span class="rating-count">${stats.total_reviews}条评价</span>
+        </div>
+        <div class="reviews-income-dist">
+          <h4>收入分布</h4>
+          <div class="income-dist-list">
+            ${Object.entries(stats.income_distribution).map(([range, percent]) => `
+              <div class="income-dist-item">
+                <span class="income-range">${range}</span>
+                <div class="income-bar"><div class="income-bar-fill" style="width:${percent}"></div></div>
+                <span class="income-percent">${percent}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      // 渲染评价列表
+      document.getElementById('reviews-list').innerHTML = reviews.map(review => `
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-rating">${'⭐'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+            <div class="review-meta">
+              <span class="review-income">💰 ${review.income_range}元/月</span>
+              <span class="review-hours">⏰ ${review.work_hours}</span>
+            </div>
+          </div>
+          <div class="review-experience">${review.experience}</div>
+          <div class="review-pros-cons">
+            <div class="pros">👍 ${review.pros.join('、')}</div>
+            <div class="cons">👎 ${review.cons.join('、')}</div>
+          </div>
+          <div class="review-footer">
+            <span class="review-date">${review.date}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // 渲染入驻指南
+    function renderPlatformGuide() {
+      const section = document.getElementById('platform-guide-section');
+      if (!section || !platformGuidesData || !currentPlatform) return;
+      
+      const platformName = currentPlatform.平台名称;
+      
+      // 查找匹配的入驻指南
+      let matchedGuide = null;
+      const platformKeyMap = {
+        '闲鱼': 'xianyu',
+        '美团众包': 'meituan_crowdsourcing',
+        '蜂鸟众包': 'fengniao_crowdsourcing',
+        '滴滴代驾': 'didichuxing',
+        '猪八戒网': 'zbj',
+        '一品威客': 'epweike',
+        '程序员客栈': 'proginn',
+        'Upwork': 'upwork',
+        '抖音': 'douyin',
+        '小红书': 'xiaohongshu',
+        'B站': 'bilibili',
+        '快手': 'kuaishou',
+        '今日头条': 'toutiao',
+        '知乎': 'zhihu',
+        '得到': 'dedao',
+        '喜马拉雅': 'ximalaya',
+        '网易云音乐': 'music_163',
+        '配音秀': 'peiyinxiu',
+        '译客': 'yike',
+        '做到': 'zuodao'
+      };
+      
+      const guideId = platformKeyMap[platformName];
+      if (guideId) {
+        matchedGuide = platformGuidesData.guides.find(g => g.platform_id === guideId);
+      }
+      
+      // 如果没有匹配，尝试模糊搜索
+      if (!matchedGuide) {
+        matchedGuide = platformGuidesData.guides.find(g => 
+          g.platform_name.includes(platformName) || platformName.includes(g.platform_name)
+        );
+      }
+      
+      if (!matchedGuide) {
+        section.style.display = 'none';
+        return;
+      }
+      
+      section.style.display = 'block';
+      
+      const guide = matchedGuide.guide;
+      let html = `
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="background:var(--primary-color);color:white;padding:4px 12px;border-radius:12px;font-size:0.85rem;">
+              ${matchedGuide.category}
+            </span>
+            <span style="color:var(--text-muted);font-size:0.8rem;">最后更新: 2026-04-24</span>
+          </div>
+        </div>
+        
+        <!-- 入驻步骤 -->
+        <h3 style="font-size:1.1rem;margin:20px 0 12px;">📋 注册步骤</h3>
+        <div style="display:grid;gap:12px;">
+      `;
+      
+      guide.register_steps.forEach(step => {
+        html += `
+          <div style="padding:14px;background:#f8fafc;border-radius:8px;border-left:4px solid var(--primary-color);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <span style="background:var(--primary-color);color:white;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600;">${step.step}</span>
+              <strong>${step.title}</strong>
+            </div>
+            <p style="margin:0;font-size:0.9rem;color:var(--text-secondary);">${step.description}</p>
+            ${step.tip ? `<p style="margin:6px 0 0;font-size:0.8rem;color:var(--primary-color);">💡 ${step.tip}</p>` : ''}
+          </div>
+        `;
+      });
+      
+      html += `</div>`;
+      
+      // 必备材料
+      if (guide.required_materials?.length) {
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;">📦 必备材料</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+            ${guide.required_materials.map(m => `<span style="background:#e0f2fe;padding:6px 12px;border-radius:16px;font-size:0.85rem;color:#0369a1;">${m}</span>`).join('')}
+          </div>
+        `;
+      }
+      
+      // 认证流程
+      if (guide.verification_process) {
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;">🔐 认证流程</h3>
+          <div style="padding:12px;background:#f0fdf4;border-radius:8px;margin-bottom:16px;">
+            <p style="margin:0;font-size:0.9rem;color:#166534;">${guide.verification_process}</p>
+          </div>
+        `;
+      }
+      
+      // 首单攻略
+      if (guide.first_order_tips) {
+        const tips = guide.first_order_tips.split('\n').filter(t => t.trim());
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;">🚀 首单攻略</h3>
+          <div style="padding:12px;background:#eff6ff;border-radius:8px;margin-bottom:16px;">
+            <ul style="margin:0;padding-left:20px;font-size:0.9rem;color:#1e40af;">
+              ${tips.map(t => `<li style="margin-bottom:4px;">${t.replace(/^\d+\.\s*/, '')}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+      
+      // 避坑提示
+      if (guide.pitfalls?.length) {
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;color:var(--danger-color);">⚠️ 避坑提示</h3>
+          <div style="padding:12px;background:#fef2f2;border-radius:8px;margin-bottom:16px;">
+            <ul style="margin:0;padding-left:20px;font-size:0.9rem;color:#991b1b;">
+              ${guide.pitfalls.map(p => `<li style="margin-bottom:4px;">${p}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+      
+      // 提现教程
+      if (guide.withdraw_tutorial) {
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;">💰 提现教程</h3>
+          <div style="padding:12px;background:#faf5ff;border-radius:8px;margin-bottom:16px;">
+            <p style="margin:0;font-size:0.9rem;color:#7c3aed;">${guide.withdraw_tutorial}</p>
+          </div>
+        `;
+      }
+      
+      // 收入潜力
+      if (guide.income_potential) {
+        html += `
+          <h3 style="font-size:1.1rem;margin:20px 0 12px;">💵 收入潜力</h3>
+          <div style="padding:12px;background:#fef3c7;border-radius:8px;margin-bottom:16px;">
+            <p style="margin:0;font-size:0.9rem;color:#92400e;">${guide.income_potential}</p>
+          </div>
+        `;
+      }
+      
+      // FAQ
+      if (guide.faq?.length) {
+        html += `<h3 style="font-size:1.1rem;margin:20px 0 12px;">❓ 常见问题</h3>`;
+        html += `<div style="display:grid;gap:10px;">`;
+        guide.faq.forEach(item => {
+          html += `
+            <div style="padding:12px;background:#f8fafc;border-radius:8px;">
+              <h4 style="font-size:0.9rem;color:var(--text-primary);margin:0 0 6px;">Q: ${item.q}</h4>
+              <p style="font-size:0.85rem;color:var(--text-secondary);margin:0;">A: ${item.a}</p>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+      
+      document.getElementById('platform-guide-content').innerHTML = html;
     }
     
     function initFavoriteAndActions() {
@@ -687,5 +1139,7 @@
   </script>
   <!-- 数据统计 -->
   <script src="js/analytics.js"></script>
+  <!-- AI助手 -->
+  <script src="js/ai-assistant.js"></script>
 </body>
 </html>
