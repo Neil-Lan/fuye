@@ -683,7 +683,8 @@ function showResult() {
       ${warningsHtml}
       
       <div class="result-platforms-grid">
-        ${platformsHtml}
+        ${mainPlatformHtml}
+        ${otherPlatformsHtml}
       </div>
       
       <div class="result-reason">

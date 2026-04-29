@@ -343,7 +343,14 @@
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-      checkPreviousResult();
+      // 检查URL参数，自动切换到对应tab
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      if (tabParam === 'startup') {
+        switchMatchTab('startup');
+      } else {
+        checkPreviousResult();
+      }
       
       document.getElementById('calc-hours')?.addEventListener('change', updateCalcResult);
       document.getElementById('calc-period')?.addEventListener('change', updateCalcResult);
@@ -364,10 +371,13 @@
       
       // 直接显示之前保存的结果
       const container = document.getElementById('quiz-container');
-      container.innerHTML = data.html;
-      
-      // 隐藏banner
-      document.getElementById('previous-result-banner').classList.remove('show');
+      // 兼容两种存储格式
+      const html = typeof data === 'string' ? data : (data.html || data);
+      if (html) {
+        container.innerHTML = html;
+        // 隐藏banner
+        document.getElementById('previous-result-banner').classList.remove('show');
+      }
     }
     
     function updateCalcResult() {

@@ -76,6 +76,413 @@
     .share-option:hover {
       background: #e2e8f0;
     }
+    
+    /* ========== 骗局详情页新布局样式 ========== */
+    
+    /* 标题卡片 */
+    .scam-header-card {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    }
+    .scam-header-content {
+      text-align: center;
+    }
+    .scam-title {
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .scam-meta {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    /* 基本信息三栏卡片 */
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .info-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .info-card-danger {
+      border-left: 4px solid #ef4444;
+    }
+    .info-card-primary {
+      border-left: 4px solid #2563eb;
+    }
+    .info-card-success {
+      border-left: 4px solid #10b981;
+    }
+    .info-card-icon {
+      font-size: 2rem;
+    }
+    .info-card-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-card-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .info-card-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .info-card-danger .info-card-value { color: #ef4444; }
+    .info-card-primary .info-card-value { color: #2563eb; }
+    .info-card-success .info-card-value { color: #10b981; }
+    .info-card-warning .info-card-value { color: #f59e0b; }
+    .info-card-warning .info-card-value.danger-high { color: #dc2626; font-weight: 700; }
+    .info-card-warning .info-card-value.danger-medium { color: #f59e0b; font-weight: 700; }
+    .info-card-warning .info-card-value.danger-low { color: #22c55e; font-weight: 700; }
+    
+    /* 别名区域 */
+    .alias-section {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .alias-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    /* 主要内容两栏布局 */
+    .scam-main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    
+    /* 内容区块卡片 */
+    .section-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+    .section-danger {
+      border-top: 4px solid #ef4444;
+    }
+    .section-warning {
+      border-top: 4px solid #f59e0b;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    }
+    .section-primary {
+      border-top: 4px solid #2563eb;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-danger .section-title { color: #dc2626; }
+    .section-warning .section-title { color: #d97706; }
+    .section-primary .section-title { color: #2563eb; }
+    .section-icon {
+      font-size: 1.25rem;
+    }
+    
+    /* 步骤卡片 - 时间轴样式 */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 24px;
+    }
+    .steps-container::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 16px;
+      bottom: 16px;
+      width: 2px;
+      background: linear-gradient(to bottom, #ef4444, #fca5a5);
+    }
+    .step-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border-radius: 12px;
+      border-left: 3px solid #ef4444;
+      position: relative;
+    }
+    .step-card:last-child {
+      margin-bottom: 0;
+    }
+    .step-number {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      position: absolute;
+      left: -24px;
+    }
+    .step-text {
+      flex: 1;
+      font-size: 1rem;
+      color: #7f1d1d;
+      line-height: 1.8;
+      padding-left: 16px;
+    }
+    .step-text strong {
+      color: #dc2626;
+    }
+    
+    /* 警告提示框 - 醒目卡片样式 */
+    .warnings-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .warning-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      background: white;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .warning-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, #f59e0b, #fbbf24);
+    }
+    .warning-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .warning-text {
+      flex: 1;
+      font-size: 1rem;
+      color: #92400e;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    
+    /* 真实案例区域 */
+    .cases-section {
+      margin-bottom: 24px;
+    }
+    .cases-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .case-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 16px;
+      padding: 24px;
+      border-left: 5px solid #2563eb;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .case-header {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .case-badge {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .case-content {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.9;
+      margin: 0;
+    }
+    
+    /* 信息来源区域 */
+    .source-section {
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #64748b;
+    }
+    .source-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+    .source-icon {
+      font-size: 1.25rem;
+    }
+    .source-content {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .source-content p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .source-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .source-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .meta-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    /* 标签样式 */
+    .scam-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      padding: 4px 12px;
+      background: #e2e8f0;
+      color: #475569;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    
+    /* 危险等级标签 */
+    .danger-level {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .danger-level.danger-high {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+    .danger-level.danger-medium {
+      background: #fef3c7;
+      color: #d97706;
+    }
+    .danger-level.danger-low {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+    
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .info-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .scam-main-content {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .cases-grid {
+        flex-direction: column;
+      }
+      .scam-header-card {
+        padding: 24px 16px;
+      }
+      .scam-title {
+        font-size: 1.5rem;
+      }
+      .section-card {
+        padding: 16px;
+      }
+      .step-card {
+        padding: 12px;
+        margin-left: 8px;
+      }
+      .steps-container {
+        padding-left: 16px;
+      }
+      .steps-container::before {
+        left: 8px;
+      }
+      .step-number {
+        left: -16px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        font-size: 0.9rem;
+      }
+      .step-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        padding-left: 8px;
+      }
+      .warning-item {
+        padding: 14px;
+      }
+      .warning-text {
+        font-size: 0.95rem;
+      }
+      .case-card {
+        padding: 16px;
+      }
+      .case-content {
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+    }
   </style>
 <link rel="canonical" href="https://fuyep.top/scam-detail.html.html">
   <!-- Open Graph -->
@@ -314,117 +721,173 @@
       const dangerClass = s.危险等级 === '高危' ? 'danger-high' : 
                           s.危险等级 === '中危' ? 'danger-medium' : 'danger-low';
 
-      let html = `
-        <div class="detail-section">
-          <div class="detail-header">
-            <div>
-              <h1 class="detail-title">${s.骗局名称}</h1>
-              <div class="detail-meta">
-                <span class="danger-level ${dangerClass}">⚠️ ${s.危险等级 || '中危'}</span>
-                <span class="tag">${s.骗局类型 || '其他'}</span>
-              </div>
-            </div>
+      // 构建基本信息卡片HTML
+      const basicInfoCard = `
+        <div class="info-card info-card-danger">
+          <div class="info-card-icon">💰</div>
+          <div class="info-card-content">
+            <span class="info-card-label">涉案金额</span>
+            <span class="info-card-value">${s.涉案金额 || '不等'}</span>
           </div>
         </div>
-
-        <div class="detail-section">
-          <h2>📊 基本信息</h2>
-          <div class="info-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:16px;">
-            <div style="background:#fef2f2;padding:16px;border-radius:8px;border-left:4px solid var(--danger-color);">
-              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">涉案金额</label>
-              <span style="font-size:1.1rem;font-weight:600;color:var(--danger-color);">${s.涉案金额 || '不等'}</span>
-            </div>
-            <div style="background:#eff6ff;padding:16px;border-radius:8px;border-left:4px solid var(--primary-color);">
-              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">受害人数</label>
-              <span style="font-size:1.1rem;font-weight:600;color:var(--primary-color);">${s.受害人数 || '不详'}</span>
-            </div>
-            <div style="background:#f0fdf4;padding:16px;border-radius:8px;border-left:4px solid #10b981;">
-              <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:4px;">骗局类型</label>
-              <span style="font-size:1.1rem;font-weight:600;color:#10b981;">${s.骗局类型 || '其他'}</span>
-            </div>
-          </div>
-          ${(s.别名 || []).length > 0 ? `
-          <div style="margin-top:16px;padding:12px;background:#f8fafc;border-radius:8px;">
-            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;font-weight:500;">常见别名：</p>
-            <div class="scam-tags" style="gap:8px;">
-              ${s.别名.map(a => `<span class="tag" style="background:#e2e8f0;color:#475569;">${a}</span>`).join('')}
-            </div>
-          </div>
-          ` : ''}
-        </div>
-
-        <div class="detail-section" style="border-left:4px solid var(--danger-color);">
-          <h2 style="color:var(--danger-color);">🎯 作案手法</h2>
-          <div class="step-list" style="margin-top:16px;">
-            ${(s.作案手法 || []).map((step, i) => `
-            <div class="step-item" style="margin-bottom:12px;padding:16px;background:white;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
-              <div class="step-number" style="background:var(--danger-color);width:28px;height:28px;min-width:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;margin-right:12px;">${i + 1}</div>
-              <div class="step-content" style="flex:1;">
-                <p style="margin:0;font-size:0.95rem;line-height:1.6;">${step}</p>
-              </div>
-            </div>
-            `).join('')}
+        <div class="info-card info-card-primary">
+          <div class="info-card-icon">👥</div>
+          <div class="info-card-content">
+            <span class="info-card-label">受害人数</span>
+            <span class="info-card-value">${s.受害人数 || '不详'}</span>
           </div>
         </div>
-
-        <div class="detail-section" style="background:#fef2f2;border-left:4px solid #dc2626;">
-          <h2 style="color:#991b1b;">🔍 如何识别？</h2>
-          <ul class="detail-list" style="margin-top:12px;padding-left:0;list-style:none;">
-            ${(s.识别方法 || []).map((item, i) => `
-            <li style="display:flex;align-items:flex-start;margin-bottom:12px;padding:12px;background:white;border-radius:6px;">
-              <span style="background:#dc2626;color:white;width:20px;height:20px;min-width:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:bold;margin-right:10px;margin-top:2px;">${i + 1}</span>
-              <span style="color:#991b1b;font-weight:500;line-height:1.5;">${item}</span>
-            </li>
-            `).join('')}
-          </ul>
+        <div class="info-card info-card-warning">
+          <div class="info-card-icon">⚠️</div>
+          <div class="info-card-content">
+            <span class="info-card-label">危险等级</span>
+            <span class="info-card-value ${dangerClass}">${s.危险等级 || '中危'}</span>
+          </div>
         </div>
       `;
 
-      if (s.真实案例 && s.真实案例.length > 0) {
-        html += `
-        <div class="detail-section" style="border-left:4px solid var(--primary-color);">
-          <h2 style="color:var(--primary-color);">📖 真实案例</h2>
-          <div style="margin-top:12px;">
-            ${s.真实案例.map((c, i) => `
-            <div style="padding:16px;background:#f8fafc;border-radius:8px;margin-bottom:12px;border-left:3px solid var(--primary-color);">
-              <div style="display:flex;align-items:center;margin-bottom:8px;">
-                <span style="background:var(--primary-color);color:white;padding:2px 10px;border-radius:20px;font-size:0.8rem;font-weight:500;">案例${i + 1}</span>
-              </div>
-              <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;margin:0;">${c}</p>
-            </div>
-            `).join('')}
+      // 构建别名HTML
+      const aliasHtml = (s.别名 || []).length > 0 ? `
+        <div class="alias-section">
+          <span class="alias-label">常见别名：</span>
+          <div class="scam-tags">
+            ${s.别名.map(a => `<span class="tag">${a}</span>`).join('')}
           </div>
         </div>
+      ` : '';
+
+      // 构建作案手法步骤卡片HTML
+      const stepsHtml = (s.作案手法 || []).map((step, i) => {
+        // 提取"第X步："部分并突出显示
+        const match = step.match(/^第[一二三四五六七八九十]+步[：:]\s*/);
+        const stepLabel = match ? match[0] : `第${i + 1}步：`;
+        const stepContent = match ? step.slice(match[0].length) : step;
+        return `
+          <div class="step-card">
+            <div class="step-number">${i + 1}</div>
+            <div class="step-text"><strong>${stepLabel}</strong>${stepContent}</div>
+          </div>
         `;
-      }
+      }).join('');
 
-      if (s.被骗后怎么办 && s.被骗后怎么办.length > 0) {
-        document.getElementById('help-section').style.display = 'block';
-      }
+      // 构建识别方法提示框HTML
+      const识别方法Html = (s.识别方法 || []).map((item, i) => `
+        <div class="warning-item">
+          <div class="warning-icon">⚠️</div>
+          <div class="warning-text">${item}</div>
+        </div>
+      `).join('');
 
-      if (s.信息来源) {
-        html += `
-        <div class="detail-section" style="background:#f8fafc;border-left:4px solid #64748b;">
-          <h2 style="color:#475569;">📋 信息来源</h2>
-          <div style="margin-top:12px;padding:16px;background:white;border-radius:8px;">
-            <p style="color:var(--text-secondary);font-size:0.9rem;margin:0 0 8px;">${s.信息来源}</p>
+      // 构建真实案例HTML
+      const casesHtml = (s.真实案例 || []).map((c, i) => {
+        // 提取"案例X："部分
+        const match = c.match(/^案例\d+[：:]\s*/);
+        const caseContent = match ? c.slice(match[0].length) : c;
+        return `
+          <div class="case-card">
+            <div class="case-header">
+              <span class="case-badge">案例 ${i + 1}</span>
+            </div>
+            <p class="case-content">${caseContent}</p>
+          </div>
+        `;
+      }).join('');
+
+      // 构建信息来源HTML
+      const sourceHtml = s.信息来源 ? `
+        <div class="source-section">
+          <div class="source-header">
+            <span class="source-icon">📋</span>
+            <span>信息来源</span>
+          </div>
+          <div class="source-content">
+            <p>${s.信息来源}</p>
             ${s.案例核实?.通报时间 ? `
-            <div style="display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
-              <div style="flex:1;">
-                <span style="font-size:0.8rem;color:var(--text-muted);">通报时间</span>
-                <p style="margin:4px 0 0;font-weight:500;">${s.案例核实.通报时间}</p>
+            <div class="source-meta">
+              <div class="source-meta-item">
+                <span class="meta-label">通报时间</span>
+                <span class="meta-value">${s.案例核实.通报时间}</span>
               </div>
               ${s.案例核实?.涉案数据 ? `
-              <div style="flex:2;">
-                <span style="font-size:0.8rem;color:var(--text-muted);">涉案数据</span>
-                <p style="margin:4px 0 0;font-weight:500;">${s.案例核实.涉案数据}</p>
+              <div class="source-meta-item">
+                <span class="meta-label">涉案数据</span>
+                <span class="meta-value">${s.案例核实.涉案数据}</span>
               </div>
               ` : ''}
             </div>
             ` : ''}
           </div>
         </div>
-        `;
+      ` : '';
+
+      let html = `
+        <!-- 标题区域 -->
+        <div class="scam-header-card">
+          <div class="scam-header-content">
+            <h1 class="scam-title">${s.骗局名称}</h1>
+            <div class="scam-meta">
+              <span class="danger-level ${dangerClass}">⚠️ ${s.危险等级 || '中危'}</span>
+              <span class="tag">${s.骗局类型 || '其他'}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 基本信息区域 - 三栏卡片 -->
+        <div class="info-cards-grid">
+          ${basicInfoCard}
+        </div>
+        ${aliasHtml}
+
+        <!-- 主要内容区域 - 两栏布局 -->
+        <div class="scam-main-content">
+          <!-- 左栏：作案手法 -->
+          <div class="content-section">
+            <div class="section-card section-danger">
+              <h2 class="section-title">
+                <span class="section-icon">🎯</span>
+                作案手法
+              </h2>
+              <div class="steps-container">
+                ${stepsHtml}
+              </div>
+            </div>
+          </div>
+          
+          <!-- 右栏：识别方法 -->
+          <div class="content-section">
+            <div class="section-card section-warning">
+              <h2 class="section-title">
+                <span class="section-icon">🔍</span>
+                如何识别
+              </h2>
+              <div class="warnings-container">
+                ${识别方法Html}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 真实案例区域 -->
+        ${casesHtml ? `
+        <div class="cases-section">
+          <div class="section-card section-primary">
+            <h2 class="section-title">
+              <span class="section-icon">📖</span>
+              真实案例
+            </h2>
+            <div class="cases-grid">
+              ${casesHtml}
+            </div>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- 信息来源区域 -->
+        ${sourceHtml}
+      `;
+
+      if (s.被骗后怎么办 && s.被骗后怎么办.length > 0) {
+        document.getElementById('help-section').style.display = 'block';
       }
 
       document.getElementById('scam-detail').innerHTML = html;
