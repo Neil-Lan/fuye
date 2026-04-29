@@ -126,7 +126,7 @@ function renderHotPlatforms() {
     const needWarning = trustLevel === 'C' || trustLevel === 'D';
     
     return `
-    <div class="card fade-in" onclick="location.href='platform-detail.html?id=${encodeURIComponent(p.平台名称)}'" style="cursor:pointer;">
+    <div class="card fade-in" onclick="location.href='${basePath}/platform-detail.html?id=${encodeURIComponent(p.平台名称)}'" style="cursor:pointer;">
       <div class="platform-header">
         <span class="platform-name">${p.平台名称}</span>
         <span class="platform-type">${p.平台类型 || '任务型'}</span>
@@ -155,12 +155,12 @@ function renderHotPlatforms() {
 // 渲染最新骗局预警
 function renderLatestScams() {
   const container = document.getElementById('latest-scams');
-  if (!container || !scamsData.骗局案例) return;
+  if (!container || !scamsData || scamsData.length === 0) return;
   
-  const latestScams = scamsData.骗局案例.slice(0, 4);
+  const latestScams = scamsData.slice(0, 4);
   
   container.innerHTML = latestScams.map(s => `
-    <div class="alert-box fade-in" onclick="location.href='scam-detail.html?id=${encodeURIComponent(s.骗局名称)}'" style="cursor:pointer;">
+    <div class="alert-box fade-in" onclick="location.href='${basePath}/scam-detail.html?id=${encodeURIComponent(s.骗局名称)}'" style="cursor:pointer;">
       <span class="alert-icon">⚠️</span>
       <div class="alert-content">
         <h4>${s.骗局名称}</h4>
@@ -179,7 +179,7 @@ function renderCategoryNav() {
   const categories = getPlatformCategories();
   
   container.innerHTML = Object.entries(categories).map(([name, icon]) => `
-    <a href="platforms.html?category=${encodeURIComponent(name)}" class="category-item">
+    <a href="${basePath}/platforms.html?category=${encodeURIComponent(name)}" class="category-item">
       <span class="category-icon">${icon}</span>
       <span class="category-name">${name}</span>
     </a>

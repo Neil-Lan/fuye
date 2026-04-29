@@ -99,36 +99,42 @@
 
     <main class="main-content">
       <div class="container">
+        <!-- 快速导航入口 -->
+        <section class="quick-nav-section" style="margin-bottom:40px;">
+          <div class="quick-nav-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+            <a href="match.html" class="quick-nav-item" style="display:flex;align-items:center;gap:16px;padding:20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border-radius:12px;text-decoration:none;transition:transform 0.2s;">
+              <div style="font-size:2.5rem;">🎯</div>
+              <div style="flex:1;">
+                <h3 style="margin:0;font-size:1.1rem;">副业匹配</h3>
+                <p style="margin:4px 0 0;font-size:0.85rem;opacity:0.9;">3分钟测试找到适合你的副业</p>
+              </div>
+              <span style="font-size:1.5rem;">→</span>
+            </a>
+            <a href="startup-match.html" class="quick-nav-item" style="display:flex;align-items:center;gap:16px;padding:20px;background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:white;border-radius:12px;text-decoration:none;transition:transform 0.2s;">
+              <div style="font-size:2.5rem;">🚀</div>
+              <div style="flex:1;">
+                <h3 style="margin:0;font-size:1.1rem;">创业匹配</h3>
+                <p style="margin:4px 0 0;font-size:0.85rem;opacity:0.9;">评估条件，推荐创业方向</p>
+              </div>
+              <span style="font-size:1.5rem;">→</span>
+            </a>
+            <a href="scam-checker.html" class="quick-nav-item" style="display:flex;align-items:center;gap:16px;padding:20px;background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);color:white;border-radius:12px;text-decoration:none;transition:transform 0.2s;">
+              <div style="font-size:2.5rem;">🛡️</div>
+              <div style="flex:1;">
+                <h3 style="margin:0;font-size:1.1rem;">骗局识别</h3>
+                <p style="margin:4px 0 0;font-size:0.85rem;opacity:0.9;">AI智能分析项目风险</p>
+              </div>
+              <span style="font-size:1.5rem;">→</span>
+            </a>
+          </div>
+        </section>
+
         <section style="margin-bottom:40px;">
           <h2 class="section-title text-center" style="justify-content:center;">为什么选择我们？</h2>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
             <div class="feature-card"><div class="feature-icon">🎯</div><h3>智能匹配</h3><p>回答7个问题，根据你的时间、技能、预期收入，精准推荐最适合的副业方向</p></div>
-            <div class="feature-card"><div class="feature-icon">🛡️</div><h3>避坑指南</h3><p>收录49种常见骗局，手把手教你识别诈骗套路，避免上当受骗</p></div>
+            <div class="feature-card"><div class="feature-icon">🛡️</div><h3>避坑指南</h3><p>收录100种常见骗局，手把手教你识别诈骗套路，避免上当受骗</p></div>
             <div class="feature-card"><div class="feature-icon">📊</div><h3>真实数据</h3><p>平台收入数据来源于用户实测和官方信息，让你心里有数再开始</p></div>
-          </div>
-        </section>
-
-        <!-- AI骗局识别快速入口 -->
-        <section style="margin-bottom:40px;">
-          <div class="scam-checker-cta">
-            <div class="scam-checker-cta-icon">🤖</div>
-            <div class="scam-checker-cta-content">
-              <h2>🛡️ AI智能骗局识别</h2>
-              <p>还在担心副业项目靠不靠谱？AI帮你分析项目风险，识别常见诈骗套路</p>
-              <ul class="scam-checker-cta-features">
-                <li>✅ 输入项目描述，AI智能分析风险</li>
-                <li>✅ 识别高收益骗局、刷单陷阱、加盟坑</li>
-                <li>✅ 提供专业防骗建议</li>
-              </ul>
-              <a href="scam-checker.html" class="btn btn-primary btn-lg">🔍 立即体验AI识别</a>
-            </div>
-            <div class="scam-checker-cta-preview">
-              <div class="scam-preview-box">
-                <div class="scam-preview-title">💬 示例对话</div>
-                <div class="scam-preview-user">用户：抖音点赞赚钱，每天稳赚200元，靠谱吗？</div>
-                <div class="scam-preview-ai">🤖 AI：<span style="color:#ef4444;">⚠️ 风险提示：这是典型的刷单诈骗！</span><br><br>特征分析：<br>• 要求先垫付资金 → 诈骗特征<br>• 承诺高收益稳赚 → 诈骗话术<br>• 需要发展下线 → 传销特征<br><br>建议：立即远离，不要提供任何个人信息。</div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -162,34 +168,6 @@
             <a href="scams.html" class="btn btn-sm btn-outline" style="border-color:var(--danger-color);color:var(--danger-color);">查看全部 →</a>
           </div>
           <div id="latest-scams" style="display:flex;flex-direction:column;gap:12px;"><div class="loading">加载中...</div></div>
-        </section>
-
-        <section style="margin-bottom:40px;">
-          <div class="match-cta">
-            <div class="match-cta-content">
-              <h2>还不知道做什么副业或创业？</h2>
-              <p>3分钟智能匹配，找到最适合你的副业或创业方向</p>
-              <ul class="match-cta-features">
-                <li>✅ 副业匹配：根据时间、技能、收入预期推荐</li>
-                <li>✅ 创业匹配：根据资金、风险偏好推荐方向</li>
-                <li>✅ 避坑指南：识别骗局套路</li>
-                <li>✅ 真实案例：1050+副业创业经验分享</li>
-              </ul>
-              <a href="match.html" class="btn btn-primary btn-lg">🎯 立即开始测试</a>
-            </div>
-            <div class="match-cta-image">
-              <div class="quiz-preview">
-                <div class="quiz-preview-title">测试问题示例</div>
-                <div class="quiz-preview-q">Q1: 你每天能投入多少时间？</div>
-                <div class="quiz-preview-options">
-                  <div class="quiz-preview-opt">A. 1小时以内</div>
-                  <div class="quiz-preview-opt">B. 1-3小时</div>
-                  <div class="quiz-preview-opt">C. 3-5小时</div>
-                  <div class="quiz-preview-opt selected">D. 5小时以上 ✓</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section style="margin-bottom:40px;">
