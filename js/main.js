@@ -118,8 +118,26 @@ function renderHotPlatforms() {
   const container = document.getElementById('hot-platforms');
   if (!container) return;
   
-  // 选择信誉好、收入稳定的平台
-  const hotPlatforms = platformsData.slice(0, 6).map(p => getCorrectedPlatformData(p));
+  // 优先显示正常运营、数据可信度高的平台，最多显示12个
+  const hotPlatforms = platformsData
+    .filter(p => {
+      const status = getPlatformStatus(p);
+      return status === 'normal';
+    })
+    .sort((a, b) => {
+      // 按数据可信度排序：A > B > C
+      const trustA = a.数据可信度?.整体等级 || 'C';
+      const trustB = b.数据可信度?.整体等级 || 'C';
+      const order = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+      return (order[trustA] || 2) - (order[trustB] || 2);
+    })
+    .slice(0, 12)
+    .map(p => getCorrectedPlatformData(p));
+  
+  if (hotPlatforms.length === 0) {
+    container.innerHTML = '<p class="text-muted">暂无推荐平台</p>';
+    return;
+  }
   
   container.innerHTML = hotPlatforms.map(p => {
     const trustLevel = p.数据可信度?.整体等级 || 'C';
@@ -152,12 +170,37 @@ function renderHotPlatforms() {
   `}).join('');
 }
 
+// 获取平台状态
+function getPlatformStatus(platform) {
+  const name = platform.平台名称;
+  const dataLevel = platform.数据可信度?.整体等级 || 'C';
+  const status = platform.运营状态 || '';
+  
+  // 已停运平台
+  if (status.includes('停运') || name === '阿里众包' || name === '字节众包' || name === '甜薪工场') {
+    return 'stopped';
+  }
+  
+  // 高风险平台
+  if (status.includes('危险') || name === '甜薪工场') {
+    return 'danger';
+  }
+  
+  // 问题平台
+  if (name === '猪八戒网' || name === '百度众测' || name === '京东微工' || dataLevel === 'D') {
+    return 'warning';
+  }
+  
+  // 正常运营
+  return 'normal';
+}
+
 // 渲染最新骗局预警
 function renderLatestScams() {
   const container = document.getElementById('latest-scams');
   if (!container || !scamsData || scamsData.length === 0) return;
   
-  const latestScams = scamsData.slice(0, 4);
+  const latestScams = scamsData.slice(0, 6);
   
   container.innerHTML = latestScams.map(s => `
     <div class="alert-box fade-in" onclick="location.href='${basePath}/scam-detail.html?id=${encodeURIComponent(s.骗局名称)}'" style="cursor:pointer;">

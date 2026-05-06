@@ -83,15 +83,31 @@ function getCorrectedPlatformData(platform) {
 
 // ==================== 初始化 ====================
 async function initPlatforms() {
+  console.log('[platforms.js] 开始初始化平台数据...');
+  console.log('[platforms.js] 当前路径:', window.location.pathname);
+  console.log('[platforms.js] 基础路径:', basePath);
+  
   try {
-    const res = await fetch(`${basePath}/data/platforms.json`);
+    const fetchPath = `${basePath}/data/platforms.json`;
+    console.log('[platforms.js] 正在请求:', fetchPath);
+    
+    const res = await fetch(fetchPath);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+    
+    console.log('[platforms.js] 数据请求成功，开始解析...');
     const data = await res.json();
     
     // 将分类数据合并为平台数组
     platformsData = [];
     const categories = ['大厂平台', '技能平台', '内容平台'];
+    let totalLoaded = 0;
+    
     categories.forEach(cat => {
       if (data[cat] && Array.isArray(data[cat])) {
+        console.log(`[platforms.js] 加载分类「${cat}」: ${data[cat].length} 个平台`);
         data[cat].forEach(p => {
           // 添加分类标签
           if (!p.平台类型) {
@@ -100,17 +116,21 @@ async function initPlatforms() {
             else if (cat === '内容平台') p.平台类型 = '内容创作';
           }
           platformsData.push(p);
+          totalLoaded++;
         });
+      } else {
+        console.warn(`[platforms.js] 警告: 分类「${cat}」不存在或格式错误`);
       }
     });
     
-    console.log('加载平台数据成功，共', platformsData.length, '个平台');
+    console.log('[platforms.js] 平台数据加载完成，总计:', totalLoaded, '个平台');
     
     // 获取URL参数中的分类
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     if (category) {
       currentCategory = category;
+      console.log('[platforms.js] 从URL参数加载分类:', category);
     }
     
     // 支持人群参数
@@ -121,13 +141,35 @@ async function initPlatforms() {
                       persona === 'office' ? '上班族' :
                       persona === 'freelancer' ? '自由职业' :
                       persona === 'retiree' ? '退休人员' : '全部';
+      console.log('[platforms.js] 从URL参数加载人群:', currentPersona);
     }
     
     renderFilters();
     renderPlatforms();
+    
+    console.log('[platforms.js] 初始化完成');
   } catch (error) {
-    console.error('加载平台数据失败:', error);
-    document.getElementById('platforms-list').innerHTML = '<p class="text-muted text-center">数据加载失败</p>';
+    console.error('[platforms.js] 加载平台数据失败:', error);
+    console.error('[platforms.js] 错误详情:', {
+      message: error.message,
+      stack: error.stack,
+      path: `${basePath}/data/platforms.json`
+    });
+    
+    // 提供更友好的错误提示
+    const container = document.getElementById('platforms-list');
+    if (container) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">⚠️</div>
+          <h3>数据加载失败</h3>
+          <p class="text-muted">请刷新页面重试</p>
+          <p class="text-muted" style="font-size:12px;margin-top:10px;">
+            如果问题持续存在，请检查网络连接
+          </p>
+        </div>
+      `;
+    }
   }
 }
 

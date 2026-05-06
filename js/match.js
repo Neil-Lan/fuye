@@ -651,10 +651,11 @@ function showResult() {
         <span>${mainPlatform.matchReason}</span>
       </div>
       ` : ''}
+      ${generateMarketInsightHTML(mainPlatform)}
     </div>
   ` : '';
   
-  // 构建其他推荐平台
+  // 构建其他推荐平台（每个卡片也添加市场洞察）
   const otherPlatforms = platformDetails.slice(1);
   const otherPlatformsHtml = otherPlatforms.length > 0 ? `
     <div class="other-recommendations">
@@ -671,11 +672,24 @@ function showResult() {
               <span>${p.income}</span>
             </div>
             ${p.matchReason ? `<div class="other-platform-reason">${p.matchReason}</div>` : ''}
+            ${generateMarketInsightHTML(p)}
           </div>
         `).join('')}
       </div>
     </div>
   ` : '';
+  
+  // 构建用户画像用于市场分析
+  const profile = {
+    timeTag: userAnswers['Q1_label'] || '',
+    skillTag: userAnswers['Q2_label'] || '',
+    incomeTag: userAnswers['Q3_label'] || '',
+    outdoorTag: userAnswers['Q4_label'] || '',
+    deviceTag: userAnswers['Q5_label'] || '',
+    focusTag: userAnswers['Q6_label'] || '',
+    englishTag: userAnswers['Q7_label'] || ''
+  };
+  const recommendedTypes = platformDetails.map(p => p.type);
   
   container.innerHTML = `
     <div class="result-container fade-in">
@@ -694,6 +708,8 @@ function showResult() {
         <h4>💡 推荐理由</h4>
         <p>${reason}</p>
       </div>
+      
+      ${generateComprehensiveMarketHTML(profile, recommendedTypes)}
       
       <div class="result-income">
         预期月收入：<span class="income-highlight">${expectedIncome}</span>
@@ -993,6 +1009,297 @@ function resetQuiz() {
   alternativePlatforms = [];
   recommendedPlatformsList = [];
   renderQuestion();
+}
+
+// ==================== 市场洞察功能 ====================
+
+/**
+ * 获取平台的市场洞察数据
+ */
+function getMarketInsight(platform) {
+  const name = platform.平台名称 || platform.name || '';
+  const type = platform.平台类型 || platform.type || '任务型';
+  
+  // 定义市场洞察数据
+  const insights = {
+    '外卖配送': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '饱和状态，新手收入下降明显', 
+      avgNewbieIncome: '2000-4000元/月',
+      trendDirection: '下降'
+    },
+    '蜂鸟众包（饿了么）': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '竞争激烈，订单单价下降', 
+      avgNewbieIncome: '2000-4000元/月',
+      trendDirection: '下降'
+    },
+    '美团众包': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '市场饱和，高峰期收入尚可', 
+      avgNewbieIncome: '2500-4500元/月',
+      trendDirection: '持平'
+    },
+    '任务型': { 
+      heat: 3, 
+      competition: '中', 
+      trend: '稳定，AI替代风险上升', 
+      avgNewbieIncome: '300-800元/月',
+      trendDirection: '下降'
+    },
+    '腾讯搜活帮': { 
+      heat: 2, 
+      competition: '中', 
+      trend: '任务稀少，但结算稳定', 
+      avgNewbieIncome: '200-500元/月',
+      trendDirection: '下降'
+    },
+    '技能变现': { 
+      heat: 4, 
+      competition: '中', 
+      trend: '稳定增长，技能溢价明显', 
+      avgNewbieIncome: '2000-5000元/月',
+      trendDirection: '上升'
+    },
+    '设计创意': { 
+      heat: 4, 
+      competition: '中高', 
+      trend: 'AI工具冲击中低端市场，高端仍有机会', 
+      avgNewbieIncome: '1000-3000元/月',
+      trendDirection: '分化'
+    },
+    '内容创作': { 
+      heat: 5, 
+      competition: '极高', 
+      trend: '严重饱和，需要差异化竞争', 
+      avgNewbieIncome: '0-500元/月',
+      trendDirection: '饱和'
+    },
+    '小红书': { 
+      heat: 5, 
+      competition: '极高', 
+      trend: '流量红利期已过，但变现渠道成熟', 
+      avgNewbieIncome: '0-1000元/月',
+      trendDirection: '稳定'
+    },
+    '抖音': { 
+      heat: 5, 
+      competition: '极高', 
+      trend: '严重饱和，需要长期坚持', 
+      avgNewbieIncome: '0-500元/月',
+      trendDirection: '稳定'
+    },
+    '知乎': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '知识付费有机会', 
+      avgNewbieIncome: '500-2000元/月',
+      trendDirection: '稳定'
+    },
+    '公众号': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '私域积累，长期价值高', 
+      avgNewbieIncome: '0-500元/月',
+      trendDirection: '稳定'
+    },
+    '电商': { 
+      heat: 4, 
+      competition: '高', 
+      trend: '跨境电商有新机会，国内竞争激烈', 
+      avgNewbieIncome: '500-2000元/月',
+      trendDirection: '分化'
+    },
+    '闲鱼副业': { 
+      heat: 3, 
+      competition: '中', 
+      trend: '门槛低，机会多', 
+      avgNewbieIncome: '500-2000元/月',
+      trendDirection: '上升'
+    },
+    '程序员客栈': { 
+      heat: 3, 
+      competition: '中', 
+      trend: '技术外包需求稳定', 
+      avgNewbieIncome: '3000-8000元/月',
+      trendDirection: '稳定'
+    },
+    'Upwork（国际自由职业平台）': { 
+      heat: 4, 
+      competition: '中高', 
+      trend: '国际平台，单价高但竞争加剧', 
+      avgNewbieIncome: '5000-15000元/月',
+      trendDirection: '上升'
+    },
+    '技术开发': { 
+      heat: 4, 
+      competition: '中', 
+      trend: '稳定增长，技术壁垒高', 
+      avgNewbieIncome: '5000-15000元/月',
+      trendDirection: '上升'
+    },
+    '翻译语言': { 
+      heat: 3, 
+      competition: '中', 
+      trend: 'AI翻译冲击，但高端翻译仍需人工', 
+      avgNewbieIncome: '2000-5000元/月',
+      trendDirection: '下降'
+    }
+  };
+  
+  // 尝试精确匹配平台名称
+  if (insights[name]) {
+    return insights[name];
+  }
+  
+  // 按类型匹配
+  if (insights[type]) {
+    return insights[type];
+  }
+  
+  // 默认返回基于关键字的推断
+  if (name.includes('众包') || name.includes('配送')) {
+    return insights['外卖配送'];
+  }
+  if (name.includes('小红书') || name.includes('抖音') || name.includes('B站') || name.includes('知乎')) {
+    return insights['内容创作'];
+  }
+  if (name.includes('设计') || name.includes('包图') || name.includes('稿定')) {
+    return insights['设计创意'];
+  }
+  if (name.includes('程序') || name.includes('代码') || name.includes('码市')) {
+    return insights['技术开发'];
+  }
+  if (name.includes('翻译') || name.includes('语')) {
+    return insights['翻译语言'];
+  }
+  
+  // 默认返回
+  return { 
+    heat: 3, 
+    competition: '中', 
+    trend: '建议进一步了解', 
+    avgNewbieIncome: '因人而异',
+    trendDirection: '未知'
+  };
+}
+
+/**
+ * 生成星标显示
+ */
+function getHeatStars(heat) {
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    stars += i <= heat ? '⭐' : '☆';
+  }
+  return stars;
+}
+
+/**
+ * 获取趋势指示器
+ */
+function getTrendIcon(direction) {
+  switch(direction) {
+    case '上升': return '📈';
+    case '下降': return '📉';
+    case '分化': return '➡️';
+    case '稳定': return '➡️';
+    case '饱和': return '⚠️';
+    default: return '❓';
+  }
+}
+
+/**
+ * 生成市场洞察HTML
+ */
+function generateMarketInsightHTML(platform) {
+  const insight = getMarketInsight(platform);
+  const stars = getHeatStars(insight.heat);
+  const trendIcon = getTrendIcon(insight.trendDirection);
+  
+  return `
+    <div class="market-insight">
+      <div class="market-insight-header">📊 市场洞察</div>
+      <div class="market-insight-content">
+        <div class="insight-row">
+          <span class="insight-label">当前热度</span>
+          <span class="insight-value">${stars}</span>
+        </div>
+        <div class="insight-row">
+          <span class="insight-label">竞争程度</span>
+          <span class="insight-value">${insight.competition}</span>
+        </div>
+        <div class="insight-row">
+          <span class="insight-label">新手3个月平均</span>
+          <span class="insight-value highlight">${insight.avgNewbieIncome}</span>
+        </div>
+        <div class="insight-row">
+          <span class="insight-label">趋势</span>
+          <span class="insight-value">${trendIcon} ${insight.trend}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * 生成综合市场分析HTML
+ */
+function generateComprehensiveMarketHTML(profile, recommendedTypes) {
+  const marketAdvice = matchingRules?.市场分析 || {};
+  
+  // 根据用户画像获取市场建议
+  let adviceKey = '有技能';
+  if (profile.skillTag === '无技能') {
+    adviceKey = '零基础';
+  } else if (profile.focusTag === '长期发展' || profile.incomeTag === '高收入预期') {
+    adviceKey = '想创业';
+  }
+  
+  const advice = marketAdvice.市场建议?.[adviceKey] || '建议根据自身情况选择合适的方向';
+  
+  // 识别推荐方向的竞争状态
+  const saturated = marketAdvice.竞争激烈方向 || [];
+  const emerging = marketAdvice.新兴机会 || [];
+  const cautious = marketAdvice.需谨慎方向 || [];
+  
+  let marketStatus = 'normal';
+  let statusNote = '';
+  
+  recommendedTypes.forEach(type => {
+    if (saturated.some(s => type.includes(s) || s.includes(type))) {
+      marketStatus = 'saturated';
+      statusNote = `⚠️ 注意：${type}方向已趋于饱和，竞争激烈`;
+    } else if (emerging.some(e => type.includes(e) || e.includes(type))) {
+      marketStatus = 'emerging';
+      statusNote = `🌟 新兴机会：${type}方向有较好的发展空间`;
+    }
+  });
+  
+  return `
+    <div class="comprehensive-market">
+      <div class="market-section-header">🌐 2026年市场分析</div>
+      <div class="market-advice">
+        <h5>💡 根据你的情况</h5>
+        <p>${advice}</p>
+      </div>
+      ${statusNote ? `
+        <div class="market-status ${marketStatus}">
+          ${statusNote}
+        </div>
+      ` : ''}
+      <div class="market-tips">
+        <h5>📋 实用建议</h5>
+        <ul>
+          <li>新兴机会：${(marketAdvice.新兴机会 || []).slice(0, 3).join('、')}</li>
+          <li>需谨慎：${(marketAdvice.需谨慎方向 || []).slice(0, 2).join('、')}</li>
+        </ul>
+      </div>
+    </div>
+  `;
 }
 
 // 页面加载完成后初始化
