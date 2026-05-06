@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>副业收入计算器 - 预估你能赚多少钱 | 副业发现平台</title>
+  <meta name="description" content="输入你的情况，预估副业月收入范围。提供保守/中等/乐观三档估算，帮助你理性规划副业收入。">
+  <meta name="keywords" content="副业收入计算,副业赚钱,收入预估,副业规划">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/income-calculator.html">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .calculator-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+    .calculator-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: -20px;
+      margin-bottom: 40px;
+    }
+    .calc-section {
+      margin-bottom: 28px;
+    }
+    .calc-section h3 {
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .calc-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .calc-option {
+      padding: 12px 20px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      min-width: 120px;
+      text-align: center;
+    }
+    .calc-option:hover {
+      border-color: #667eea;
+      background: #eff6ff;
+    }
+    .calc-option.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    .result-card {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+      text-align: center;
+    }
+    .result-card h3 {
+      color: #166534;
+      margin-bottom: 16px;
+    }
+    .income-range {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .income-item {
+      text-align: center;
+    }
+    .income-item .label {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .income-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .income-item.conservative .value { color: #f59e0b; }
+    .income-item.normal .value { color: #10b981; }
+    .income-item.optimistic .value { color: #3b82f6; }
+    .calc-note {
+      background: #fef3c7;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #92400e;
+    }
+    .calc-note strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .tips-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .tips-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    .tip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .tip-item:last-child {
+      border-bottom: none;
+    }
+    .tip-icon {
+      font-size: 1.25rem;
+    }
+    .tip-content h4 {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .tip-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/income-calculator.html">
+  <meta property="og:title" content="副业收入计算器 - 预估你能赚多少钱">
+  <meta property="og:description" content="输入你的情况，预估副业月收入范围。提供保守/中等/乐观三档估算。">
+  <meta property="og:locale" content="zh_CN">
+</head>
+<body>
+  <div class="page-wrapper">
+        <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link active">💰计算</a>
+          <a href="startup-resources.html" class="nav-link">📋资源</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="cases.html" class="nav-link">案例</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="calculator-header">
+      <div class="container">
+        <h1>🧮 副业收入计算器</h1>
+        <p>输入你的情况，预估你能赚多少钱</p>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="calculator-wrapper">
+          <!-- 副业类型 -->
+          <div class="calc-section">
+            <h3>🎯 你想做哪种类型的副业？</h3>
+            <div class="calc-options" id="type-options">
+              <div class="calc-option" data-value="task" data-multiplier="0.3">📋 任务众包<br><small style="font-size:0.75rem;opacity:0.8;">如：数据标注、问卷调查</small></div>
+              <div class="calc-option" data-value="skill" data-multiplier="0.6">💡 技能变现<br><small style="font-size:0.75rem;opacity:0.8;">如：设计、编程、翻译</small></div>
+              <div class="calc-option" data-value="content" data-multiplier="0.8">📱 内容创作<br><small style="font-size:0.75rem;opacity:0.8;">如：短视频、直播、自媒体</small></div>
+              <div class="calc-option" data-value="delivery" data-multiplier="0.5">🛵 配送跑腿<br><small style="font-size:0.75rem;opacity:0.8;">如：外卖、快递、同城配送</small></div>
+              <div class="calc-option" data-value="ecommerce" data-multiplier="0.7">🛒 电商带货<br><small style="font-size:0.75rem;opacity:0.8;">如：淘宝、拼多多、咸鱼</small></div>
+            </div>
+          </div>
+
+          <!-- 每天可投入时间 -->
+          <div class="calc-section">
+            <h3>⏰ 每天能投入多少时间？</h3>
+            <div class="calc-options" id="time-options">
+              <div class="calc-option" data-value="1">1小时</div>
+              <div class="calc-option" data-value="2">2小时</div>
+              <div class="calc-option" data-value="3">3小时</div>
+              <div class="calc-option" data-value="4">4小时</div>
+              <div class="calc-option" data-value="6">6小时</div>
+              <div class="calc-option" data-value="8">8小时+</div>
+            </div>
+          </div>
+
+          <!-- 技能等级 -->
+          <div class="calc-section">
+            <h3>📚 你的技能水平是？</h3>
+            <div class="calc-options" id="skill-options">
+              <div class="calc-option" data-value="0.3">新手<br><small style="font-size:0.75rem;opacity:0.8;">刚入门/零基础</small></div>
+              <div class="calc-option" data-value="0.6">一般<br><small style="font-size:0.75rem;opacity:0.8;">有一些经验</small></div>
+              <div class="calc-option" data-value="0.85">熟练<br><small style="font-size:0.75rem;opacity:0.8;">熟练掌握</small></div>
+              <div class="calc-option" data-value="1">专业<br><small style="font-size:0.75rem;opacity:0.8;">专业人士/有作品</small></div>
+            </div>
+          </div>
+
+          <!-- 地区 -->
+          <div class="calc-section">
+            <h3>📍 你所在的城市级别？</h3>
+            <div class="calc-options" id="city-options">
+              <div class="calc-option" data-value="0.7">县城/乡镇</div>
+              <div class="calc-option" data-value="0.85">三四线城市</div>
+              <div class="calc-option" data-value="1">一二线城市</div>
+            </div>
+          </div>
+
+          <!-- 计算结果 -->
+          <div id="result-area" style="display:none;">
+            <div class="result-card">
+              <h3>📊 你的预估月收入</h3>
+              <div class="income-range">
+                <div class="income-item conservative">
+                  <div class="label">保守估计</div>
+                  <div class="value" id="income-conservative">0元</div>
+                </div>
+                <div class="income-item normal">
+                  <div class="label">中等预估</div>
+                  <div class="value" id="income-normal">0元</div>
+                </div>
+                <div class="income-item optimistic">
+                  <div class="label">乐观估计</div>
+                  <div class="value" id="income-optimistic">0元</div>
+                </div>
+              </div>
+              <p style="color:#6b7280;font-size:0.9rem;">基于你选择的情况，这是不同努力程度下的预估</p><p style="color:#f59e0b;font-size:0.8rem;margin-top:8px;">⚠️ 仅供参考，实际收入受市场、个人能力等多种因素影响</p>
+            </div>
+
+            <div class="calc-note">
+              <strong>⚠️ 重要提醒</strong>
+              <ul style="margin:0;padding-left:16px;line-height:1.8;">
+                <li>以上数据仅供参考，实际收入因人而异</li>
+                <li>收入受市场行情、个人能力、平台政策等多因素影响</li>
+                <li>新手期收入通常较低，需要持续学习和积累</li>
+                <li>高收入往往需要较长时期的坚持和积累</li>
+              </ul>
+            </div>
+
+            <div style="text-align:center;margin-top:24px;">
+              <a href="match.html" class="btn btn-primary">🎯 精准匹配适合你的副业 →</a>
+            </div>
+          </div>
+
+          <button id="calc-btn" class="btn btn-primary btn-lg" style="width:100%;margin-top:20px;" onclick="calculateIncome()">
+            🧮 计算预估收入
+          </button>
+        </div>
+
+        <!-- 影响因素说明 -->
+        <div class="tips-section">
+          <h3>💡 影响副业收入的关键因素</h3>
+          <div class="tip-item">
+            <div class="tip-icon">⏱️</div>
+            <div class="tip-content">
+              <h4>时间投入</h4>
+              <p>每天投入时间直接影响月收入。兼职2-4小时 vs 全职8小时，收入差距可达4-5倍。</p>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">📚</div>
+            <div class="tip-content">
+              <h4>技能水平</h4>
+              <p>新手需要度过学习期（1-3个月），熟练后收入可提升2-3倍，专业人士收入更高但竞争也更激烈。</p>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">📍</div>
+            <div class="tip-content">
+              <h4>城市差异</h4>
+              <p>一线城市机会多但竞争激烈；小城市竞争少但单价可能更低。县城/乡镇做电商反而有优势。</p>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">🎯</div>
+            <div class="tip-content">
+              <h4>副业类型</h4>
+              <p>任务众包稳定但上限低；技能变现天花板高；内容创作两极分化严重。</p>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">📈</div>
+            <div class="tip-content">
+              <h4>积累效应</h4>
+              <p>大多数副业都有积累效应：客户资源、作品集、粉丝等。往往需要3-6个月才能看到明显收入增长。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 收入参考表 -->
+        <div class="tips-section">
+          <h3>📊 各类副业收入参考（仅供参考）</h3>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+              <thead>
+                <tr style="background:#f3f4f6;">
+                  <th style="padding:12px;text-align:left;border-bottom:2px solid #e5e7eb;">副业类型</th>
+                  <th style="padding:12px;text-align:center;border-bottom:2px solid #e5e7eb;">新手期</th>
+                  <th style="padding:12px;text-align:center;border-bottom:2px solid #e5e7eb;">熟练期</th>
+                  <th style="padding:12px;text-align:center;border-bottom:2px solid #e5e7eb;">专业期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:12px;border-bottom:1px solid #e5e7eb;">📋 任务众包</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">300-800元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">1000-2000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">2000-3000元/月</td>
+                </tr>
+                <tr style="background:#f9fafb;">
+                  <td style="padding:12px;border-bottom:1px solid #e5e7eb;">💡 技能变现</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">500-1500元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">3000-8000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">1-3万元+/月</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px;border-bottom:1px solid #e5e7eb;">📱 内容创作</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">0-500元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">1000-5000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">5000-5万元+/月</td>
+                </tr>
+                <tr style="background:#f9fafb;">
+                  <td style="padding:12px;border-bottom:1px solid #e5e7eb;">🛵 配送跑腿</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">1500-3000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">3000-6000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">6000-1万元+/月</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px;border-bottom:1px solid #e5e7eb;">🛒 电商带货</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">500-2000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">3000-10000元/月</td>
+                  <td style="padding:12px;text-align:center;border-bottom:1px solid #e5e7eb;">1-10万元+/月</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.8rem;color:#6b7280;margin-top:12px;">
+            ⚠️ 以上数据基于公开资料整理和用户反馈综合估算，仅供参考。实际收入因人而异，且随市场变化可能有所不同。
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="platforms.html">平台大全</a></li>
+              <li><a href="match.html">智能匹配</a></li>
+              <li><a href="cases.html">真实案例</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 免责声明：</strong>本工具计算结果仅供参考，实际收入受多种因素影响。</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台 · 全部功能免费开放</p></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 当前选项状态
+    let selectedType = null;
+    let selectedTime = null;
+    let selectedSkill = null;
+    let selectedCity = null;
+
+    // 绑定选项点击事件
+    document.querySelectorAll('.calc-option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        const parent = this.parentElement;
+        const options = parent.querySelectorAll('.calc-option');
+        options.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // 更新状态
+        if (parent.id === 'type-options') selectedType = this.dataset.multiplier;
+        if (parent.id === 'time-options') selectedTime = parseInt(this.dataset.value);
+        if (parent.id === 'skill-options') selectedSkill = parseFloat(this.dataset.value);
+        if (parent.id === 'city-options') selectedCity = parseFloat(this.dataset.value);
+      });
+    });
+
+    // 计算收入
+    // 基础收入范围配置（根据副业类型，单位：元/小时）
+    const baseIncomeConfig = {
+      'task': { min: 10, max: 20, desc: '任务众包' },      // 任务众包：数据标注、问卷调查
+      'skill': { min: 30, max: 80, desc: '技能变现' },     // 技能变现：设计、编程、翻译
+      'content': { min: 20, max: 100, desc: '内容创作' },  // 内容创作：短视频、直播、自媒体
+      'delivery': { min: 15, max: 30, desc: '配送跑腿' },  // 配送跑腿：外卖、快递、同城配送
+      'ecommerce': { min: 25, max: 60, desc: '电商带货' } // 电商带货：淘宝、拼多多、咸鱼
+    };
+
+    // 时间投入系数（根据每天投入时间）
+    const timeCoefficient = {
+      '1': 0.5,   // 碎片时间
+      '2': 0.7,   // 1-2小时
+      '3': 1.0,   // 3-4小时
+      '4': 1.0,   // 3-4小时
+      '6': 1.2,   // 6小时
+      '8': 1.5    // 全职
+    };
+
+    // 技能水平系数
+    const skillCoefficient = {
+      '0.3': 0.5,  // 新手
+      '0.6': 0.8,  // 一般
+      '0.85': 1.0, // 熟练
+      '1': 1.5     // 专业
+    };
+
+    function calculateIncome() {
+      if (!selectedType || !selectedTime || !selectedSkill || !selectedCity) {
+        alert('请先选择所有选项');
+        return;
+      }
+
+      const config = baseIncomeConfig[selectedType];
+      if (!config) {
+        alert('请选择有效的副业类型');
+        return;
+      }
+
+      // 获取各项系数
+      const timeCoef = timeCoefficient[selectedTime] || 1.0;
+      const skillCoef = skillCoefficient[selectedSkill] || 1.0;
+      const cityCoef = parseFloat(selectedCity) || 1.0;
+
+      // 基础收入范围（取中间值）
+      const baseMin = config.min;
+      const baseMax = config.max;
+      const baseMid = (baseMin + baseMax) / 2;
+
+      // 月工作天数（扣除休息日）
+      const workDays = 22;
+      const monthlyHours = parseInt(selectedTime) * workDays;
+
+      // 计算三档预估
+      // 保守 = 基础×0.5×时间×技能
+      const conservative = Math.round(baseMin * monthlyHours * timeCoef * skillCoef * cityCoef * 0.5);
+      // 中等 = 基础×1.0×时间×技能
+      const normal = Math.round(baseMid * monthlyHours * timeCoef * skillCoef * cityCoef);
+      // 乐观 = 基础×1.5×时间×技能
+      const optimistic = Math.round(baseMax * monthlyHours * timeCoef * skillCoef * cityCoef * 1.5);
+
+      // 更新UI
+      document.getElementById('result-area').style.display = 'block';
+      document.getElementById('income-conservative').textContent = formatCurrency(conservative);
+      document.getElementById('income-normal').textContent = formatCurrency(normal);
+      document.getElementById('income-optimistic').textContent = formatCurrency(optimistic);
+
+      // 添加参考说明
+      let referenceNote = '';
+      if (skillCoef <= 0.6) {
+        referenceNote = '⚠️ 新手前3个月通常在保守值附近，需要持续学习积累';
+      } else if (skillCoef >= 1.0) {
+        referenceNote = '💡 熟练期收入通常在中等到乐观值之间';
+      }
+
+      // 在结果卡片后添加说明
+      const resultCard = document.querySelector('.result-card');
+      if (resultCard && referenceNote) {
+        let noteEl = document.getElementById('calc-reference-note');
+        if (!noteEl) {
+          noteEl = document.createElement('p');
+          noteEl.id = 'calc-reference-note';
+          noteEl.style.cssText = 'color:#6b7280;font-size:0.85rem;margin-top:12px;';
+          resultCard.appendChild(noteEl);
+        }
+        noteEl.textContent = referenceNote;
+      }
+
+      // 更新底部提示
+      const bottomNote = document.getElementById('bottom-note');
+      if (bottomNote) {
+        bottomNote.innerHTML = `
+          <strong>⚠️ 仅供参考，实际收入受市场、个人能力等多种因素影响</strong>
+          <ul style="margin:0;padding-left:16px;line-height:1.8;">
+            <li>以上数据仅供参考，实际收入因人而异</li>
+            <li>收入受市场行情、个人能力、平台政策等多因素影响</li>
+            <li>新手期收入通常较低，需要持续学习和积累</li>
+            <li>高收入往往需要较长时期的坚持和积累</li>
+          </ul>
+        `;
+      }
+
+      // 滚动到结果
+      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // 格式化货币
+    function formatCurrency(num) {
+      if (num >= 10000) {
+        return (num / 10000).toFixed(1) + '万';
+      }
+      return num.toLocaleString() + '元';
+    }
+  </script>
+</body>
+</html>

@@ -234,13 +234,47 @@
       font-size: 0.75rem;
       color: #9ca3af;
     }
+  
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 1000;
+      top: 100%;
+      right: 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
   </style>
-<link rel="canonical" href="https://fuyep.top/platform-detail.html.html">
+<link rel="canonical" href="https://fuyep.top/platform-detail.html">
   <!-- Open Graph -->
   <meta property="og:title" content="平台详情 - 副业发现平台">
   <meta property="og:description" content="查看平台详细信息、收入情况、风险提示和新手入门指南。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fuyep.top/platform-detail.html.html">
+  <meta property="og:url" content="https://fuyep.top/platform-detail.html">
   <meta property="og:site_name" content="副业发现平台">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="https://fuyep.top/images/og-default.png">
@@ -255,7 +289,7 @@
     "@type": "WebPage",
     "name": "平台详情 - 副业发现平台",
     "description": "查看平台详细信息、收入情况、风险提示和新手入门指南。",
-    "url": "https://fuyep.top/platform-detail.html.html",
+    "url": "https://fuyep.top/platform-detail.html",
     "inLanguage": "zh-CN",
     "isPartOf": {
       "@type": "WebSite",
@@ -271,20 +305,25 @@
 </head>
 <body>
   <div class="page-wrapper">
-    <nav class="navbar">
+        <nav class="navbar">
       <div class="navbar-inner">
         <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
         <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
         <div class="nav-links">
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
-          <a href="scams.html" class="nav-link">骗局预警</a>
-          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link">💰计算</a>
+          <a href="startup-resources.html" class="nav-link">📋资源</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="cases.html" class="nav-link">案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
     </nav>
+
 
     <header class="page-header">
       <div class="container">

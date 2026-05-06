@@ -236,9 +236,9 @@ function searchPlatforms(query) {
 
 // 搜索骗局
 function searchScams(query) {
-  if (!scamsData.骗局案例) return [];
+  if (!scamsData || scamsData.length === 0) return [];
   const q = query.toLowerCase();
-  return scamsData.骗局案例.filter(s => 
+  return scamsData.filter(s => 
     s.骗局名称?.toLowerCase().includes(q) ||
     s.骗局类型?.toLowerCase().includes(q) ||
     s.别名?.some(a => a.toLowerCase().includes(q)) ||

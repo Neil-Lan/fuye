@@ -252,6 +252,40 @@
       border-color: var(--primary-color);
       color: var(--primary-color);
     }
+  
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 1000;
+      top: 100%;
+      right: 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -265,20 +299,25 @@
 </head>
 <body>
   <div class="page-wrapper">
-    <nav class="navbar">
+        <nav class="navbar">
       <div class="navbar-inner">
         <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
         <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
         <div class="nav-links">
           <a href="index.html" class="nav-link">首页</a>
-          <a href="platforms.html" class="nav-link">平台大全</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="match.html" class="nav-link">测一测</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link">💰计算</a>
+          <a href="startup-resources.html" class="nav-link">📋资源</a>
           <a href="scam-checker.html" class="nav-link">骗局识别</a>
-          <a href="match.html" class="nav-link">副业匹配</a>
-          <a href="submit.html" class="nav-link">我要投稿</a>
+          <a href="cases.html" class="nav-link">案例</a>
+          <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
     </nav>
+
 
     <main class="search-page-container">
       <!-- 搜索英雄区 -->

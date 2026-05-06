@@ -347,6 +347,40 @@
         white-space: nowrap;
       }
     }
+  
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 1000;
+      top: 100%;
+      right: 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -372,6 +406,9 @@
           <a href="scams.html" class="nav-link">骗局预警</a>
           <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
+          <a href="income-calculator.html" class="nav-link">🧮计算</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="startup-resources.html" class="nav-link">📋资源</a>
           <a href="cases.html" class="nav-link active">真实案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
@@ -386,6 +423,15 @@
     </header>
 
     <main class="main-content">
+
+        <div style="background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);border:1px solid #f59e0b;border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:1.5rem;flex-shrink:0;">⚠️</span>
+          <div style="flex:1;">
+            <div style="font-weight:600;color:#92400e;margin-bottom:4px;">案例声明</div>
+            <div style="font-size:0.9rem;color:#78350f;line-height:1.6;">以下案例来源于公开网络报道和用户分享，仅供参考，不构成收入保证。实际收入因个人能力、地区、市场等因素差异较大。请在选择副业前充分了解风险。</div>
+          </div>
+        </div>
+
       <div class="container">
         <!-- 统计数据 -->
         <div class="cases-stats" id="cases-stats">

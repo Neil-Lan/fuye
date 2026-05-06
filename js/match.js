@@ -148,30 +148,33 @@ function getPlatformStatus(platform) {
   const statusMap = {
     '腾讯搜活帮': { status: 'normal', label: '正常运营' },
     '美团众包': { status: 'normal', label: '正常运营' },
-    '蜂鸟众包': { status: 'normal', label: '正常运营' },
-    '顺丰同城': { status: 'normal', label: '正常运营' },
-    '达达快送': { status: 'normal', label: '正常运营' },
+    '蜂鸟众包（饿了么）': { status: 'normal', label: '正常运营' },
+    '顺丰同城': { status: 'warning', label: '抽佣较高' },
+    '达达快送（京东秒送）': { status: 'warning', label: '需保证金' },
     '斗米兼职': { status: 'normal', label: '正常运营' },
+    '兼职猫': { status: 'normal', label: '正常运营' },
     '阿里众包': { status: 'closed', label: '已停运' },
+    '字节Xpert': { status: 'warning', label: '门槛极高' },
     '京东微工': { status: 'warning', label: '问题较多' },
     '猪八戒网': { status: 'warning', label: '争议较多' },
     '程序员客栈': { status: 'normal', label: '正常运营' },
     '码市': { status: 'normal', label: '正常运营' },
-    'Upwork': { status: 'normal', label: '正常运营' },
-    'Fiverr': { status: 'normal', label: '正常运营' },
-    'Toptal': { status: 'normal', label: '正常运营' },
+    'Upwork（国际自由职业平台）': { status: 'normal', label: '正常运营' },
+    'Fiverr（国际微任务平台）': { status: 'normal', label: '正常运营' },
+    'Toptal（高端自由职业平台）': { status: 'normal', label: '正常运营' },
     '小红书': { status: 'normal', label: '正常运营' },
     '知乎': { status: 'normal', label: '正常运营' },
     '公众号': { status: 'normal', label: '正常运营' },
     '抖音': { status: 'normal', label: '正常运营' },
-    'B站': { status: 'normal', label: '正常运营' },
+    'B站（哔哩哔哩）': { status: 'normal', label: '正常运营' },
     '西瓜视频': { status: 'normal', label: '正常运营' },
     '稿定设计': { status: 'normal', label: '正常运营' },
     '包图网': { status: 'normal', label: '正常运营' },
     '喜马拉雅': { status: 'normal', label: '正常运营' },
     'Keep': { status: 'normal', label: '正常运营' },
-    '闲鱼': { status: 'normal', label: '正常运营' },
-    '拼多多': { status: 'normal', label: '正常运营' }
+    '闲鱼副业': { status: 'normal', label: '正常运营' },
+    '拼多多': { status: 'normal', label: '正常运营' },
+    '一品威客': { status: 'warning', label: '整体没落' }
   };
   return statusMap[platform.平台名称] || { status: 'normal', label: '正常运营' };
 }
@@ -226,7 +229,7 @@ function calculateMatchScore(platform, profile) {
   
   // 英语加成
   if ((profile.englishTag === '英语强' || profile.englishTag === '英语精通') && platform.官网地址?.includes('http')) {
-    if (['Upwork', 'Fiverr', 'Toptal'].includes(platform.平台名称)) {
+    if (platform.平台名称?.includes('Upwork') || platform.平台名称?.includes('Fiverr') || platform.平台名称?.includes('Toptal')) {
       score += 20;
       reasons.push('英语优势可获得更高收入');
     }
@@ -248,7 +251,7 @@ function calculateMatchScore(platform, profile) {
   
   // 发展倾向匹配
   if (profile.focusTag === '长期发展') {
-    if (['小红书', '知乎', '公众号', 'B站', '抖音'].includes(platform.平台名称)) {
+    if (['小红书', '知乎', '微信公众号', 'B站（哔哩哔哩）', '抖音'].includes(platform.平台名称)) {
       score += 15;
       reasons.push('内容创作适合长期积累');
     }
@@ -262,7 +265,7 @@ function calculateMatchScore(platform, profile) {
 
 // 过滤正常运营的平台
 function filterActivePlatforms(platforms) {
-  const inactivePlatforms = ['阿里众包', '京东微工', '字节众包'];
+  const inactivePlatforms = ['阿里众包', '京东微工', '字节Xpert', '甜薪工场'];
   return platforms.filter(p => !inactivePlatforms.includes(p.平台名称));
 }
 
@@ -304,7 +307,7 @@ function calculateMatch() {
   
   // 1. 外卖配送场景（整块时间+户外+高收入期望）
   if ((timeTag === '整块时间' || timeTag === '全职投入') && outdoorTag === '可户外' && (deviceTag === '手机用户' || deviceTag === '电脑用户')) {
-    recommendedPlatforms = ['美团众包', '蜂鸟众包', '顺丰同城', '达达快送'];
+    recommendedPlatforms = ['美团众包', '蜂鸟众包（饿了么）', '顺丰同城', '达达快送（京东秒送）'];
     reason = '你有整块时间且愿意户外工作，外卖配送是收入最高的选择，高峰期月入可达5000-8000元';
     expectedIncome = '3000-6000元/月（熟练后可达8000+）';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -316,10 +319,10 @@ function calculateMatch() {
   else if ((timeTag === '碎片时间') && outdoorTag === '室内优先' && (deviceTag === '手机用户' || deviceTag === '电脑用户') && skillTag === '无技能') {
     recommendedPlatforms = ['腾讯搜活帮', '斗米兼职'];
     reason = '碎片时间+室内工作+零基础，推荐从简单的任务型平台开始，逐步积累经验。注意：2026年众包平台任务量下降，预期收入可能较低。';
-    expectedIncome = '300-1000元/月';
+    expectedIncome = '300-800元/月';
     matchDetails = recommendedPlatforms.map(name => ({
       name,
-      matchReason: name === '腾讯搜活帮' ? '腾讯官方平台，结算有保障，适合新手入门' : '任务类型丰富，可灵活选择'
+      matchReason: name === '腾讯搜活帮' ? '腾讯官方平台，结算有保障，适合新手入门（但任务稀少）' : '任务类型丰富，可灵活选择'
     }));
   }
   // 3. 设计技能场景
@@ -334,7 +337,7 @@ function calculateMatch() {
   }
   // 4. 技术编程场景
   else if ((timeTag === '整块时间' || timeTag === '全职投入') && skillTag === '技术技能' && (incomeTag === '较高收入预期' || incomeTag === '高收入预期')) {
-    recommendedPlatforms = ['程序员客栈', '码市', 'Upwork'];
+    recommendedPlatforms = ['程序员客栈', '码市', 'Upwork（国际自由职业平台）'];
     reason = '你有编程技能，技术外包收入高且稳定。国内外包平台竞争激烈，有英语能力建议优先考虑Upwork国际平台。';
     expectedIncome = '5000-20000元/月';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -354,27 +357,27 @@ function calculateMatch() {
   }
   // 6. 视频技能场景
   else if ((timeTag === '整块时间' || timeTag === '全职投入') && skillTag === '视频技能' && (deviceTag === '电脑用户' || deviceTag === '专业设备用户')) {
-    recommendedPlatforms = ['抖音', 'B站', '西瓜视频'];
+    recommendedPlatforms = ['抖音', 'B站（哔哩哔哩）', '西瓜视频'];
     reason = '你有视频能力，视频平台变现潜力大。需要持续输出高质量内容，前期收入不稳定，做好长期坚持的准备。';
     expectedIncome = '需要3-6个月积累期，后期可达5000-50000元/月';
     matchDetails = recommendedPlatforms.map(name => ({
       name,
-      matchReason: name === '抖音' ? '流量最大，变现渠道最多（带货/广告/直播）' : name === 'B站' ? '用户粘性高，创作激励计划收益好' : '中视频计划收益可观'
+      matchReason: name === '抖音' ? '流量最大，变现渠道最多（带货/广告/直播）' : name === 'B站（哔哩哔哩）' ? '用户粘性高，创作激励计划收益好' : '中视频计划收益可观'
     }));
   }
   // 7. 英语优势国际平台
   else if (englishTag === '英语强' || englishTag === '英语精通') {
-    recommendedPlatforms = ['Upwork', 'Fiverr', 'Toptal'];
+    recommendedPlatforms = ['Upwork（国际自由职业平台）', 'Fiverr（国际微任务平台）', 'Toptal（高端自由职业平台）'];
     reason = '你英语好，国际平台收入更高。同样技能在国际平台报酬是国内3-10倍。';
     expectedIncome = '5000-30000元/月（美元结算更高）';
     matchDetails = recommendedPlatforms.map(name => ({
       name,
-      matchReason: name === 'Upwork' ? '全球最大自由职业平台，订单量大' : name === 'Fiverr' ? '适合新手，技能变现门槛低' : '高端技术人才平台，单价最高'
+      matchReason: name.includes('Upwork') ? '全球最大自由职业平台，订单量大' : name.includes('Fiverr') ? '适合新手，技能变现门槛低' : '高端技术人才平台，单价最高'
     }));
   }
   // 8. 短期收益+无技能
   else if (focusTag === '短期收益' && skillTag === '无技能') {
-    recommendedPlatforms = ['腾讯搜活帮', '美团众包', '闲鱼'];
+    recommendedPlatforms = ['腾讯搜活帮', '美团众包', '闲鱼副业'];
     reason = '想快速看到收益，推荐任务型和交易型平台。闲鱼卖闲置或代购也不错。';
     expectedIncome = '500-2000元/月';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -395,7 +398,7 @@ function calculateMatch() {
   // 10. 专业设备用户
   else if (deviceTag === '专业设备用户') {
     if (skillTag === '视频技能' || skillTag === '其他技能') {
-      recommendedPlatforms = ['抖音', 'B站', '小红书'];
+      recommendedPlatforms = ['抖音', 'B站（哔哩哔哩）', '小红书'];
       reason = '你有专业设备，可以制作更高质量的内容。建议做视频或摄影类账号。';
       expectedIncome = '5000-30000元/月';
       matchDetails = recommendedPlatforms.map(name => ({
@@ -403,7 +406,7 @@ function calculateMatch() {
         matchReason: '专业设备能制作更高质量内容，获得更多流量'
       }));
     } else {
-      recommendedPlatforms = ['闲鱼', '小红书'];
+      recommendedPlatforms = ['闲鱼副业', '小红书'];
       reason = '专业设备可用于出租或制作教程内容变现。';
       expectedIncome = '1000-5000元/月';
       matchDetails = recommendedPlatforms.map(name => ({
@@ -414,7 +417,7 @@ function calculateMatch() {
   }
   // 11. 平衡型用户
   else if (focusTag === '平衡') {
-    recommendedPlatforms = ['小红书', '腾讯搜活帮', '闲鱼'];
+    recommendedPlatforms = ['小红书', '腾讯搜活帮', '闲鱼副业'];
     reason = '兼顾短期收益和长期发展，推荐「主业+副业」双轨模式。';
     expectedIncome = '短期1000-2000元/月，长期可达5000+';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -424,7 +427,7 @@ function calculateMatch() {
   }
   // 12. 其他技能
   else if (skillTag === '其他技能') {
-    recommendedPlatforms = ['斗米兼职', '小红书', '闲鱼'];
+    recommendedPlatforms = ['斗米兼职', '小红书', '闲鱼副业'];
     reason = '你有特殊技能，可以在内容平台展示或到兼职平台接单。';
     expectedIncome = '2000-5000元/月';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -434,7 +437,7 @@ function calculateMatch() {
   }
   // 13. 大学生场景
   else if (skillTag === '无技能' && incomeTag === '低收入预期' && timeTag === '碎片时间') {
-    recommendedPlatforms = ['腾讯搜活帮', '闲鱼'];
+    recommendedPlatforms = ['腾讯搜活帮', '闲鱼副业'];
     reason = '学生党推荐，从简单的任务型平台开始，赚零花钱的同时可以学习新技能。';
     expectedIncome = '300-1000元/月';
     matchDetails = recommendedPlatforms.map(name => ({
@@ -444,7 +447,7 @@ function calculateMatch() {
   }
   // 14. 宝妈场景
   else if (skillTag === '无技能' && timeTag === '碎片时间' && deviceTag === '手机用户') {
-    recommendedPlatforms = ['腾讯搜活帮', '小红书', '闲鱼'];
+    recommendedPlatforms = ['腾讯搜活帮', '小红书', '闲鱼副业'];
     reason = '碎片时间+手机操作，推荐适合宝妈的灵活副业。可以做内容分享或简单任务。';
     expectedIncome = '500-2000元/月';
     matchDetails = recommendedPlatforms.map(name => ({

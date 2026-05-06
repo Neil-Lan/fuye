@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 页面不存在 | 副业发现平台</title>
+  <meta name="description" content="抱歉，您访问的页面不存在。">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://fuyep.top/404.html">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .error-page {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .error-content {
+      max-width: 500px;
+    }
+    .error-code {
+      font-size: 8rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .error-title {
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .error-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .error-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: transform 0.2s;
+    }
+    .error-link:hover {
+      transform: translateY(-2px);
+    }
+    .error-link.secondary {
+      background: white;
+      color: var(--text-primary);
+      border: 2px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link">💰计算</a>
+          <div class="nav-dropdown">
+            <a href="javascript:void(0)" class="nav-link">更多▼</a>
+            <div class="nav-dropdown-content">
+              <a href="startup-resources.html">📋 创业资源</a>
+              <a href="cases.html">📖 案例</a>
+              <a href="compare.html">⚖️ 对比</a>
+              <a href="scam-checker.html">🔍 骗局识别</a>
+              <a href="about.html">ℹ️ 关于</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="error-page">
+      <div class="error-content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">😅 页面不存在</h1>
+        <p class="error-desc">抱歉，您访问的页面可能已被删除、名称已更改或暂时不可用。</p>
+        <div class="error-actions">
+          <a href="index.html" class="error-link">
+            🏠 返回首页
+          </a>
+          <a href="platforms.html" class="error-link secondary">
+            🔍 浏览副业平台
+          </a>
+          <a href="match.html" class="error-link secondary">
+            🎯 做副业匹配测试
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2024-2026 副业发现平台 · <a href="disclaimer.html">免责声明</a> · <a href="privacy.html">隐私政策</a></p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:8px;">数据仅供参考，请以实际情况为准</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

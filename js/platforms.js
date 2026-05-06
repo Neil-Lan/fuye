@@ -7,6 +7,10 @@ let platformsData = [];
 let currentCategory = '全部';
 let currentDifficulty = '全部';
 let currentStatus = '全部';  // 新增：平台状态筛选
+let currentIncome = '全部';  // 新增：收入区间筛选
+let currentTime = '全部';    // 新增：时间投入筛选
+let currentPersona = '全部'; // 新增：人群筛选
+let currentSkill = '全部';   // 新增：技能要求筛选
 
 // ==================== 平台状态判断函数 ====================
 function getPlatformStatus(platform) {
@@ -109,12 +113,40 @@ async function initPlatforms() {
       currentCategory = category;
     }
     
+    // 支持人群参数
+    const persona = params.get('persona');
+    if (persona) {
+      currentPersona = persona === 'mom' ? '宝妈' : 
+                      persona === 'student' ? '学生' :
+                      persona === 'office' ? '上班族' :
+                      persona === 'freelancer' ? '自由职业' :
+                      persona === 'retiree' ? '退休人员' : '全部';
+    }
+    
     renderFilters();
     renderPlatforms();
   } catch (error) {
     console.error('加载平台数据失败:', error);
     document.getElementById('platforms-list').innerHTML = '<p class="text-muted text-center">数据加载失败</p>';
   }
+}
+
+// 解析收入区间
+function parseIncomeRange(incomeStr) {
+  if (!incomeStr) return { min: 0, max: 1000 };
+  const match = incomeStr.match(/(\d+)-?(\d+)?/);
+  if (match) {
+    const min = parseInt(match[1]) || 0;
+    const max = parseInt(match[2]) || min * 2;
+    return { min, max };
+  }
+  // 处理特殊格式
+  const singleMatch = incomeStr.match(/(\d+)/);
+  if (singleMatch) {
+    const val = parseInt(singleMatch[1]);
+    return { min: val, max: val * 2 };
+  }
+  return { min: 0, max: 1000 };
 }
 
 // 渲染筛选器
@@ -184,6 +216,61 @@ function renderPlatforms() {
     });
   }
   
+  // 收入区间筛选（新增）
+  if (currentIncome !== '全部') {
+    filtered = filtered.filter(p => {
+      const incomeStr = p.时薪范围 || p.收入范围 || '';
+      const range = parseIncomeRange(incomeStr);
+      const avgIncome = (range.min + range.max) / 2;
+      switch (currentIncome) {
+        case '0-1000': return avgIncome <= 1000;
+        case '1000-3000': return avgIncome > 1000 && avgIncome <= 3000;
+        case '3000-5000': return avgIncome > 3000 && avgIncome <= 5000;
+        case '5000-10000': return avgIncome > 5000 && avgIncome <= 10000;
+        case '10000+': return avgIncome > 10000;
+        default: return true;
+      }
+    });
+  }
+  
+  // 时间投入筛选（新增）
+  if (currentTime !== '全部') {
+    filtered = filtered.filter(p => {
+      const timeStr = p.时间投入 || p.时间匹配 || '';
+      switch (currentTime) {
+        case '碎片时间': return timeStr.includes('碎片') || timeStr.includes('灵活');
+        case '1-2小时': return timeStr.includes('1') || timeStr.includes('2');
+        case '3-4小时': return timeStr.includes('3') || timeStr.includes('4');
+        case '全职': return timeStr.includes('全职') || timeStr.includes('8');
+        default: return true;
+      }
+    });
+  }
+  
+  // 人群筛选（新增）
+  if (currentPersona !== '全部') {
+    filtered = filtered.filter(p => {
+      const labels = p.人群标签 || {};
+      const personaMatch = Object.entries(labels).find(([k, v]) => 
+        v && v.includes('✅') && k.includes(currentPersona)
+      );
+      return !!personaMatch;
+    });
+  }
+  
+  // 技能要求筛选（新增）
+  if (currentSkill !== '全部') {
+    filtered = filtered.filter(p => {
+      const skillReq = p.新手门槛 || p.技能要求 || '';
+      switch (currentSkill) {
+        case '零基础': return skillReq.includes('零基础') || skillReq.includes('无需') || skillReq.includes('无要求');
+        case '入门': return skillReq.includes('入门') || skillReq.includes('简单');
+        case '专业': return skillReq.includes('专业') || skillReq.includes('需要经验');
+        default: return true;
+      }
+    });
+  }
+  
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
@@ -237,6 +324,12 @@ function renderPlatforms() {
   
   // 更新统计
   document.getElementById('platform-count').textContent = filtered.length;
+  
+  // 更新增强筛选器的结果计数
+  const totalEl = document.getElementById('total-count');
+  if (totalEl) {
+    totalEl.textContent = filtered.length;
+  }
 }
 
 // 绑定筛选事件
@@ -256,6 +349,49 @@ function bindFilterEvents() {
     currentStatus = e.target.value;
     renderPlatforms();
   });
+  
+  // 新增：收入区间筛选事件
+  document.getElementById('income-filter')?.addEventListener('change', (e) => {
+    currentIncome = e.target.value;
+    renderPlatforms();
+  });
+  
+  // 新增：时间投入筛选事件
+  document.getElementById('time-filter')?.addEventListener('change', (e) => {
+    currentTime = e.target.value;
+    renderPlatforms();
+  });
+  
+  // 新增：人群筛选事件
+  document.getElementById('persona-filter')?.addEventListener('change', (e) => {
+    currentPersona = e.target.value;
+    renderPlatforms();
+  });
+  
+  // 新增：技能要求筛选事件
+  document.getElementById('skill-filter')?.addEventListener('change', (e) => {
+    currentSkill = e.target.value;
+    renderPlatforms();
+  });
+}
+
+// 重置所有筛选
+function resetAllFilters() {
+  currentCategory = '全部';
+  currentDifficulty = '全部';
+  currentStatus = '全部';
+  currentIncome = '全部';
+  currentTime = '全部';
+  currentPersona = '全部';
+  currentSkill = '全部';
+  
+  // 重置所有select
+  ['category-filter', 'difficulty-filter', 'status-filter', 'income-filter', 'time-filter', 'persona-filter', 'skill-filter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '全部';
+  });
+  
+  renderPlatforms();
 }
 
 // 页面加载完成后初始化

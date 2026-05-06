@@ -3,14 +3,17 @@
 const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
 
 // ==================== 全局变量 ====================
-let scamsData = [];
+let scamsData = {};
+let scamsList = [];
 let currentScamType = '全部';
 
 // ==================== 初始化 ====================
 async function initScams() {
   try {
     const res = await fetch(`${basePath}/data/scams.json`);
-    scamsData = await res.json();
+    const data = await res.json();
+    scamsData = data;
+    scamsList = data.骗局案例 || [];
     
     // 获取URL参数中的分类
     const params = new URLSearchParams(window.location.search);
@@ -41,9 +44,9 @@ function renderFilters() {
 // 渲染骗局列表
 function renderScams() {
   const container = document.getElementById('scams-list');
-  if (!container || !scamsData.骗局案例) return;
+  if (!container || !scamsList || scamsList.length === 0) return;
   
-  let filtered = scamsData.骗局案例;
+  let filtered = scamsList;
   
   // 分类筛选
   if (currentScamType !== '全部') {

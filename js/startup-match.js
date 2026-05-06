@@ -65,6 +65,62 @@ const startupQuestions = [
       { label: '实现梦想', value: 'dream' },
       { label: '其他原因', value: 'other' }
     ]
+  },
+  {
+    id: 'S7',
+    question: '你偏好哪种创业形式？',
+    options: [
+      { label: '线上互联网（电商、自媒体等）', value: 'online' },
+      { label: '线下实体（店铺、服务业等）', value: 'offline' },
+      { label: '都可以，看机会', value: 'both' }
+    ]
+  },
+  {
+    id: 'S8',
+    question: '你是否已有团队或合伙人？',
+    options: [
+      { label: '独自创业', value: 'alone' },
+      { label: '有1-2个合伙人', value: 'partner_small' },
+      { label: '已有3人以上团队', value: 'partner_big' },
+      { label: '正在寻找合伙人', value: 'partner_looking' }
+    ]
+  },
+  {
+    id: 'S9',
+    question: '你是否有实体店或销售经验？',
+    options: [
+      { label: '完全无经验', value: 'no_exp' },
+      { label: '有相关行业打工经验', value: 'work_exp' },
+      { label: '有开店或创业经验', value: 'business_exp' }
+    ]
+  },
+  {
+    id: 'S10',
+    question: '你的营销推广能力如何？',
+    options: [
+      { label: '较弱，需要学习', value: 'weak' },
+      { label: '一般，能做基础推广', value: 'normal' },
+      { label: '较强，有自媒体运营经验', value: 'strong' }
+    ]
+  },
+  {
+    id: 'S11',
+    question: '你对行业的了解程度？',
+    options: [
+      { label: '不了解，需要从头学习', value: 'unknown' },
+      { label: '有些了解，看过相关资料', value: 'basic' },
+      { label: '比较了解，有深入研究', value: 'familiar' },
+      { label: '非常了解，从业多年', value: 'expert' }
+    ]
+  },
+  {
+    id: 'S12',
+    question: '你希望多久开始有收入？',
+    options: [
+      { label: '越快越好（1-3个月）', value: 'fast' },
+      { label: '可以等一段时间（3-6个月）', value: 'medium' },
+      { label: '愿意长期投入（6个月以上）', value: 'slow' }
+    ]
   }
 ];
 
@@ -113,7 +169,8 @@ const startupDirections = {
       {
         name: '奶茶饮品店加盟',
         invest: '10-20万',
-        income: '1-5万/月',
+        income: '5000-2万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中',
         difficulty: '需要经验',
         description: '选择成熟品牌加盟，利用品牌效应和标准化运营。',
@@ -122,7 +179,8 @@ const startupDirections = {
       {
         name: '便利店/超市加盟',
         invest: '15-30万',
-        income: '2-8万/月',
+        income: '1-3万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中',
         difficulty: '需要经验',
         description: '社区便利店、连锁超市加盟，稳定但竞争激烈。',
@@ -156,7 +214,8 @@ const startupDirections = {
       {
         name: '抖音/快手带货',
         invest: '3000-2万',
-        income: '5000-5万/月',
+        income: '3000-1.5万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中',
         difficulty: '需要学习',
         description: '短视频+直播带货，适合有表达能力和选品眼光的人。',
@@ -165,7 +224,8 @@ const startupDirections = {
       {
         name: '跨境电商',
         invest: '3-10万',
-        income: '1-5万/月',
+        income: '5000-2万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中高',
         difficulty: '需要学习',
         description: '亚马逊、速卖通等平台出口，需要英语基础和选品能力。',
@@ -181,7 +241,8 @@ const startupDirections = {
       {
         name: '餐饮实体店',
         invest: '20-50万',
-        income: '3-10万/月',
+        income: '1-5万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '高',
         difficulty: '需要经验',
         warning: '⚠️ 证照要求：需办理营业执照、食品经营许可证、健康证等，选址需符合环保要求',
@@ -191,7 +252,8 @@ const startupDirections = {
       {
         name: '教育培训实体',
         invest: '10-30万',
-        income: '2-8万/月',
+        income: '8000-3万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中高',
         difficulty: '需要经验',
         description: '学科辅导、兴趣培训、托育等，市场需求稳定。',
@@ -200,7 +262,8 @@ const startupDirections = {
       {
         name: '美容美发工作室',
         invest: '5-20万',
-        income: '1-5万/月',
+        income: '8000-2万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中',
         difficulty: '需要技术',
         description: '美容、美甲、美发等，靠手艺和服务质量积累客户。',
@@ -216,7 +279,8 @@ const startupDirections = {
       {
         name: '设计工作室',
         invest: '5000-2万',
-        income: '1-5万/月',
+        income: '5000-1.5万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '低',
         difficulty: '需要技能',
         description: 'logo设计、包装设计、UI设计等，靠作品和服务质量。',
@@ -225,7 +289,8 @@ const startupDirections = {
       {
         name: '自媒体工作室',
         invest: '1-3万',
-        income: '5000-10万/月',
+        income: '3000-1.5万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '中',
         difficulty: '需要持续输出',
         description: '短视频、图文、直播等，打造个人IP，长期价值高。',
@@ -234,7 +299,8 @@ const startupDirections = {
       {
         name: '咨询/培训服务',
         invest: '5000-1万',
-        income: '1-5万/月',
+        income: '5000-2万/月',
+        incomeNote: '⚠️ 以上为成熟期收入，新手期通常为上述范围的30%-50%',
         risk: '低',
         difficulty: '需要专业背景',
         description: '商业咨询、职业规划、技能培训等，靠专业能力变现。',
@@ -432,6 +498,9 @@ function nextStartupQuestion() {
   renderStartupQuestion();
 }
 
+// 在结果页面底部添加资源链接标记
+const startupResourceLink = '<div style="text-align:center;margin-top:24px;"><a href="startup-resources.html" class="btn btn-secondary">📋 查看创业资源 →</a></div>';
+
 // 显示匹配结果
 function showStartupResult() {
   const container = document.getElementById('startup-quiz-container');
@@ -463,8 +532,10 @@ function showStartupResult() {
               <span class="badge badge-risk">⚠️ 风险${d.risk}</span>
               <span class="badge badge-difficulty">📚 ${d.difficulty}</span>
             </div>
+            ${d.incomeNote ? `<div style="color:#f59e0b;font-size:12px;margin-top:6px;">${d.incomeNote}</div>` : ''}
             <p>${d.description}</p>
-            <a href="${d.caseUrl}" class="case-link">📖 查看成功案例 →</a>
+            <a href="${d.caseUrl}" class="case-link">📖 查看成功案例</a>
+            <a href="startup-resources.html" class="case-link" style="margin-left:12px;">📋 查看创业资源</a>
           </div>
         `).join('')}
       </div>
@@ -488,6 +559,7 @@ function showStartupResult() {
           📈 去测试副业匹配
         </button>
       </div>
+      ${startupResourceLink}
     </div>
   `;
   

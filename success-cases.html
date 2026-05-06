@@ -7,12 +7,12 @@
   <meta name="description" content="真实用户分享副业赚钱经验，从月入500到月入过万的真实故事">
   <meta name="keywords" content="副业案例,副业经验,副业故事,赚钱经历">
   <link rel="stylesheet" href="css/style.css">
-<link rel="canonical" href="https://fuyep.top/success-cases.html.html">
+<link rel="canonical" href="https://fuyep.top/success-cases.html">
   <!-- Open Graph -->
   <meta property="og:title" content="成功案例 - 副业发现平台">
   <meta property="og:description" content="100个真实副业赚钱成功案例分享，学习别人的副业经验和技巧。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fuyep.top/success-cases.html.html">
+  <meta property="og:url" content="https://fuyep.top/success-cases.html">
   <meta property="og:site_name" content="副业发现平台">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="https://fuyep.top/images/og-default.png">
@@ -27,7 +27,7 @@
     "@type": "WebPage",
     "name": "成功案例 - 副业发现平台",
     "description": "100个真实副业赚钱成功案例分享，学习别人的副业经验和技巧。",
-    "url": "https://fuyep.top/success-cases.html.html",
+    "url": "https://fuyep.top/success-cases.html",
     "inLanguage": "zh-CN",
     "isPartOf": {
       "@type": "WebSite",
@@ -43,20 +43,25 @@
 </head>
 <body>
   <div class="page-wrapper">
-    <nav class="navbar">
+        <nav class="navbar">
       <div class="navbar-inner">
         <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
         <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
         <div class="nav-links">
           <a href="index.html" class="nav-link">首页</a>
           <a href="platforms.html" class="nav-link">找副业</a>
-          <a href="scams.html" class="nav-link">骗局预警</a>
-          <a href="scam-checker.html" class="nav-link">骗局识别</a>
           <a href="match.html" class="nav-link">测一测</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link">💰计算</a>
+          <a href="startup-resources.html" class="nav-link">📋资源</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="cases.html" class="nav-link">案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
       </div>
     </nav>
+
 
     <header class="page-header" style="background:linear-gradient(135deg,#22c55e 0%,#16a34a 100%);">
       <div class="container">
@@ -67,6 +72,15 @@
 
     <main class="main-content">
       <div class="container">
+        <!-- 创业案例高收入提示 -->
+        <div style="background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);border:1px solid #f59e0b;border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:1.5rem;flex-shrink:0;">⚠️</span>
+          <div style="flex:1;">
+            <div style="font-weight:600;color:#92400e;margin-bottom:4px;">温馨提示</div>
+            <div style="font-size:0.9rem;color:#78350f;line-height:1.6;">以下创业案例中高收入属于少数情况。统计显示，新创业项目1年内存活率不足30%，多数创业者月收入在5000-1.5万元之间。请理性看待案例数据，做好充分准备再创业。</div>
+          </div>
+        </div>
+        
         <div class="filter-bar">
           <div class="filter-group">
             <label class="filter-label">收入范围：</label>
@@ -338,6 +352,40 @@
         grid-template-columns: 1fr;
       }
     }
+  
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 1000;
+      top: 100%;
+      right: 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
   </style>
   <!-- 数据统计 -->
   <script src="js/analytics.js"></script>

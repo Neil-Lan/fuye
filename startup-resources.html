@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创业资源库 - 融资渠道/法律服务/创业空间 | 副业发现平台</title>
+  <meta name="description" content="创业资源导航，收录政府创业贷款、天使投资、众筹等融资渠道，工商注册、法律顾问、知识产权等法律服务，众创空间、联合办公等创业空间选择。">
+  <meta name="keywords" content="创业资源,融资渠道,创业贷款,天使投资,众筹,法律服务,创业空间,众创空间">
+  <meta name="author" content="副业发现平台">
+  <meta name="robots" content="index, follow">
+  <meta name="canonical" content="https://fuyep.top/startup-resources.html">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .resource-section {
+      margin-bottom: 40px;
+    }
+    .resource-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .resource-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s;
+    }
+    .resource-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .resource-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .resource-card .category {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      margin-bottom: 12px;
+    }
+    .resource-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .feature-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    .feature-list li {
+      padding: 6px 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .feature-list li::before {
+      content: "•";
+      color: #10b981;
+      font-weight: bold;
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .tag {
+      padding: 4px 8px;
+      background: #f3f4f6;
+      color: #4b5563;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .warning-box {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+    .warning-box strong {
+      color: #92400e;
+    }
+    .price-range {
+      background: #ecfdf5;
+      color: #047857;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin: 8px 0;
+    }
+    .intro-section {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 40px 0;
+      margin-bottom: 40px;
+    }
+    .intro-section h1 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .intro-section p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+  
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 1000;
+      top: 100%;
+      right: 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuyep.top/startup-resources.html">
+  <meta property="og:title" content="创业资源导航 - 融资、法律、空间一站备齐">
+  <meta property="og:description" content="收录政府创业贷款、天使投资、众筹等融资渠道，工商注册、法律顾问等法律服务。">
+  <meta property="og:locale" content="zh_CN">
+</head>
+<body>
+  <div class="page-wrapper">
+        <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo"><span class="logo-icon">🎯</span><span>副业发现</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">首页</a>
+          <a href="platforms.html" class="nav-link">找副业</a>
+          <a href="match.html" class="nav-link">测一测</a>
+          <a href="scams.html" class="nav-link">骗局预警</a>
+          <a href="startup-match.html" class="nav-link">🚀创业</a>
+          <a href="income-calculator.html" class="nav-link">💰计算</a>
+          <a href="startup-resources.html" class="nav-link active">📋资源</a>
+          <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="cases.html" class="nav-link">案例</a>
+          <a href="about.html" class="nav-link">关于</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="intro-section">
+      <div class="container">
+        <h1>💼 创业资源库</h1>
+        <p>收录融资渠道、法律服务、创业空间等实用资源，助你创业路上少走弯路</p>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- 融资渠道 -->
+        <section class="resource-section">
+          <h2>💰 融资渠道</h2>
+          <div class="resource-grid">
+            <div class="resource-card">
+              <span class="category">政策性贷款</span>
+              <h3>政府创业担保贷款</h3>
+              <p>各地人社局提供的创业担保贷款，是初创企业最实惠的融资渠道。</p>
+              <ul class="feature-list">
+                <li>个人最高50万，小微企业最高300万</li>
+                <li>享受财政贴息，实际利率较低</li>
+                <li>贷款期限最长3年</li>
+                <li>部分需要反担保</li>
+              </ul>
+              <div class="warning-box">
+                <strong>申请条件：</strong>营业执照注册不满5年，经营项目符合国家政策，信用记录良好
+              </div>
+              <div class="tag-list">
+                <span class="tag">低利率</span>
+                <span class="tag">政府背书</span>
+                <span class="tag">适合初创</span>
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category">股权融资</span>
+              <h3>天使投资</h3>
+              <p>适合有高成长潜力项目的创业者，不仅提供资金，还带来资源和指导。</p>
+              <ul class="feature-list">
+                <li>资金规模：10万-500万不等</li>
+                <li>需要出让一定比例股权</li>
+                <li>提供资源和导师指导</li>
+                <li>适合高成长潜力项目</li>
+              </ul>
+              <div class="warning-box">
+                <strong>前提条件：</strong>有清晰的商业模式、团队背景强、项目有增长潜力，准备好商业计划书
+              </div>
+              <div class="tag-list">
+                <span class="tag">股权融资</span>
+                <span class="tag">资源支持</span>
+                <span class="tag">高成长项目</span>
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category">大众融资</span>
+              <h3>众筹平台</h3>
+              <p>通过京东众筹、淘宝众筹等平台向大众募集启动资金，同时具备市场验证和营销效果。</p>
+              <ul class="feature-list">
+                <li>回报型：投资者获得产品或服务</li>
+                <li>股权型：投资者获得公司股份</li>
+                <li>可以验证市场需求</li>
+                <li>同时具备营销效果</li>
+              </ul>
+              <div class="warning-box">
+                <strong>适合项目：</strong>有吸引人的产品或创意、有传播能力、有粉丝基础更易成功
+              </div>
+              <div class="tag-list">
+                <span class="tag">验证市场</span>
+                <span class="tag">营销效果</span>
+                <span class="tag">消费品</span>
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category">商业贷款</span>
+              <h3>银行贷款</h3>
+              <p>传统银行贷款渠道，稳定可靠，适合有经营流水和资质的创业者。</p>
+              <ul class="feature-list">
+                <li>额度根据经营情况和抵押物确定</li>
+                <li>利率根据征信和资质浮动</li>
+                <li>贷款期限1-5年不等</li>
+                <li>需要提供经营流水、财报等材料</li>
+              </ul>
+              <div class="warning-box">
+                <strong>申请条件：</strong>有固定经营场所、经营满1-2年、信用记录良好，有抵押物或担保人更易获批
+              </div>
+              <div class="tag-list">
+                <span class="tag">稳定可靠</span>
+                <span class="tag">需要资质</span>
+                <span class="tag">有抵押</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 法律服务 -->
+        <section class="resource-section">
+          <h2>⚖️ 法律服务</h2>
+          <div class="resource-grid">
+            <div class="resource-card">
+              <span class="category" style="background:#ede9fe;color:#6d28d9;">基础服务</span>
+              <h3>工商注册代理</h3>
+              <p>代办公司注册、变更、注销等工商手续，省心省力。</p>
+              <div class="price-range">参考价格：500-2000元（视服务内容）</div>
+              <ul class="feature-list">
+                <li>全程代办，省心省力</li>
+                <li>熟悉流程，办理速度快</li>
+                <li>提供注册地址挂靠</li>
+                <li>可同时办理税务登记</li>
+              </ul>
+              <div class="warning-box">
+                <strong>⚠️ 提示：</strong>选择正规代理公司，注意辨别虚假低价陷阱
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#ede9fe;color:#6d28d9;">文档服务</span>
+              <h3>合同模板</h3>
+              <p>各类创业常用合同模板免费下载。</p>
+              <div class="price-range">免费来源</div>
+              <ul class="feature-list">
+                <li>劳动合同模板</li>
+                <li>商务合作协议模板</li>
+                <li>租赁合同模板</li>
+                <li>保密协议模板</li>
+                <li>股权激励方案模板</li>
+              </ul>
+              <div class="warning-box">
+                <strong>免费来源：</strong>国家市场监督管理总局官网、最高人民法院官网、各类法律平台
+              </div>
+              <div class="warning-box">
+                <strong>⚠️ 重要：</strong>模板仅供参考，重要合同建议请律师修改
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#ede9fe;color:#6d28d9;">专项服务</span>
+              <h3>知识产权服务</h3>
+              <p>商标、专利、著作权申请服务，保护你的创新成果。</p>
+              <div class="price-range">商标800-1500元/件，专利3000-10000元/件</div>
+              <ul class="feature-list">
+                <li>商标注册：确定品牌名称的唯一性</li>
+                <li>专利申请：保护发明创造</li>
+                <li>著作权登记：保护软件、文章等内容</li>
+                <li>软件著作权是申请高新技术企业的必备条件</li>
+              </ul>
+              <div class="warning-box">
+                <strong>💡 建议：</strong>通过正规代理机构办理，提高通过率
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#ede9fe;color:#6d28d9;">常年服务</span>
+              <h3>法律顾问</h3>
+              <p>常年法律顾问服务，为创业之路保驾护航。</p>
+              <div class="price-range">小微企业：5000-30000元/年</div>
+              <ul class="feature-list">
+                <li>日常法律咨询</li>
+                <li>合同审核修改</li>
+                <li>发送律师函</li>
+                <li>参与重要谈判</li>
+                <li>出具法律意见书</li>
+              </ul>
+              <div class="warning-box">
+                <strong>💡 建议：</strong>通过当地律协推荐或熟人介绍靠谱律师
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 创业空间 -->
+        <section class="resource-section">
+          <h2>🏢 创业空间</h2>
+          <div class="resource-grid">
+            <div class="resource-card">
+              <span class="category" style="background:#dbeafe;color:#1e40af;">孵化器</span>
+              <h3>众创空间</h3>
+              <p>政府或大企业主导的创业孵化空间，门槛低，资源丰富。</p>
+              <ul class="feature-list">
+                <li>工位租金低（甚至免费）</li>
+                <li>提供工商注册地址</li>
+                <li>对接政策和资源</li>
+                <li>有创业导师辅导</li>
+                <li>可能获得投资机会</li>
+              </ul>
+              <div class="warning-box">
+                <strong>适合对象：</strong>初创团队、科技型企业<br>
+                <strong>知名平台：</strong>36氪氪空间、创新工场、腾讯众创空间、阿里创新中心
+              </div>
+              <div class="tag-list">
+                <span class="tag">租金低</span>
+                <span class="tag">政策对接</span>
+                <span class="tag">导师辅导</span>
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#dbeafe;color:#1e40af;">商业空间</span>
+              <h3>联合办公空间</h3>
+              <p>提供灵活租赁的共享办公空间，适合需要形象和灵活性的创业者。</p>
+              <ul class="feature-list">
+                <li>租期灵活（可按月租）</li>
+                <li>配套设施齐全（会议室、打印等）</li>
+                <li>社区氛围好，便于资源对接</li>
+                <li>装修现代，形象好</li>
+              </ul>
+              <div class="warning-box">
+                <strong>知名平台：</strong>WeWork中国、IWG集团（Regus）、优客工场、梦想加
+              </div>
+              <div class="tag-list">
+                <span class="tag">灵活租期</span>
+                <span class="tag">配套齐全</span>
+                <span class="tag">形象好</span>
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#dbeafe;color:#1e40af;">园区</span>
+              <h3>产业园区/科技园区</h3>
+              <p>政府主导的产业园区，通常有税收优惠和补贴政策。</p>
+              <ul class="feature-list">
+                <li>可能享受税收减免</li>
+                <li>政府补贴和扶持</li>
+                <li>产业链聚集效应</li>
+                <li>配套人才公寓等设施</li>
+                <li>适合特定行业（如科技、文创）</li>
+              </ul>
+              <div class="warning-box">
+                <strong>适合对象：</strong>特定行业（科技、文创、电商等）、需要政策扶持的企业<br>
+                <strong>申请方式：</strong>关注当地园区管委会官网或实地咨询
+              </div>
+              <div class="tag-list">
+                <span class="tag">税收优惠</span>
+                <span class="tag">政府补贴</span>
+                <span class="tag">产业聚集</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 创业学习资源 -->
+        <section class="resource-section">
+          <h2>📚 创业学习资源</h2>
+          <div class="resource-grid">
+            <div class="resource-card">
+              <span class="category" style="background:#fce7f3;color:#be185d;">免费学习</span>
+              <h3>政府创业培训</h3>
+              <p>各地人社局、团委定期举办免费创业培训，教你从0到1创业。</p>
+              <ul class="feature-list">
+                <li>完全免费</li>
+                <li>SYB（创办你的企业）课程</li>
+                <li>网络创业培训</li>
+                <li>电商创业培训</li>
+              </ul>
+              <div class="warning-box">
+                <strong>报名方式：</strong>联系当地人社局、街道社保所、或关注"就业创业"公众号
+              </div>
+            </div>
+
+            <div class="resource-card">
+              <span class="category" style="background:#fce7f3;color:#be185d;">政策查询</span>
+              <h3>创业扶持政策</h3>
+              <p>了解国家和地方创业扶持政策，不错过任何补贴。</p>
+              <ul class="feature-list">
+                <li>创业担保贷款贴息</li>
+                <li>社保补贴</li>
+                <li>场地租金补贴</li>
+                <li>一次性创业补贴</li>
+                <li>税费减免</li>
+              </ul>
+              <div class="warning-box">
+                <strong>查询渠道：</strong>各地人社局官网、政务服务网、12333人社服务热线
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div style="background:#f9fafb;border-radius:12px;padding:24px;margin-top:32px;">
+          <h3 style="margin-bottom:12px;">💡 使用建议</h3>
+          <ul style="list-style:disc;padding-left:20px;color:var(--text-secondary);line-height:1.8;">
+            <li>初创企业优先考虑政府创业担保贷款，利率低、条件相对宽松</li>
+            <li>法律服务方面，重要合同务必请专业律师审核</li>
+            <li>选择创业空间时，建议先实地考察并比较多家</li>
+            <li>多关注当地政策，创业扶持政策因地区而异，及时申报</li>
+            <li>创业培训是免费学习的好机会，建议参加后再开始创业</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>快速链接</h4>
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="startup-match.html">创业匹配</a></li>
+              <li><a href="cases.html">真实案例</a></li>
+              <li><a href="scams.html">骗局预警</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="disclaimer-banner"><strong>⚠️ 免责声明：</strong>本页面信息仅供参考，实际情况请以官方最新政策为准。</div>
+        <div class="footer-bottom"><p>© 2026 副业发现平台 · 全部功能免费开放</p></div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
