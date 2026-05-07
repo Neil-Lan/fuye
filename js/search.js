@@ -450,7 +450,8 @@ function initSearch() {
   }
   
   document.getElementById('search-input').value = query;
-  document.getElementById('search-query').textContent = query;
+  const queryEl = document.getElementById('search-query');
+  if (queryEl) queryEl.textContent = query;
   
   // 恢复筛选状态
   const typeParam = params.get('type');

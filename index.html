@@ -345,7 +345,11 @@
       const basePath = window.location.pathname.includes('/fuye/') ? '/fuye' : '';
       
       try {
-        const response = await fetch(`${basePath}/data/success_cases.json`);
+        const response = await fetch(`${basePath}/data/success_cases.json`).catch(() => null);
+        if (!response || !response.ok) {
+          container.innerHTML = '<p class="text-muted">案例加载中...</p>';
+          return;
+        }
         const data = await response.json();
         const allCases = data.案例列表 || [];
         

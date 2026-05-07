@@ -516,6 +516,10 @@
 
         currentPlatform = platformsArray.find(p => p.平台名称 === platformId);
         if (!currentPlatform) {
+          // 模糊匹配：平台名称包含搜索词，或搜索词包含平台名称
+          currentPlatform = platformsArray.find(p => p.平台名称.includes(platformId) || platformId.includes(p.平台名称));
+        }
+        if (!currentPlatform) {
           document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未找到该平台</p>';
           return;
         }
