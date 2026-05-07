@@ -135,23 +135,56 @@ async function loadAllCases() {
 
 // 标准化案例数据字段
 function normalizeCaseData(c) {
+  // 处理startup的嵌套用户画像
+  const profile = c.用户画像;
+  const isStartupObj = profile && typeof profile === 'object';
+  const profileStr = isStartupObj 
+    ? `${profile.年龄 || ''}岁 ${profile.城市 || ''} ${profile.背景 || ''}` 
+    : (c.用户画像 || '');
+  
+  // 处理startup_failed的user_profile
+  const userProfile = c.user_profile || '';
+  
   return {
-    id: c.id || c.案例ID || c.案例编号 || '',
-    nickname: c.用户昵称 || c.nickname || '匿名用户',
-    city: c.城市 || c.city || c.用户画像 || '',
-    platform: c.平台 || c.platform || c['平台/项目'] || '未知',
-    type: c.副业类型 || c.类型 || '',
-    monthlyIncome: c.月收入 || c.monthly_income || c.实际收入 || c.损失金额 || 0,
-    incomeRange: c.收入范围 || '',
+    id: c.id || c.案例ID || c.案例编号 || c.f_id || '',
+    nickname: c.用户昵称 || c.nickname || (isStartupObj ? (profile.背景 || '').substring(0,10) : '') || (userProfile ? userProfile.split('，')[0] : '') || '匿名用户',
+    city: c.城市 || c.city || (isStartupObj ? profile.城市 : '') || (userProfile.match(/([\u4e00-\u9fa5]{2,4}(?:市|区|县|省))/)?.[1] || '') || '',
+    platform: c.平台 || c.platform || c['平台/项目'] || c.创业类型 || c.entrepreneurship_type || '未知',
+    type: c.副业类型 || c.类型 || c.创业类型 || c.entrepreneurship_type || '',
+    monthlyIncome: c.月收入 || c.monthly_income || c.实际收入 || c.损失金额 || c.loss_amount || _parseIncomeRange(c.月收入范围) || _parseInvestment(c.investment_amount) || 0,
+    incomeRange: c.收入范围 || c.月收入范围 || '',
     dailyHours: c.每天投入时间 || c.投入时间 || c.时间投入 || '',
-    initialCost: c.初始投入 || c.投入成本 || 0,
+    initialCost: c.初始投入 || c.投入成本 || c.投资金额 || _parseInvestment(c.investment_amount) || 0,
     skillLevel: c.技能要求 || c.难度 || '无门槛',
-    experience: c.经历详情 || c.experience || c.内容 || '',
+    experience: c.经历详情 || c.experience || c.内容 || c.case_details || '',
     difficulty: c.入门难度 || c.难度 || '',
     credibility: c.可信度 || c.credibility || c.数据可信度 || 'B',
     rating: c.推荐指数 || c.评分 || 0,
-    date: c.开始时间 || c.日期 || c.date || ''
+    date: c.开始时间 || c.日期 || c.date || c.failure_time || ''
   };
+}
+
+// 解析收入范围字符串（如"3-5万"）为数字
+function _parseIncomeRange(str) {
+  if (!str || typeof str !== 'string') return 0;
+  const match = str.match(/(\d+)\s*[-~]\s*(\d+)\s*万/);
+  if (match) return (parseFloat(match[1]) + parseFloat(match[2])) / 2 * 10000;
+  const match2 = str.match(/(\d+)\s*[-~]\s*(\d+)\s*千/);
+  if (match2) return (parseFloat(match2[1]) + parseFloat(match2[2])) / 2 * 1000;
+  const match3 = str.match(/(\d+)\s*万/);
+  if (match3) return parseFloat(match3[1]) * 10000;
+  return 0;
+}
+
+// 解析投资金额（可能是字符串如"12万元"）
+function _parseInvestment(val) {
+  if (!val) return 0;
+  if (typeof val === 'number') return val;
+  const match = val.toString().match(/([\d.]+)\s*万/);
+  if (match) return parseFloat(match[1]) * 10000;
+  const match2 = val.toString().match(/([\d.]+)/);
+  if (match2) return parseFloat(match2[1]);
+  return 0;
 }
 
 // 按类型获取案例
@@ -467,7 +500,10 @@ window.CasesManager = {
   getCasesByType,
   getRandomCases,
   getCasesByPlatform,
-  getCasesByIncomeRange,
+  getCasesByIncomeRange: (min, max) => allCases.filter(c => {
+    const income = c.monthlyIncome || 0;
+    return income >= min && income < max;
+  }),
   getFilteredCases,
   getCasesStats,
   renderCaseCard,

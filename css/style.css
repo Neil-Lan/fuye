@@ -1453,22 +1453,6 @@ input, textarea, select {
   font-size: 0.75rem;
 }
 
-/* 可信度标签 */
-.trust-a, .trust-b, .trust-c {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.trust-d {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.trust-e {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 /* 收入显示 */
 .platform-card-income {
   display: flex;

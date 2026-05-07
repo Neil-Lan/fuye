@@ -476,7 +476,7 @@
       const params = new URLSearchParams(window.location.search);
       const platformId = params.get('id');
       if (!platformId) {
-        document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未指定平台</p>';
+        document.getElementById('platform-detail').innerHTML = '<div style="text-align:center;padding:60px 20px;"><div style="font-size:48px;margin-bottom:16px;">🔍</div><h3>请从平台列表选择一个平台查看详情</h3><a href="platforms.html" class="btn btn-primary" style="margin-top:16px;display:inline-block;">前往找副业</a></div>';
         return;
       }
 
@@ -485,18 +485,18 @@
 
       try {
         const [platformsRes, incomeRes, gettingRes, scamsRes, guidesRes, reviewsRes] = await Promise.all([
-          fetch(`${basePath}/data/platforms.json`),
-          fetch(`${basePath}/data/income_calculator.json`),
-          fetch(`${basePath}/data/getting_started.json`),
-          fetch(`${basePath}/data/scam_index.json`),
+          fetch(`${basePath}/data/platforms.json`).catch(() => null),
+          fetch(`${basePath}/data/income_calculator.json`).catch(() => null),
+          fetch(`${basePath}/data/getting_started.json`).catch(() => null),
+          fetch(`${basePath}/data/scam_index.json`).catch(() => null),
           fetch(`${basePath}/data/platform_guides.json`).catch(() => null),
           fetch(`${basePath}/data/platform_reviews.json`).catch(() => null)
         ]);
 
-        const platformsDict = await platformsRes.json();
-        incomeCalcData = await incomeRes.json();
-        gettingStartedData = await gettingRes.json();
-        const scamsData = await scamsRes.json();
+        const platformsDict = platformsRes && platformsRes.ok ? await platformsRes.json() : {};
+        incomeCalcData = incomeRes && incomeRes.ok ? await incomeRes.json() : null;
+        gettingStartedData = gettingRes && gettingRes.ok ? await gettingRes.json() : null;
+        const scamsData = scamsRes && scamsRes.ok ? await scamsRes.json() : null;
         
         if (guidesRes && guidesRes.ok) {
           platformGuidesData = await guidesRes.json();
@@ -1180,5 +1180,6 @@
   <script src="js/analytics.js"></script>
   <!-- AI助手 -->
   <script src="js/ai-assistant.js"></script>
+<script>document.querySelectorAll(".nav-link").forEach(l=>l.addEventListener("click",()=>{document.querySelector(".nav-links")?.classList.remove("active")}));</script>
 </body>
 </html>

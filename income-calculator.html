@@ -398,7 +398,7 @@
         this.classList.add('selected');
         
         // 更新状态
-        if (parent.id === 'type-options') selectedType = this.dataset.multiplier;
+        if (parent.id === 'type-options') selectedType = this.dataset.value;
         if (parent.id === 'time-options') selectedTime = parseInt(this.dataset.value);
         if (parent.id === 'skill-options') selectedSkill = parseFloat(this.dataset.value);
         if (parent.id === 'city-options') selectedCity = parseFloat(this.dataset.value);
@@ -520,5 +520,6 @@
       return num.toLocaleString() + '元';
     }
   </script>
+<script>document.querySelectorAll(".nav-link").forEach(l=>l.addEventListener("click",()=>{document.querySelector(".nav-links")?.classList.remove("active")}));</script>
 </body>
 </html>
