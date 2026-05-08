@@ -76,6 +76,7 @@
           <a href="income-calculator.html" class="nav-link">💰计算</a>
           <a href="startup-resources.html" class="nav-link">📋资源</a>
           <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="search.html" class="nav-link">🔍搜索</a>
           <a href="cases.html" class="nav-link">案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
@@ -91,6 +92,10 @@
           <div class="hero-cta">
             <a href="match.html" class="btn btn-primary btn-lg">🎯 开始免费测试 →</a>
             <span class="hero-hint">🎯 免费使用 · 无需注册 · 3分钟匹配</span>
+          </div>
+          <div style="margin-top:20px;display:flex;gap:8px;max-width:460px;margin-left:auto;margin-right:auto;">
+            <input type="text" id="hero-search-input" placeholder="🔍 搜索副业、平台、骗局..." style="flex:1;padding:12px 16px;border:2px solid #e5e7eb;border-radius:8px;font-size:1rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#8b5cf6'" onblur="this.style.borderColor='#e5e7eb'" onkeypress="if(event.key==='Enter'){location.href='search.html?q='+encodeURIComponent(this.value)}">
+            <button onclick="var q=document.getElementById('hero-search-input').value;if(q)location.href='search.html?q='+encodeURIComponent(q)" style="padding:12px 20px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:white;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">搜索</button>
           </div>
           <div class="hero-stats">
             <div class="hero-stat"><span class="hero-stat-num">60+</span><span class="hero-stat-label">靠谱平台</span></div>

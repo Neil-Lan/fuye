@@ -224,11 +224,23 @@ function renderPlatforms() {
   
   let filtered = platformsData.map(p => getCorrectedPlatformData(p));
   
-  // 分类筛选
+  // 分类筛选（关键词映射）
   if (currentCategory !== '全部') {
+    const categoryKeywords = {
+      '大厂平台': ['大厂', '腾讯', '阿里', '百度', '京东', '字节', '美团', '滴滴', '网易', '快手', '高德', '蚂蚁'],
+      '技能变现': ['技能型', '技能'],
+      '内容创作': ['内容型', '内容', '创作型', '创作'],
+      '配送众包': ['配送', '本地服务', '骑手'],
+      '问卷调研': ['问卷', '调研', '标注', '任务型'],
+      '设计创意': ['设计', '创意', '素材'],
+      '翻译语言': ['翻译'],
+      '技术开发': ['技术', '开发', '软件', '编程']
+    };
+    const keywords = categoryKeywords[currentCategory] || [currentCategory];
     filtered = filtered.filter(p => {
       const type = p.平台类型 || '';
-      return type.includes(currentCategory) || currentCategory.includes(type);
+      const name = p.平台名称 || '';
+      return keywords.some(kw => type.includes(kw) || name.includes(kw));
     });
   }
   
@@ -291,10 +303,19 @@ function renderPlatforms() {
   
   // 人群筛选（新增）
   if (currentPersona !== '全部') {
+    // 人群名称映射
+    const personaMap = {
+      '退休人员': ['退休', '自由职业', '宝妈'],
+      '上班族': ['上班族'],
+      '学生': ['学生'],
+      '宝妈': ['宝妈'],
+      '自由职业': ['自由职业']
+    };
+    const matchKeys = personaMap[currentPersona] || [currentPersona];
     filtered = filtered.filter(p => {
       const labels = p.人群标签 || {};
       const personaMatch = Object.entries(labels).find(([k, v]) => 
-        v && v.includes('✅') && k.includes(currentPersona)
+        v && v.includes('✅') && matchKeys.some(mk => k.includes(mk) || mk.includes(k))
       );
       return !!personaMatch;
     });

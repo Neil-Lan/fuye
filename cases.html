@@ -405,6 +405,7 @@
           <a href="platforms.html" class="nav-link">找副业</a>
           <a href="scams.html" class="nav-link">骗局预警</a>
           <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="search.html" class="nav-link">🔍搜索</a>
           <a href="match.html" class="nav-link">测一测</a>
           <a href="income-calculator.html" class="nav-link">🧮计算</a>
           <a href="startup-match.html" class="nav-link">🚀创业</a>
@@ -527,10 +528,21 @@
     
     // 初始化
     async function init() {
-      await CasesManager.loadAllCases();
-      renderStats();
-      bindFilters();
-      renderCases();
+      try {
+        await CasesManager.loadAllCases();
+        const totalCases = CasesManager.getAllCases().length;
+        console.log('[cases.html] 加载完成，总案例数:', totalCases);
+        if (totalCases === 0) {
+          console.warn('[cases.html] 警告：案例数据为空，检查数据文件是否正常加载');
+          document.getElementById('cases-container').innerHTML = '<div style="text-align:center;padding:40px;color:#6b7280;"><div style="font-size:48px;margin-bottom:16px;">📋</div><h3>案例数据加载中...</h3><p>请稍候或刷新页面</p></div>';
+        }
+        renderStats();
+        bindFilters();
+        renderCases();
+      } catch(e) {
+        console.error('[cases.html] 初始化失败:', e);
+        document.getElementById('cases-container').innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;"><div style="font-size:48px;margin-bottom:16px;">⚠️</div><h3>案例加载失败</h3><p>' + e.message + '</p></div>';
+      }
     }
     
     // 渲染统计

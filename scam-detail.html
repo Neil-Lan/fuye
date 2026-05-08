@@ -675,7 +675,7 @@
   <script>
     async function loadScamDetail() {
       const params = new URLSearchParams(window.location.search);
-      const scamId = params.get('id');
+      const scamId = params.get('id') || params.get('name');
       if (!scamId) {
         document.getElementById('scam-detail').innerHTML = '<p class="text-muted">未指定骗局</p>';
         return;
@@ -687,7 +687,11 @@
       try {
         const res = await fetch(`${basePath}/data/scams.json`);
         const data = await res.json();
-        const scam = data.骗局案例.find(s => s.骗局名称 === scamId);
+        let scam = data.骗局案例.find(s => s.骗局名称 === scamId);
+        if (!scam) {
+          // 模糊匹配
+          scam = data.骗局案例.find(s => s.骗局名称.includes(scamId) || scamId.includes(s.骗局名称));
+        }
 
         if (!scam) {
           document.getElementById('scam-detail').innerHTML = '<p class="text-muted">未找到该骗局</p>';

@@ -474,7 +474,7 @@
 
     async function loadData() {
       const params = new URLSearchParams(window.location.search);
-      const platformId = params.get('id');
+      const platformId = params.get('id') || params.get('name');
       if (!platformId) {
         document.getElementById('platform-detail').innerHTML = '<div style="text-align:center;padding:60px 20px;"><div style="font-size:48px;margin-bottom:16px;">🔍</div><h3>请从平台列表选择一个平台查看详情</h3><a href="platforms.html" class="btn btn-primary" style="margin-top:16px;display:inline-block;">前往找副业</a></div>';
         return;

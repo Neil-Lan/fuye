@@ -207,11 +207,28 @@ function doSearch(keyword) {
   // 保存搜索历史
   saveSearchHistory(keyword);
   
-  // 更新URL并搜索
+  // 如果已经在search.html页面，直接执行搜索（不刷新页面）
+  if (window.location.pathname.includes('search.html')) {
+    // 更新URL
+    const params = new URLSearchParams(window.location.search);
+    params.set('q', keyword);
+    if (currentSearchFilters.type !== 'all') params.set('type', currentSearchFilters.type);
+    if (currentSearchFilters.income !== 'all') params.set('income', currentSearchFilters.income);
+    history.replaceState(null, '', 'search.html?' + params.toString());
+    
+    // 更新搜索框
+    document.getElementById('search-input').value = keyword;
+    const queryEl = document.getElementById('search-query');
+    if (queryEl) queryEl.textContent = keyword;
+    
+    // 直接执行搜索
+    performSearch(keyword);
+    return;
+  }
+  
+  // 从其他页面跳转到search.html
   const params = new URLSearchParams(window.location.search);
   params.set('q', keyword);
-  
-  // 保留筛选条件
   if (currentSearchFilters.type !== 'all') params.set('type', currentSearchFilters.type);
   if (currentSearchFilters.income !== 'all') params.set('income', currentSearchFilters.income);
   
@@ -417,8 +434,8 @@ function renderSearchResults(results) {
         ${cases.slice(0, 6).map(c => `
           <div class="card fade-in" onclick="location.href='cases.html'" style="cursor:pointer;">
             <div style="font-weight:600;margin-bottom:8px;">${c.平台 || '案例'}</div>
-            <div style="font-size:0.85rem;color:#666;margin-bottom:8px;">${c.用户画像 || ''}</div>
-            <div style="font-size:0.85rem;color:#666;">月收入：<strong style="color:#16a34a;">${c.实际收入 || '-'}</strong></div>
+            <div style="font-size:0.85rem;color:#666;margin-bottom:8px;">${typeof c.用户画像 === 'string' ? c.用户画像 : (c.用户画像?.背景 || '')}</div>
+            <div style="font-size:0.85rem;color:#666;">月收入：<strong style="color:#16a34a;">${c.月收入 || c.收入范围 || '-'}</strong></div>
           </div>
         `).join('')}
       </div>

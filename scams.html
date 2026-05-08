@@ -278,6 +278,7 @@
           <a href="income-calculator.html" class="nav-link">💰计算</a>
           <a href="startup-resources.html" class="nav-link">📋资源</a>
           <a href="scam-checker.html" class="nav-link">骗局识别</a>
+          <a href="search.html" class="nav-link">🔍搜索</a>
           <a href="cases.html" class="nav-link">案例</a>
           <a href="about.html" class="nav-link">关于</a>
         </div>
@@ -512,38 +513,45 @@
         }
         
         // 初始化筛选后的骗局列表
-        if (typeof initScamsDisplay === 'function') {
-          initScamsDisplay();
-        }
+
       } catch (e) {
         console.error('加载骗局数据失败:', e);
-        if (typeof initScamsDisplay === 'function') {
-          initScamsDisplay();
-        }
+
       }
     }
     
     // 渲染本周预警
     function renderWeeklyAlert() {
-      if (!latestScamsData?.weeklyAlert) return;
+      // 从最新骗局数据中生成周报信息
+      const scams = latestScamsData?.最新骗局 || [];
+      if (scams.length === 0) return;
       
-      const alert = latestScamsData.weeklyAlert;
-      document.getElementById('alert-week').textContent = `${alert.currentWeek} · 预警等级：${alert.alertLevel}`;
+      // 获取更新时间
+      const updateTime = latestScamsData?.更新时间 || '';
+      const weekMatch = updateTime.match(/第(\d+)周/);
+      const weekText = weekMatch ? `2026年第${weekMatch[1]}周` : updateTime;
       
-      const threatsHtml = alert.mainThreats.map(t => `<li>${t}</li>`).join('');
-      document.getElementById('alert-threats').innerHTML = `<ul>${threatsHtml}</ul>`;
+      const alertEl = document.getElementById('alert-week');
+      if (alertEl) alertEl.textContent = `${weekText} · 预警等级：高`;
+      
+      // 从前3个骗局中提取威胁描述
+      const threats = scams.slice(0, 3).map(s => s['骗局名称'] + '：' + (s['涉案金额'] || '金额不等'));
+      const threatsHtml = threats.map(t => `<li>${t}</li>`).join('');
+      const threatsEl = document.getElementById('alert-threats');
+      if (threatsEl) threatsEl.innerHTML = `<ul>${threatsHtml}</ul>`;
       
       // 更新最新骗局数量
-      const newCount = latestScamsData.latestScams?.filter(s => s.isNew)?.length || 0;
-      document.getElementById('new-count').textContent = newCount;
+      const newCount = Math.min(scams.length, 3);
+      const countEl = document.getElementById('new-count');
+      if (countEl) countEl.textContent = newCount;
     }
     
     // 渲染最新骗局
     function renderLatestScams() {
-      if (!latestScamsData?.latestScams) return;
+      if (!latestScamsData?.最新骗局) return;
       
       const container = document.getElementById('latest-scams-list');
-      const latestScams = latestScamsData.latestScams.slice(0, 5);
+      const latestScams = latestScamsData.最新骗局.slice(0, 5);
       
       if (latestScams.length === 0) {
         container.innerHTML = '';
@@ -551,31 +559,31 @@
         return;
       }
       
-      container.innerHTML = latestScams.map(scam => `
+      container.innerHTML = latestScams.map((scam, index) => `
         <div class="new-scam-card">
           <div class="new-scam-header">
             <div>
-              <div class="new-scam-title">${scam.name}</div>
+              <div class="new-scam-title">${scam["骗局名称"]}</div>
               <div class="scam-tags">
-                ${scam.isNew ? '<span class="scam-tag scam-tag-new">🆕 最新</span>' : ''}
-                ${scam.isHot ? '<span class="scam-tag scam-tag-hot">🔥 热门</span>' : ''}
-                <span class="scam-tag scam-tag-danger">⚠️ ${scam.dangerLevel}</span>
-                <span class="scam-tag" style="background:#f3f4f6;color:#374151;">${scam.category}</span>
+                ${index < 3 ? '<span class="scam-tag scam-tag-new">🆕 最新</span>' : ''}
+                ${(scam['涉事公司'] && scam['涉事公司'].length > 0) ? '<span class="scam-tag scam-tag-hot">🔥 热门</span>' : ''}
+                <span class="scam-tag scam-tag-danger">⚠️ ${scam["危险等级"] || "高危"}</span>
+                <span class="scam-tag" style="background:#f3f4f6;color:#374151;">${scam["骗局类型"] || ""}</span>
               </div>
             </div>
           </div>
           <div style="font-size:0.9rem;color:#6b7280;margin-bottom:12px;">
-            <strong>受害人数：</strong>${scam.victimsCount} · <strong>涉案金额：</strong>${scam.financialLoss}
+            <strong>受害人数：</strong>${scam["受害人数"] || "不详"} · <strong>涉案金额：</strong>${scam["涉案金额"] || "不等"}
           </div>
           <div style="font-size:0.85rem;">
             <strong style="color:#374151;">常见手法：</strong>
             <ul style="margin:8px 0 0 0;padding-left:20px;color:#6b7280;">
-              ${scam.modus operandi.slice(0, 3).map(m => `<li>${m}</li>`).join('')}
+              ${(scam['作案手法'] || []).slice(0, 3).map(m => `<li>${m}</li>`).join('')}
             </ul>
           </div>
           <div style="margin-top:12px;padding:10px;background:#fef2f2;border-radius:6px;">
             <strong style="color:#991b1b;font-size:0.85rem;">💡 识别方法：</strong>
-            <span style="color:#7f1d1d;font-size:0.85rem;">${scam.identification[0]}</span>
+            <span style="color:#7f1d1d;font-size:0.85rem;">${(scam["识别方法"] || ["暂无"])[0]}</span>
           </div>
         </div>
       `).join('');
@@ -622,3 +630,4 @@
 <script>document.querySelectorAll(".nav-link").forEach(l=>l.addEventListener("click",()=>{document.querySelector(".nav-links")?.classList.remove("active")}));</script>
 </body>
 </html>
+
