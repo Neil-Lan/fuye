@@ -38,12 +38,13 @@ function showGuideModal() {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.5);
     z-index: 10000;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    cursor: pointer;
   `;
   
   modal.innerHTML = `
@@ -80,8 +81,8 @@ function showGuideModal() {
         <a href="match.html" class="btn btn-primary btn-lg btn-block" style="margin-top: 24px; display: block; text-align: center; text-decoration: none;">
           🎯 开始免费测试
         </a>
-        <button onclick="closeGuideModal()" style="width: 100%; margin-top: 12px; padding: 12px; background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 0.9rem;">
-          稍后再说
+        <button onclick="closeGuideModal()" style="width: 100%; margin-top: 12px; padding: 12px; background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 0.9rem; font-weight: 500;">
+          ✕ 关闭，直接浏览
         </button>
       </div>
     </div>
@@ -92,6 +93,11 @@ function showGuideModal() {
       }
     </style>
   `;
+  
+  // 点击遮罩层也能关闭
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeGuideModal();
+  });
   
   document.body.appendChild(modal);
   markGuideShown();

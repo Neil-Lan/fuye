@@ -313,11 +313,18 @@ function renderPlatforms() {
     };
     const matchKeys = personaMap[currentPersona] || [currentPersona];
     filtered = filtered.filter(p => {
+      // 方式1：人群标签（对象格式，如 {宝妈: "✅", 学生: "✅"}）
       const labels = p.人群标签 || {};
       const personaMatch = Object.entries(labels).find(([k, v]) => 
         v && v.includes('✅') && matchKeys.some(mk => k.includes(mk) || mk.includes(k))
       );
-      return !!personaMatch;
+      if (personaMatch) return true;
+      
+      // 方式2：适合人群（字符串格式，如 "学生/上班族/宝妈"）
+      const fitGroup = p.适合人群 || '';
+      if (fitGroup && matchKeys.some(mk => fitGroup.includes(mk))) return true;
+      
+      return false;
     });
   }
   

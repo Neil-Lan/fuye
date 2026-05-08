@@ -291,7 +291,7 @@ async function performSearch(query) {
     
     let matchedCases = cases.filter(c => 
       (c.平台 || '').toLowerCase().includes(queryLower) ||
-      (c.用户画像 || '').toLowerCase().includes(queryLower) ||
+      (typeof c.用户画像 === 'string' ? c.用户画像 : (c.用户画像?.背景 || c.用户画像?.年龄 || '') || '').toLowerCase().includes(queryLower) ||
       (c.经历详情 || '').toLowerCase().includes(queryLower)
     );
     

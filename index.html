@@ -377,7 +377,7 @@
           const isFail = c.案例类型 === '失败案例';
           const borderStyle = isFail ? 'border:2px solid #fecaca;' : '';
           const avatarBg = isFail ? 'background:#ef4444;' : '';
-          const avatarText = c.用户昵称.charAt(0);
+          const avatarText = (c.用户昵称 || '匿').charAt(0);
           const textColor = isFail ? 'color:#ef4444;' : '';
           const detailColor = isFail ? 'color:#ef4444;' : '';
           const incomeColor = isFail ? 'color:#ef4444;' : '';
@@ -387,14 +387,14 @@
               <div class="success-header">
                 <span class="success-avatar" style="${avatarBg}">${avatarText}</span>
                 <div>
-                  <div class="success-name" style="${textColor}">${c.用户昵称} · ${c.用户城市}</div>
+                  <div class="success-name" style="${textColor}">${c.用户昵称 || '匿名'} · ${c.用户城市 || ''}</div>
                   <div class="success-platform">${c.平台}</div>
                 </div>
               </div>
-              ${c.用户画像 ? `<div style="margin:8px 0;font-size:0.8rem;color:#64748b;padding:6px 10px;background:#f1f5f9;border-radius:4px;">👤 ${c.用户画像}</div>` : ''}
-              <p class="success-content">"${c.经历详情.substring(0, 100)}..."</p>
+              ${c.用户画像 ? `<div style="margin:8px 0;font-size:0.8rem;color:#64748b;padding:6px 10px;background:#f1f5f9;border-radius:4px;">👤 ${typeof c.用户画像 === 'string' ? c.用户画像 : (c.用户画像?.背景 || c.用户画像?.年龄 || '')}</div>` : ''}
+              <p class="success-content">"${(c.经历详情 || '').substring(0, 100)}..."</p>
               <div class="success-detail" style="font-size:0.75rem;${detailColor}margin-top:8px;">
-                ⏱️ ${c.每天投入时间} | ${c.做任务类型}
+                ⏱️ ${c.每天投入时间 || '灵活'} | ${c.做任务类型 || c.副业类型 || ''}
               </div>
               <div class="success-income" style="${incomeColor}">
                 ${isFail ? '血泪教训' : '月收入'} <strong>${c.月收入}</strong>

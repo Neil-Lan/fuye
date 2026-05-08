@@ -689,8 +689,18 @@
         const data = await res.json();
         let scam = data.骗局案例.find(s => s.骗局名称 === scamId);
         if (!scam) {
-          // 模糊匹配
+          // 模糊匹配：名称互相包含
           scam = data.骗局案例.find(s => s.骗局名称.includes(scamId) || scamId.includes(s.骗局名称));
+        }
+        if (!scam) {
+          // 关键词匹配：拆分后匹配核心词
+          const keywords = scamId.replace(/骗局|诈骗|陷阱|套路/g, '').split('').filter(Boolean);
+          if (keywords.length >= 2) {
+            scam = data.骗局案例.find(s => {
+              const name = s.骗局名称;
+              return keywords.filter(k => name.includes(k)).length >= Math.min(2, Math.ceil(keywords.length * 0.4));
+            });
+          }
         }
 
         if (!scam) {
@@ -814,7 +824,7 @@
       }).join('');
 
       // 构建识别方法提示框HTML
-      const识别方法Html = (s.识别方法 || []).map((item, i) => `
+      const identifyHtml = (s.识别方法 || []).map((item, i) => `
         <div class="warning-item">
           <div class="warning-icon">⚠️</div>
           <div class="warning-text">${item}</div>
@@ -904,7 +914,7 @@
                 如何识别
               </h2>
               <div class="warnings-container">
-                ${识别方法Html}
+                ${identifyHtml}
               </div>
             </div>
           </div>

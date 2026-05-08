@@ -520,6 +520,16 @@
           currentPlatform = platformsArray.find(p => p.平台名称.includes(platformId) || platformId.includes(p.平台名称));
         }
         if (!currentPlatform) {
+          // 关键词匹配：拆分后匹配核心词
+          const keywords = platformId.split('').filter(k => k.trim());
+          if (keywords.length >= 2) {
+            currentPlatform = platformsArray.find(p => {
+              const name = p.平台名称;
+              return keywords.filter(k => name.includes(k)).length >= Math.min(2, Math.ceil(keywords.length * 0.4));
+            });
+          }
+        }
+        if (!currentPlatform) {
           document.getElementById('platform-detail').innerHTML = '<p class="text-muted">未找到该平台</p>';
           return;
         }
