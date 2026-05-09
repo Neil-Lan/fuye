@@ -430,6 +430,7 @@ function renderSearchResults(results) {
       <div class="section-header">
         <h2 class="section-title">📊 真实案例 (${cases.length})</h2>
       </div>
+      <small style="color:#92400e;">案例仅供参考</small>
       <div class="card-grid">
         ${cases.slice(0, 6).map(c => `
           <div class="card fade-in" onclick="location.href='cases.html'" style="cursor:pointer;">
@@ -438,6 +439,9 @@ function renderSearchResults(results) {
             <div style="font-size:0.85rem;color:#666;">月收入：<strong style="color:#16a34a;">${c.月收入 || c.收入范围 || '-'}</strong></div>
           </div>
         `).join('')}
+      </div>
+      <div style="margin-top:12px;font-size:0.8rem;color:#92400e;">
+        <a href="submit.html" style="color:#f59e0b;font-weight:600;">分享你的真实经历 →</a>
       </div>
     `;
   }

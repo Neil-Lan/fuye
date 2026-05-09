@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>用户反馈 - 副业发现平台</title>
-  <meta name="description" content="提交平台纠错、案例投稿、问题反馈或建议意见，帮助我们改进服务">
-  <meta name="keywords" content="用户反馈,平台纠错,问题反馈,建议意见">
+  <title>分享你的副业经历 - 副业发现平台</title>
+  <meta name="description" content="分享你的副业经历，帮助更多人找到靠谱副业方向。真实经历，匿名保护。">
+  <meta name="keywords" content="副业经历,副业分享,副业投稿,副业故事">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .form-success {
@@ -160,8 +160,8 @@
 
     <header class="page-header">
       <div class="container">
-        <h1>💬 用户反馈</h1>
-        <p>您的意见对我们很重要，帮助我们做得更好</p>
+        <h1>📝 分享你的副业经历</h1>
+        <p>你的真实经历能帮助更多人找到方向，无论成功或失败都值得分享</p>
       </div>
     </header>
 
@@ -172,69 +172,81 @@
             <form id="submit-form" action="https://api.web3forms.com/submit" method="POST">
               <!-- Web3Forms 必需字段 -->
               <input type="hidden" name="access_key" value="19eab3d5-d0b7-4e0b-adf4-8f1827bd1182">
-              <input type="hidden" name="subject" value="【副业发现】新的用户反馈">
+              <input type="hidden" name="subject" value="【副业发现】新的案例投稿">
               <input type="hidden" name="from_name" value="副业发现平台">
               <!-- 防垃圾邮件 -->
               <input type="checkbox" name="botcheck" class="hidden" style="display:none">
               <!-- 隐藏字段用于追踪反馈类型 -->
-              <input type="hidden" name="反馈类型" id="hidden-type" value="correction">
+              <input type="hidden" name="投稿类型" id="hidden-type" value="case">
               <input type="hidden" name="提交时间" id="submit-time">
               
               <div class="form-group">
-                <label class="form-label">反馈类型 *</label>
-                <div class="feedback-types">
-                  <div class="feedback-type-card selected" onclick="selectType(this, 'correction')">
-                    <div class="icon">🔧</div>
-                    <div class="title">平台纠错</div>
-                    <div class="desc">平台信息有误？</div>
-                  </div>
-                  <div class="feedback-type-card" onclick="selectType(this, 'case')">
-                    <div class="icon">📝</div>
-                    <div class="title">案例投稿</div>
-                    <div class="desc">分享您的副业经历</div>
-                  </div>
-                  <div class="feedback-type-card" onclick="selectType(this, 'bug')">
-                    <div class="icon">🐛</div>
-                    <div class="title">问题反馈</div>
-                    <div class="desc">网站使用遇到问题</div>
-                  </div>
-                  <div class="feedback-type-card" onclick="selectType(this, 'suggestion')">
-                    <div class="icon">💡</div>
-                    <div class="title">建议意见</div>
-                    <div class="desc">对平台有好的想法</div>
-                  </div>
+                <label class="form-label">昵称（选填，可匿名）</label>
+                <input type="text" id="nickname" name="昵称" class="form-input" placeholder="如：张三、匿名用户">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">副业/平台名称 *</label>
+                <input type="text" id="platform-name" name="平台名称" class="form-input" placeholder="如：美团众包、小红书博主、有赞微店" required>
+                <p class="form-hint">请填写你做过的具体副业或平台名称</p>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">月收入（仅供参考）</label>
+                  <select id="income" name="月收入" class="form-input">
+                    <option value="">请选择</option>
+                    <option value="1000以下">1000元以下</option>
+                    <option value="1000-3000">1000-3000元</option>
+                    <option value="3000-5000">3000-5000元</option>
+                    <option value="5000-10000">5000-10000元</option>
+                    <option value="10000以上">10000元以上</option>
+                    <option value="暂未盈利">暂未盈利</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">每天投入时间</label>
+                  <select id="time-invest" name="每天投入时间" class="form-input">
+                    <option value="">请选择</option>
+                    <option value="1小时以下">1小时以下</option>
+                    <option value="1-2小时">1-2小时</option>
+                    <option value="2-4小时">2-4小时</option>
+                    <option value="4-6小时">4-6小时</option>
+                    <option value="6小时以上">6小时以上</option>
+                  </select>
                 </div>
               </div>
 
-              <div class="form-group" id="platform-name-group">
-                <label class="form-label">相关平台名称</label>
-                <input type="text" id="platform-name" name="平台名称" class="form-input" placeholder="如有，请输入平台名称">
+              <div class="form-group">
+                <label class="form-label">副业经历详情 *</label>
+                <textarea id="content" name="经历详情" class="form-textarea" rows="6" placeholder="请详细描述你的副业经历，包括：&#10;• 什么时候开始的？&#10;• 做了多久？&#10;• 具体是怎么做的？&#10;• 遇到了哪些困难？&#10;• 最终结果如何？" required></textarea>
+                <p class="form-hint">越详细越能帮助到其他人，建议200字以上</p>
               </div>
 
               <div class="form-group">
-                <label class="form-label">反馈内容 *</label>
-                <textarea id="content" name="反馈内容" class="form-textarea" placeholder="请详细描述您的反馈内容" required></textarea>
-                <p class="form-hint">请尽量详细描述，方便我们处理</p>
+                <label class="form-label">给新人的建议</label>
+                <textarea id="advice" name="给新人的建议" class="form-textarea" rows="4" placeholder="总结几条最重要的建议，帮助新人避坑"></textarea>
               </div>
 
               <div class="form-group">
-                <label class="form-label">联系方式</label>
-                <input type="text" id="contact" name="联系方式" class="form-input" placeholder="邮箱（选填，方便回复时联系）">
+                <label class="form-label">联系方式（选填）</label>
+                <input type="text" id="contact" name="联系方式" class="form-input" placeholder="邮箱或微信（选填，方便联系时用）">
                 <p class="form-hint">我们不会公开您的联系方式</p>
               </div>
 
               <div style="background:#eff6ff;border-radius:8px;padding:16px;margin-top:20px;">
-                <h4 style="color:var(--primary-color);margin-bottom:8px;">📌 反馈须知</h4>
+                <h4 style="color:var(--primary-color);margin-bottom:8px;">📌 投稿须知</h4>
                 <ul style="font-size:0.85rem;color:var(--text-secondary);padding-left:16px;list-style:decimal;line-height:1.8;">
-                  <li>感谢您抽出时间提供反馈</li>
-                  <li>我们会认真处理每一条反馈</li>
-                  <li>如需回复，请在联系方式中填写邮箱</li>
-                  <li>我们不会向您收取任何费用</li>
+                  <li>请确保内容真实，我们可能会核实</li>
+                  <li>涉及隐私的内容可以匿名或模糊处理</li>
+                  <li>收入数据仅供参考，实际因人而异</li>
+                  <li>投稿即表示授权我们编辑后公开发布</li>
                 </ul>
               </div>
 
               <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:20px;" id="submit-btn">
-                提交反馈
+                🚀 提交投稿
               </button>
             </form>
             
@@ -242,12 +254,12 @@
             <div id="success-message" style="display:none;">
               <div class="form-success">
                 <div class="form-success-icon">🎉</div>
-                <h3>感谢您的反馈！</h3>
-                <p>我们已收到您的反馈，会尽快处理</p>
-                <p style="margin-top:8px;font-size:0.9rem;">如需回复，我们会通过您留下的联系方式与您取得联系</p>
+                <h3>感谢你的投稿！</h3>
+                <p>我们已收到你的副业经历，会尽快审核发布</p>
+                <p style="margin-top:8px;font-size:0.9rem;">你的真实经历将帮助更多人找到方向</p>
                 <div style="margin-top:24px;">
-                  <a href="submit.html" class="btn btn-outline" style="margin-right:12px;">继续反馈</a>
-                  <a href="index.html" class="btn btn-primary">返回首页</a>
+                  <a href="cases.html" class="btn btn-primary" style="margin-right:12px;">📖 查看案例</a>
+                  <a href="submit.html" class="btn btn-outline">继续投稿</a>
                 </div>
               </div>
             </div>
